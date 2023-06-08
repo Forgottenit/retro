@@ -1,16 +1,19 @@
 ---
 name: 'ISSUE:'
-about: As a ** ** I can ** ** so that ** **
-title: ''
+about: 'ISSUE: '
+title: 'ISSUE: '
 labels: ''
-assignees: ''
+assignees: Forgottenit
 
 ---
 
 **ACCEPTANCE CRITERIA**
+
 - Be able to 
 - Have 
-TASKS
+
+**TASKS**
+
 [] Create 
 [] Give 
 [] Have

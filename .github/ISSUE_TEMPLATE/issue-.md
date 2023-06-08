@@ -2,7 +2,7 @@
 name: 'ISSUE:'
 about: 'ISSUE: '
 title: 'ISSUE: '
-labels: ''
+labels: Setup
 assignees: Forgottenit
 
 ---

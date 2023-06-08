@@ -2,7 +2,7 @@
 name: 'ISSUE:'
 about: 'ISSUE: '
 title: 'ISSUE: '
-labels: Setup
+labels: ''
 assignees: Forgottenit
 
 ---
@@ -16,6 +16,6 @@ As a ** ** I can ** ** so that ** **
 
 **TASKS**
 
-[] Create 
-[] Give 
-[] Have
+- [ ] Create 
+- [ ] Give 
+- [ ] Have

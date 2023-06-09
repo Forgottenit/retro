@@ -15,14 +15,87 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 ### EPIC: User Account
 * As a Site User, 
 
+### Site User
+
+1. As a site user, I want to be able to browse through various records and CDs so that I can decide what to purchase.
+
+2. As a site user, I want to be able to filter and sort my search results so that I can find specific items easily.
+
+3. As a site user, I want to be able to add records to a wishlist or favorites list, so that I can remember them for later.
+
+4. As a site user, I want to be able to add items to a shopping cart, so that I can purchase multiple items at once.
+
+5. As a site user, I want to be able to view my shopping cart and make adjustments (add/remove items, change quantities), so that I have control over what I'm purchasing.
+
+6. As a site user, I want to be able to securely checkout using Stripe, so that I can easily and safely make a purchase.
+
+7. As a site user, I want to be able to create an account, so that I can save my shipping information and preferences.
+
+8. As a site user, I want to be able to subscribe to a newsletter, so that I can receive updates and special offers.
+
+9. As a site user, I want to be able to follow the site on social media, so that I can follow updates and special offers.
+
+10. As a site user, I want the site to ensure data security, so that my information is kept safe.
+
 
 ### EPIC: Site Admin
-* As a Site Admin
+* As a Site Admin,
+
+### Site Admin
+
+1. As a site admin, I want to be able to manage user accounts so that I can handle any issues that arise.
+
+2. As a site admin, I want to be able to view and manage all orders, so that I can check if operations are functioning correctly.
+
+3. As a site admin, I want to be able to assist users with their accounts, so that they can have the best experience possible.
+
+4. As a site admin, I want to be able to update the site's content, such as sales, new items and announcements, so that users are kept informed.
+
+5. As a site admin, I want to be able to handle security threats and issues, to ensure the website and user data are safe.
+
+6. As a site admin, I want to manage the inventory, so that I can create new items, edit existing ones, or delete out-of-stock items from the site.
+
+7. As a site admin, I want to manage inventory, so that I can track stock levels and add items before they run out.
+
+8. As a site admin, I want to track the website performance, so that I can monitor page load times and analytics to ensure a good user experience.
+
+9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
+
 
 ### EPIC: 
-* As a Site User
+* As a Site Owner,
+
+### Site Owner
+
+1. As a site owner, I want to be able to track sales and inventory so that I can manage my business.
+
+2. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
+
+3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers or sell unsold stock.
+
+4. As a site owner, I want to be able to view user behavior data, so that I can improve the user experience and make informed business decisions.
+
+5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions.
+
+6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold, so that I can order more stock in time.
 
 ### EPIC: 
+
+### Site Marketer
+
+1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest and potential sales.
+
+2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates.
+
+4. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines.
+
+5. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not.
+
+6. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
+
+7. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
+
+8. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
 
 ### EPIC: 
 

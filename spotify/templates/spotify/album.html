@@ -2,16 +2,17 @@
 {% load static %}
 {% block content %}
 
-{% for album in albums %}
+{% regroup albums by album_artists.0.name as artist_albums %}
+
+{% for artist in artist_albums|dictsort:"grouper" %}
+{% for album in artist.list %}
 <div class="album-details">
 
     <div class="row">
-        {% for image in album.album_data.images %}
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <img src="{{ image.url }}" class="img-fluid" alt="Album Image">
+            <img src="{{ album.album_data.images.0.url }}" class="img-fluid" alt="Album Image">
             <h3>{{ album.album_data.name }}</h3>
         </div>
-        {% endfor %}
     </div>
 
     <div class="accordion" id="albumAccordion{{forloop.counter}}">
@@ -54,6 +55,7 @@
         </div>
     </div>
 </div>
+{% endfor %}
 {% endfor %}
 
 <a href="{% url 'spotify:update-albums' %}">Update Albums</a>

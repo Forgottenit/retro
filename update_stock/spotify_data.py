@@ -62,15 +62,25 @@ def get_album_ids(query):
 
 
 def create_fixtures():
-    album_ids = get_album_ids('The Beatles')  # Replace 'The Beatles' with the artist of your choice
+    album_ids = get_album_ids('The Rolling Stones')  # Replace 'The Beatles' with the artist of your choice
     print("Album IDs:", album_ids)  # Print the album IDs for debugging
     album_data = get_album_details(album_ids)
 
     print("Album Data:", album_data)  # Print the album data for debugging
 
-    # Create a fixtures dictionary in the format Django expects
-    fixtures = []
-    for i, album in enumerate(album_data):
+    # Try to load existing data from the file
+    try:
+        with open("album_fixtures.json", "r") as f:
+            fixtures = json.load(f)
+    except FileNotFoundError:
+        # If the file does not exist, start with an empty list
+        fixtures = []
+
+    # Determine the starting primary key based on the existing data
+    start_pk = len(fixtures)
+
+    # Append the new data to the existing data
+    for i, album in enumerate(album_data, start=start_pk):
         fixture = {
             "model": "myapp.album",  # Replace with your actual model
             "pk": i,
@@ -78,6 +88,6 @@ def create_fixtures():
         }
         fixtures.append(fixture)
 
-    # Write the fixtures to a file
+    # Write the fixtures to the file
     with open("album_fixtures.json", "w") as f:
         json.dump(fixtures, f)

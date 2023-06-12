@@ -11,11 +11,8 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 ## User Stories
 
-
-### EPIC: User Account
-* As a Site User, 
-
-### Site User
+<details>
+<summary><b>Site User</b></summary>
 
 1. As a site user, I want to be able to browse through various records and CDs so that I can decide what to purchase.
 
@@ -37,11 +34,10 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 10. As a site user, I want the site to ensure data security, so that my information is kept safe.
 
+</details>
 
-### EPIC: Site Admin
-* As a Site Admin,
-
-### Site Admin
+<details>
+<summary><b>Site Admin</b></summary>
 
 1. As a site admin, I want to be able to manage user accounts so that I can handle any issues that arise.
 
@@ -61,10 +57,10 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
 
+</details>
 
-### EPIC: 
-
-### Site Owner
+<details>
+<summary><b>Site Owner</b></summary>
 
 1. As a site owner, I want to be able to track sales and inventory on my B2C e-commerce site, so that I can manage my business.
 
@@ -77,10 +73,10 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
 
 6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
+</details>
 
-### EPIC: 
-
-### Site Marketer
+<details>
+<summary><b>Site Marketer</b></summary>
 
 1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
 
@@ -99,39 +95,149 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 8. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
 
 9. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
+</details>
+<br>
 
-### EPIC: 
+# Methodology
 
+<details><summary><b>Agile Methodology</b></summary>
 
-
-## Agile Methodology
  
-[Kanban Board](https://github.com/users/Forgottenit/projects/4) 
+
+Creating an e-commerce website involves many different parts and can is a complex process. A system is required to manage and visualize the workflow, to deliver a successful project.
+
+A Kanban board has been created on GitHub Projects to streamline the development process. GitHub Projects is a tool for developers to create a task management and progress visualization system, linked to a repository. It's an excellent way to maintain oversight of the entire project, track the status of various tasks and issues, and manage time effectively.
+
+In this project, the Kanban board has been split into different columns: "Could Have", User Stories", "Todo", "In Progress", "Verify", and "Done". These headings represent different stages of the workflow.
+
+- "Could Have": This column represents Issues or Tasks that could enhance the site but are not required and are to be worked on only once the site is complete, User Stories have been met and testing and documentation is finished. 
+
+- "User Stories": This column represents features or functionalities that are required, broken down into tasks.  The User Stories are broken down into "Site User", "Site Admin", "Site Owner" and "Site Marketer". These are a checklist to ensure all the stakeholder needs are met. These are later broken down as required, into issues and tasks. 
+
+- "Todo": This column includes tasks that need to be completed. Once a new task has been identified, it's added to this list.
+
+- "In Progress": When work begins on a task, it's moved into this column and given a "Milestone" date for completion. This is to ensure optimal time management is used. 
+
+- "Verify": Once a task is complete, it's moved here for testing and review as required. 
+
+- "Done": After a task has been reviewed and no further changes are required, it's moved to the "Done" column.
+
+Each task is labeled with a specific category like 'html', 'javascript', 'styling', 'authentication', 'bug', etc., to identify the nature of the work. Labels such as 'Must Have', 'Should Have', 'Could Have', and 'Won't Fix' are applied to tasks as required, based on the MoSCoW method. This method is used in project management to prioritize work items.
+
+- 'Must Have': These items are essential for the project and must be included.
+- 'Should Have': Important items but not critical.
+- 'Could Have': Desirable items but not necessary. They are included if time allows.
+- 'Won't Fix': Issues that are known to not be included in the final project, whether due to resources or time constraints. These could be included in a future iteration.
+
+An example of the issues created:
+
+'INITIAL SETUP'. The issue details the task: "As a Site Admin, I can display my music site so that customers can view it". This task outlines the acceptance criteria and related tasks, including creating basic HTML for the website, linking Bootstrap, creating a landing page, and more.
+
+Using this workflow and labeling system provides many benefits. It allows for effective time management, facilitates a smooth workflow, enables easy identification of requirements and offers clarity on the task or issue status.
+
+It follows an agile development approach offering a good foundation for organizing, prioritizing, and managing project tasks which, in turn, leads to a more efficient and successful project.
+
+The [Kanban Board](https://github.com/users/Forgottenit/projects/4) can be found here.
+
+
 
 <img src="kanban-board.png">
- 
+</details>
 
-issues  created for User Story 
-acceptance criteria and broken down into tasks necessary to satisfy those acceptance criteria. 
+<details><summary><b>Business Methodology</b></summary>
 
-MoSCoW Prioritisation 
-* Must Have - Guaranteed 
-* Should Have - Add significant value but not vital
-* Could Have - small impact if not included
-* Won't Have - Non-priority 
 
-User Stories were prioritised based on their Moscow levels  tracked with Kanban board 
+For the creation of this e-commerce website, the methodology adopted revolves around a Business-to-Consumer (B2C) approach. The decision to use a B2C model is primarily due to the nature of the service the site provides - selling records and CDs directly to individual customers.
 
- Epics, which were not related to the application's features. 
-tracked through the Kanban board. 
-* EPIC: Initial Setup
-* EPIC: Deployment
-* EPIC: Styling
-* EPIC: Testing
-* EPIC: README
+Using a B2C approach provides several distinct advantages:
 
-## Wireframes
+Direct Interaction with Customers: Unlike B2B, B2C allows for direct interaction with the end-user. This interaction provides invaluable insights into customer behavior, preferences, and feedback, informing product development, marketing strategies, and overall business direction.
+
+Greater Market Potential: B2C markets typically have a larger base of potential customers compared to B2B. This can lead to higher sales volumes and, potentially, higher revenue.
+
+Brand Building: B2C marketing allows for direct brand-consumer relationships, providing opportunities to build brand loyalty and recognition among end consumers.
+
+The user stories were carefully crafted to align with this B2C methodology, focusing on a user-friendly experience for individual consumers:
+
+Users can easily browse through various records and CDs, filter and sort results, and add items to a wishlist or shopping cart, offering a seamless shopping experience.
+The site provides a secure checkout process, fostering trust and encouraging repeat purchases.
+Users can create an account to save their shipping information and preferences, increasing convenience for repeat customers.
+The option to subscribe to a newsletter and follow the site on social media enables the business to maintain ongoing engagement with customers.
+The Site Admin and Site Owner user stories focus on managing user accounts, orders, and inventory, ensuring a smooth operational process to maintain a positive user experience.
+
+From a business perspective, this B2C approach and the corresponding user stories offer several benefits:
+
+Improved Customer Understanding: Direct interactions with customers through a B2C model provide a deeper understanding of their needs and behaviors, which can inform business strategies.
+
+Increased Sales Opportunities: By making the shopping process as seamless and user-friendly as possible, customers are more likely to make purchases, potentially boosting sales.
+
+Customer Retention: Providing secure, convenient features like saved shipping information and account creation can increase customer retention.
+
+Marketing Opportunities: The ability to engage with customers through newsletters and social media presents numerous opportunities for marketing, promotions, and building customer relationships.
+
+Overall, using a B2C approach for this e-commerce site can facilitate a direct, beneficial relationship with customers, potentially leading to increased sales, customer loyalty, and business growth.
+</details>
+
+<details><summary><b>Marketing Methodology</b></summary>
+
+
+The marketing methodology for this e-commerce site is designed to effectively reach and engage its target audience of individual customers, aligning with the overall Business-to-Consumer (B2C) approach.
+
+Key aspects of this methodology include:
+
+Search Engine Optimization (SEO): The site is optimized for visibility on search engines, using tools like sitemap.xml and robots.txt files, meta tag optimization, proper use of rel attributes for external links, and ongoing SEO analysis.
+
+Social Media Engagement: A Facebook page for the site is maintained to reach potential customers where they already spend their time online, keeping them engaged with regular, relevant content.
+
+Email Marketing: Customers are encouraged to sign up for a newsletter, through which they can receive regular updates about new products, promotions, and other news.
+
+Data-Driven Decision Making: Website traffic and user behavior are monitored and analyzed to understand what works and what doesn't in terms of site functionality and marketing strategies.
+
+The benefits of this marketing methodology in a B2C context include:
+
+Increased Visibility: By ensuring the site is easily discoverable via search engines, the likelihood of attracting new customers is significantly increased.
+
+Customer Engagement: Engaging with customers through social media and email newsletters allows for regular communication, building relationships, and keeping the business top-of-mind.
+
+Personalization: Gathering and analyzing data about user behavior allows for more personalized marketing, which can increase engagement and conversion rates.
+
+Informed Decision Making: The use of data-driven decision making enables the site owner to make informed choices about site improvements, inventory management, and marketing strategies.
+
+In summary, the marketing methodology complements the B2C approach by focusing on reaching and engaging individual consumers through multiple channels, ultimately aiming to drive traffic, increase conversions, and build customer loyalty.
+</details>
+<br> 
+
+
+# Design and Development
+
+The development process integrates robust User Experience (UX) principles with reliable back-end technologies.
+
+The site is developed using [Django](https://www.djangoproject.com/) for the back-end, [Bootstrap](https://getbootstrap.com/) for the front-end, and is hosted on [Heroku](https://heroku.com/). [Bootstrap](https://getbootstrap.com/), a powerful, mobile-first, front-end framework, is used for creating the site's responsive and appealing design. It offers a variety of pre-designed components that ensure consistency across the site while speeding up the development process.
+
+Wireframes were utilized to ensure a clear, logical structure for each page, enhancing usability. The color scheme and typography, chosen deliberately, create a visually pleasing and consistent aesthetic across the site, reinforcing brand identity and promoting a positive user experience.
+
+Responsive design has been implemented, making the site easily accessible and functional across a variety of devices, including desktop, tablet, and mobile. This expands the site's reach and ensures a positive user experience regardless of how users access the site.
+
+In terms of security, the site utilizes [Django](https://www.djangoproject.com/) AllAuth for user authentication and authorization, providing an extra layer of protection. Django AllAuth is a trusted, comprehensive authentication solution that enables secure user sign-ups, logins, and password resets.
+
+The site also employs defensive design principles, including form validation and error handling, to guide users through the site and prevent misuse. User input fields are validated both client-side and server-side to prevent malicious or incorrect data from being submitted. Clear error messages guide the users to correct their mistakes.
+
+[Stripe](https://stripe.com/ie), incorporated for payment processing, encrypts sensitive payment information to offer a secure and trusted online payment solution for customers. Stripe's security protocols protect sensitive payment information, maintaining trust and ensuring compliance with financial regulations.
+
+All Sensitive site and user data are further protected through the use of environment variables, which keep key pieces of information out of the site's code and thus inaccessible. The site's server configuration on [Heroku](https://heroku.com/) also employs config vars to further enhance data security.
+
+Data protection is a priority, and the site adheres to the General Data Protection Regulation [GDPR](https://gdpr.eu/privacy-notice/) standards. Measures are in place to inform users about how their data will be used and protected, ensuring transparency and building user trust.
+
+By integrating solid design principles with robust security measures and responsive design, the site delivers an e-commerce platform that is secure, visually pleasing, easy to navigate, and accessible across multiple devices. This fosters customer engagement and supports the success of the business.
+## UX/UI Design
+<details>
+<summary><b>Wireframes</b></summary>
+
 Wireframes were created using [Balsamiq](https://balsamiq.com/)  
+
+The design, layout, and functionality of the site have been inspired by successful e-commerce platforms such as [The Record Hub](https://therecordhub.com), [Golden Discs](https://goldendiscs.ie), [Vinyl8](https://www.vinyl8.com), and [Music Zone](https://musiczone.ie/shop). These sites were singled out for their modern, user-friendly design, easy navigation, and their efficient approach to displaying a vast amount of product information.
+
+
 
 
 <details>
@@ -175,47 +281,64 @@ Wireframes were created using [Balsamiq](https://balsamiq.com/)
   <img src="" width=800>
 
 </details>
+</details>
+<details>
+<summary><b>Colours</b></summary>
+
+
+[Coolors](https://coolors.co) 
+
+Coolors was used to generate a colour palette that is aesthetically pleasing and provides a high level of contrast for readability. The main colours used in the site are:
+
+#FFFFFF White, used for the background colour
+#FEFEFE, used for secondary elements
+<img src="colours.png" width=600>
+</details>
+<details>
+<summary><b>Typography</b></summary>
+The primary font used on the site is sourced from Google Fonts. A Sans-serif font is used as a backup to ensure that the site remains legible and visually consistent on all platforms.
+
+<img src="fonts.png" width=200>
+</details>
+<br>
 
 ## Database Design
-An Entity Relationship Diagram ERD made using [Figma](https://www.figma.com/) 
+
+<details><summary><b>Entity Relationship Diagram</b></summary>
+The database structure was visualized using an Entity Relationship Diagram (ERD) made using [Figma](https://www.figma.com/). This helped to understand and implement relationships between different entities in the database effectively.
 
 
 
 
 <img src="erd.png">
+</details>
 
 ## Security Features and Defensive Design
-### User Authentication
-Django-AllAuth  
 
+<details><summary><b>User Authentication</b></summary>
+User authentication is managed by Django's built-in user authentication system, with Django-AllAuth added for handling user signup, login, and password reset functionality.
 
-### User Authorisation
-
-
-### Form Validation
-
-
-### Security-Sensitive Information
-env gitignore config vars in heroku debug
-
-## UXD Design
-### Colours
-
-[Coolors](https://coolors.co) 
-
-* #FFFFFF White is used for the background colour
-* #FEFEFE
-
-
-
-
-<img src="colours.png" width=600>
-
-### Typography
-The font used  [Google Fonts](https://fonts.google.com/).
-Sans-serif  backup font 
-
-<img src="fonts.png" width=200>
+</details>
+<details><summary><b>User Authorisation</b></summary>
+Django's built-in user authorization features are used to control access to certain areas of the site depending on the user's role and logged-in status.
+</details>
+<details><summary><b>Form Validation</b></summary>
+Form validation is performed using Django's built-in form validation features, ensuring that all user input is correctly formatted before being processed.
+</details>
+<details><summary><b>Security-Sensitive Information</b></summary>
+All sensitive information, such as API keys and database connection strings, is stored in environment variables, which are not included in the source code. This is managed using Django's built-in environment variable handling features and the Heroku platform's config vars feature.
+</details>
+<details><summary><b>Payments</b></summary>
+All payment processing is handled using the [Stripe](https://stripe.com) payment platform, ensuring that all financial transactions are secure and reliable.
+</details>
+<details><summary><b>Disclaimer and Privacy Policy</b></summary>
+The site includes a standard disclaimer and privacy policy, in line with best practices for ecommerce sites. GDPR considerations are taken into account in the design of the site and the handling of user data, following the guidance provided by [GDPR.eu](https://gdpr.eu/privacy-notice/).
+<details><summary><b>Images and Media</b></summary>
+All images and other media files are stored and served using the [Cloudinary](https://cloudinary.com/) platform, ensuring high performance and reliability.
+</details>
+<details><summary><b>Front-End Framework</b></summary>
+The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to ensure a responsive and modern user interface. Bootstrap's grid system is used to ensure that the site displays correctly on all screen sizes.
+</details>
 
 # Features
 ## Existing Features
@@ -327,7 +450,7 @@ Custom HTML pages for HTTP 400, 403, 404 and 500 errors.
 
 ## Features Left to Implement
 
-
+While regular software updates and patches are not a part of this project's scope, they would be crucial in a real-world setting to keep the site's software secure and protect against new vulnerabilities.
 
 # Technologies Used
 
@@ -378,7 +501,8 @@ Custom HTML pages for HTTP 400, 403, 404 and 500 errors.
 # Deployment
 The live deployed application - [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Click to open in a new browser tab).
 
-### Initial Setup and Deployment - 
+<details><summary><b>Initial Setup and Deployment</b></summary>
+
 
 1. **Create a New GitHub Repository**
     - Navigate to the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template).
@@ -582,8 +706,10 @@ The live deployed application - [Retro](https://forgottenit-retro.herokuapp.com/
     - Scroll down to the "Manual Deploy" section, select your GitHub branch (`main`), and click "Deploy Branch."
     - Wait for Heroku to finish deploying your app, and then click "View".
     - It is also optional to select Automatic Deploys.
+</details>
 
-### Local Deployment
+<details><summary><b>Local Deployment</b></summary>
+
 
 If you wish to run this project locally on your machine, please follow the steps outlined below:
 
@@ -656,11 +782,20 @@ If you wish to run this project locally on your machine, please follow the steps
 
     - Navigate to the forked repository in your GitHub account.
     - Click the "Code" button, then under the "HTTPS" tab of the "Clone" section, click the clipboard icon to copy the URL.
-    - Open a terminal window, navigate to the directory where you want the clone to reside.
+    - Open a terminal window and navigate to the directory where you want the clone to reside.
     - Type "git clone", then paste the URL you copied from GitHub.
     - Press "Enter", and a local clone will be created.
+</details>
+<br>
 
 # Credits
+
+## Design 
+
+* [The Record Hub](https://therecordhub.com)
+* [Golden Discs](https://goldendiscs.ie)
+* [Vinyl8](https://www.vinyl8.com)
+* [Music Zone](https://musiczone.ie/shop)
 ## Content
 * 
 

@@ -72,10 +72,16 @@ def create_fixtures(artist_name):
             fixtures = json.load(f)
     except FileNotFoundError:
         fixtures = []
+    # Extract all existing album IDs in the fixtures
+    existing_album_ids = {fixture['fields']['id'] for fixture in fixtures}
 
     start_pk = len(fixtures)
 
     for i, album in enumerate(album_data, start=start_pk):
+        # Skip if this album is already in the fixtures
+        if album['id'] in existing_album_ids:
+            continue
+
         fixture = {
             "model": "myapp.album",  # Replace with your actual model
             "pk": i,

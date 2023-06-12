@@ -63,39 +63,42 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 
 ### EPIC: 
-* As a Site Owner,
 
 ### Site Owner
 
-1. As a site owner, I want to be able to track sales and inventory so that I can manage my business.
+1. As a site owner, I want to be able to track sales and inventory on my B2C e-commerce site, so that I can manage my business.
 
 2. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
 
-3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers or sell unsold stock.
+3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
 
 4. As a site owner, I want to be able to view user behavior data, so that I can improve the user experience and make informed business decisions.
 
-5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions.
+5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
 
-6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold, so that I can order more stock in time.
+6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
 
 ### EPIC: 
 
 ### Site Marketer
 
-1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest and potential sales.
+1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
 
-2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates.
+2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates and to encourage client retention.
 
-4. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines.
+3. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines as part of our SEO strategy.
 
-5. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not.
+4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
 
-6. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
+5. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
 
-7. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
+6. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
 
-8. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
+7. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
+
+8. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
+
+9. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
 
 ### EPIC: 
 

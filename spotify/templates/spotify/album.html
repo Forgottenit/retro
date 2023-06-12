@@ -56,6 +56,12 @@
 </div>
 {% endfor %}
 
-<a href="{% url 'update-albums' %}">Update Albums</a>
+<a href="{% url 'spotify:update-albums' %}">Update Albums</a>
+
+<form method="POST" action="{% url 'spotify:update-albums' %}">
+    {% csrf_token %}
+    <input type="text" name="artist_name" placeholder="Enter artist name...">
+    <input type="submit" value="Update Albums">
+</form>
 
 {% endblock %}

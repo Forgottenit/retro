@@ -1,5 +1,8 @@
 from django.shortcuts import render
 import json
+from django.http import HttpResponseRedirect
+from spotify.spotify_data import create_fixtures
+from django.urls import reverse
 
 
 def album_view(request):
@@ -30,3 +33,11 @@ def album_view(request):
 
     # Render the template with the data
     return render(request, 'spotify/album.html', context)
+
+def update_albums(request):
+    print("Request method:", request.method)  # This is for debugging.
+    if request.method == 'POST':
+        artist_name = request.POST.get('artist_name')
+        print("Artist name:", artist_name)  # This is for debugging.
+        create_fixtures(artist_name)
+    return HttpResponseRedirect(reverse('spotify:album'))  # Redirect to the album page

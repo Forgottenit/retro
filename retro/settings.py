@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.microsoft',
     'home',
     'spotify',
-    'update_stock',
 ]
 
 MIDDLEWARE = [

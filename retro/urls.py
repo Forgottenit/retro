@@ -22,5 +22,4 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('spotify/', include('spotify.urls', namespace='spotify')),
-    path('update_stock/', include('update_stock.urls')),
 ]

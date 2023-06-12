@@ -1,43 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load json_tags %}
 {% block content %}
 
-<!-- If you need to load static files -->
-
-{% load json %}
-<!-- To load JSON data -->
-
-{% json_load 'album_fixtures.json' as albums %}
-<!-- Load the JSON data into the 'albums' variable -->
-{% with 'album_fixtures.json' as json_data %}
-{% with json_data|load_json as albums %}
 {% for album in albums %}
 <div class="album-details">
-    <!-- Display album information -->
     <h1>Album Information:</h1>
-    <h2>Name: {{ album.fields.name }}</h2>
-    <h2>Release Date: {{ album.fields.release_date }}</h2>
-    <h2>Total Tracks: {{ album.fields.total_tracks }}</h2>
-    <h2>Popularity: {{ album.fields.popularity }}</h2>
+    <h2>Name: {{ album.album_data.name }}</h2>
+    <h2>Release Date: {{ album.album_data.release_date }}</h2>
+    <h2>Total Tracks: {{ album.album_data.total_tracks }}</h2>
+    <h2>Popularity: {{ album.album_data.popularity }}</h2>
 
-    <!-- Display artists -->
     <h1>Artists:</h1>
     <ul class="artist-list">
-        {% for artist in album.fields.artists %}
+        {% for artist in album.album_artists %}
         <li>
             <h2>Name: {{ artist.name }}</h2>
             <a href="{{ artist.external_urls.spotify }}">Spotify URL</a>
         </li>
         {% endfor %}
-        {% endwith %}
-        {% endwith %}
     </ul>
 
-    <!-- Display tracks -->
     <h1>Tracks:</h1>
     <ul class="track-list">
-        {% for track in album.fields.tracks.items %}
+        {% for track in album.album_tracks %}
         <li>
             <h2>Name: {{ track.name }}</h2>
             <h2>Duration: {{ track.duration_ms }} ms</h2>
@@ -46,15 +31,16 @@
         {% endfor %}
     </ul>
 
-    <!-- Display images -->
     <h1>Images:</h1>
     <div class="image-list">
-        {% for image in album.fields.images %}
+        {% for image in album.album_data.images %}
         <img src="{{ image.url }}" alt="Album Image" width="{{ image.width }}" height="{{ image.height }}">
         {% endfor %}
     </div>
 </div>
 {% endfor %}
+
+
 
 
 

@@ -25,15 +25,20 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+# Spotify Secret Key
+
+SPOTIFY_CLIENT_ID = os.environ.get('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['forgottenit-retro.herokuapp.com','8000-forgottenit-retro-s9wz1pwll0t.ws-eu98.gitpod.io', 'localhost']
+ALLOWED_HOSTS = ['forgottenit-retro.herokuapp.com','8000-forgottenit-retro-s9wz1pwll0t.ws-eu99.gitpod.io', 'localhost']
 
 #required CSRF_TRUSTED_ORIGINS for Django 4.2
-CSRF_TRUSTED_ORIGINS = ['https://forgottenit-retro.herokuapp.com','https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu98.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://forgottenit-retro.herokuapp.com','https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu99.gitpod.io']
 
 
 
@@ -56,6 +61,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.microsoft',
     'home',
+    'spotify',
 ]
 
 MIDDLEWARE = [

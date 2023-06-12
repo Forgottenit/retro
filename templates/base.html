@@ -4,6 +4,14 @@
 <html lang="en">
 
 <head>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/favicons/site.webmanifest">
+    <link rel="icon" href="/static/images/favicons/favicon.ico" type="image/x-icon">
+
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
@@ -36,6 +44,24 @@
     {% endblock %}
 
     {% block content %}
+    <h1>Album Information:</h1>
+    <h2>Name: {{ album_data.name }}</h2>
+    <h2>Release Date: {{ album_data.release_date }}</h2>
+    <h2>Total Tracks: {{ album_data.total_tracks }}</h2>
+    <h2>Popularity: {{ album_data.popularity }}</h2>
+
+    <h1>Artists:</h1>
+    {% for artist in album_artists %}
+    <h2>Name: {{ artist.name }}</h2>
+    <a href="{{ artist.external_urls.spotify }}">Spotify URL</a>
+    {% endfor %}
+
+    <h1>Tracks:</h1>
+    {% for track in album_tracks %}
+    <h2>Name: {{ track.name }}</h2>
+    <h2>Duration: {{ track.duration_ms }} ms</h2>
+    <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
+    {% endfor %}
     {% endblock %}
 
     {% block postloadjs %}

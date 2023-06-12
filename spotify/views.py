@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import json
 
+
 def album_view(request):
     # Load data from the JSON file
     with open('album_fixtures.json', 'r') as file:
@@ -13,13 +14,13 @@ def album_view(request):
         album_fields = album['fields']
         album_artists = album_fields['artists']
         album_tracks = album_fields['tracks']['items']
-        
+
         album_info = {
             'album_data': album_fields,
             'album_artists': album_artists,
             'album_tracks': album_tracks
         }
-        
+
         albums.append(album_info)
 
     # Pass the data to the template

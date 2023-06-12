@@ -2,68 +2,68 @@
 {% load static %}
 {% block content %}
 
-{% regroup albums by album_artists.0.name as artist_albums %}
+<div class="container">
+    {% regroup albums by album_artists.0.name as artist_albums %}
 
-{% for artist in artist_albums|dictsort:"grouper" %}
-{% for album in artist.list %}
-<div class="album-details">
+    {% for artist in artist_albums|dictsort:"grouper" %}
+    <h1>{{ artist.grouper }}</h1>
 
     <div class="row">
+        {% for album in artist.list %}
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <img src="{{ album.album_data.images.0.url }}" class="img-fluid" alt="Album Image">
-            <h3>{{ album.album_data.name }}</h3>
-        </div>
-    </div>
+            <div class="card">
+                <img src="{{ album.album_data.images.0.url }}" class="card-img-top" alt="Album Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.album_data.name }}</h5>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{forloop.parentloop.counter}}{{forloop.counter}}"
+                        aria-expanded="false" aria-controls="collapse{{forloop.parentloop.counter}}{{forloop.counter}}">
+                        Album Info
+                    </button>
+                    <div class="collapse" id="collapse{{forloop.parentloop.counter}}{{forloop.counter}}">
+                        <div class="card card-body">
+                            <h6>Release Date: {{ album.album_data.release_date }}</h6>
+                            <h6>Total Tracks: {{ album.album_data.total_tracks }}</h6>
+                            <h6>Popularity: {{ album.album_data.popularity }}</h6>
 
-    <div class="accordion" id="albumAccordion{{forloop.counter}}">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse{{forloop.counter}}">
-                    Album Info
-                </button>
-            </h2>
-            <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse"
-                data-bs-parent="#albumAccordion{{forloop.counter}}">
-                <div class="accordion-body">
-                    <h2>Release Date: {{ album.album_data.release_date }}</h2>
-                    <h2>Total Tracks: {{ album.album_data.total_tracks }}</h2>
-                    <h2>Popularity: {{ album.album_data.popularity }}</h2>
+                            <h4>Artists:</h4>
+                            <ul class="list-unstyled">
+                                {% for artist in album.album_artists %}
+                                <li>
+                                    <h6>Name: {{ artist.name }}</h6>
+                                    <a href="{{ artist.external_urls.spotify }}">Spotify URL</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
 
-                    <h1>Artists:</h1>
-                    <ul class="artist-list">
-                        {% for artist in album.album_artists %}
-                        <li>
-                            <h2>Name: {{ artist.name }}</h2>
-                            <a href="{{ artist.external_urls.spotify }}">Spotify URL</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-
-                    <h1>Tracks:</h1>
-                    <ul class="track-list">
-                        {% for track in album.album_tracks %}
-                        <li>
-                            <h2>Name: {{ track.name }}</h2>
-                            <h2>Duration: {{ track.duration_ms }} ms</h2>
-                            <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                            <h4>Tracks:</h4>
+                            <ul class="list-unstyled">
+                                {% for track in album.album_tracks %}
+                                <li>
+                                    <h6>Name: {{ track.name }}</h6>
+                                    <h6>Duration: {{ track.duration_ms }} ms</h6>
+                                    <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
-{% endfor %}
 
-<a href="{% url 'spotify:update-albums' %}">Update Albums</a>
+<a href="{% url 'spotify:update-albums' %}" class="btn btn-primary">Update Albums</a>
 
-<form method="POST" action="{% url 'spotify:update-albums' %}">
+<form method="POST" action="{% url 'spotify:update-albums' %}" class="my-4">
     {% csrf_token %}
-    <input type="text" name="artist_name" placeholder="Enter artist name...">
-    <input type="submit" value="Update Albums">
+    <div class="input-group">
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
+        <button type="submit" class="btn btn-primary">Update Albums</button>
+    </div>
 </form>
 
 {% endblock %}

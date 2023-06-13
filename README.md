@@ -229,6 +229,9 @@ All Sensitive site and user data are further protected through the use of enviro
 Data protection is a priority, and the site adheres to the General Data Protection Regulation [GDPR](https://gdpr.eu/privacy-notice/) standards. Measures are in place to inform users about how their data will be used and protected, ensuring transparency and building user trust.
 
 By integrating solid design principles with robust security measures and responsive design, the site delivers an e-commerce platform that is secure, visually pleasing, easy to navigate, and accessible across multiple devices. This fosters customer engagement and supports the success of the business.
+
+</details>
+
 ## UX/UI Design
 <details>
 <summary><b>Wireframes</b></summary>
@@ -331,8 +334,10 @@ All sensitive information, such as API keys and database connection strings, is 
 <details><summary><b>Payments</b></summary>
 All payment processing is handled using the [Stripe](https://stripe.com) payment platform, ensuring that all financial transactions are secure and reliable.
 </details>
-<details><summary><b>Disclaimer and Privacy Policy</b></summary>
+<details>
+<summary><b>Disclaimer and Privacy Policy</b></summary>
 The site includes a standard disclaimer and privacy policy, in line with best practices for ecommerce sites. GDPR considerations are taken into account in the design of the site and the handling of user data, following the guidance provided by [GDPR.eu](https://gdpr.eu/privacy-notice/).
+</details>
 <details><summary><b>Images and Media</b></summary>
 All images and other media files are stored and served using the [Cloudinary](https://cloudinary.com/) platform, ensuring high performance and reliability.
 </details>
@@ -707,7 +712,111 @@ The live deployed application - [Retro](https://forgottenit-retro.herokuapp.com/
     - Wait for Heroku to finish deploying your app, and then click "View".
     - It is also optional to select Automatic Deploys.
 </details>
+<details><summary><b>Spotify Album Application</b></summary>
+## Setting up the Django Spotify Album Application
 
+This guide provides step-by-step instructions for setting up and running the Django Spotify Album application. The application allows you to fetch and display album data from the Spotify API.
+
+### Prerequisites
+
+Before getting started, make sure you have the following:
+
+- Python installed on your system.
+- A Spotify developer account. If you don't have one, you can create a new account at [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
+- Spotify API credentials (Client ID and Client Secret).
+
+### Steps
+
+1. **Register for a Spotify API Key:**
+   - Visit the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) and register for an account if you don't have one.
+   - Log in to the dashboard with your Spotify account.
+   - Accept the Terms of Service to gain access to the API.
+   - Click on "Create an App" and fill out the form to register a new application. This will generate your Spotify API Key.
+
+2. **Set up the Environment:**
+   - Create a new file named `env.py` in the root directory of the project.
+   - Open the `env.py` file and add the following lines:
+     ```python
+     import os
+     
+     os.environ["SPOTIFY_CLIENT_ID"] = "<your-client-id>"
+     os.environ["SPOTIFY_CLIENT_SECRET"] = "<your-client-secret>"
+     ```
+     Replace `<your-client-id>` and `<your-client-secret>` with your actual Spotify API credentials.
+
+3. **Implement Authentication and API Request Functions:**
+   - Open the `spotify_data.py` file.
+   - Implement the `get_auth_token()` function to authenticate API requests using the Spotify API credentials.
+   - Implement the `get_album_details(album_ids)` function to fetch album details from the Spotify API.
+   - Implement the `search_albums(query)` function to search for albums based on a query.
+   - Implement the `get_album_ids(query)` function to retrieve album IDs from the search results.
+
+4. **Fetch Album Data from the Spotify API:**
+   - In your application code, use the implemented functions from `spotify_data.py` to fetch album data from the Spotify API.
+   - You can retrieve album data based on artist name or any other criteria supported by the Spotify API.
+
+5. **Store Fetched Album Data as Fixtures:**
+   - Create a JSON file (e.g., `albums.json`) to store the fetched album data as fixtures.
+   - Open the JSON file and load existing fixture data if available.
+   - Append the new album data to the fixtures, ensuring there are no duplicates based on album IDs.
+   - Save the updated fixtures back to the JSON file.
+
+6. **Create a Django View Function:**
+   - Open the `views.py` file.
+   - Create a Django view function that reads the fixture data from the JSON file.
+   - Parse the fixture data and pass it to the template context for rendering.
+
+7. **Pass Fixture Data to the HTML Template:**
+   - Create an HTML template (e.g., `album.html`) to display the album details.
+   - Use Django template tags and loops to iterate over the fixture data and generate dynamic HTML content.
+   - Pass the fixture data to the HTML template from the Django view function.
+
+8. **Update the URL Configuration:**
+   - Open the `urls.py` file.
+   - Add a URL pattern to map the created view function to a URL endpoint.
+   - This allows the application to handle requests and display the album details when accessing the corresponding URL.
+
+9. **Test the Application:**
+   - Start the Django development server by running the command `python manage.py runserver` in your terminal or command prompt.
+   - Access the album page in a web browser by navigating to the appropriate URL.
+   - Verify that the albums are displayed correctly and the functionality is working as expected.
+
+10. **Optional - Enhancements and Customization:**
+    - Customize the HTML template (`album.html`) and CSS styles to match your desired design.
+    - Implement additional features such as pagination or filtering based on user input.
+
+11. **Update the HTML Template:**
+    - Modify the HTML template (`album.html`) to include the necessary HTML structure and styling.
+    - Test the template to ensure the correct display of album information.
+
+12. **Create a Form for Updating Albums:**
+    - Add an HTML form to the `album.html` template.
+    - Configure the form to submit a POST request to the `update_albums` view function.
+    - Include an input field for the artist name.
+    - Add a submit button to trigger the update.
+
+13. **Implement the `update_albums` View Function:**
+    - In the `views.py` file, create a view function named `update_albums` to handle the form submission.
+    - Extract the artist name from the submitted form data.
+    - Call the `create_fixtures(artist_name)` function from `spotify_data.py` to update the fixtures with new albums.
+    - Redirect the user back to the album page after updating the fixtures.
+
+14. **Update the URL Configuration:**
+    - Open the `urls.py` file.
+    - Add a URL pattern to map the `update_albums` view function to a URL endpoint.
+
+15. **Test the Entire Application:**
+    - Start the Django development server using the command `python manage.py runserver`.
+    - Access the album page in a web browser and verify the correct display of albums.
+    - Test the form submission by entering different artist names and checking if the fixtures are updated accordingly.
+
+16. **Optional - Error Handling and Edge Cases:**
+    - Implement error handling for API request failures and invalid artist names.
+    - Handle scenarios where the fixture file is missing or empty.
+    - Add appropriate error messages or fallback behavior to ensure a smooth user experience.
+
+
+</details>
 <details><summary><b>Local Deployment</b></summary>
 
 

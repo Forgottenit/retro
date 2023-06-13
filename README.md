@@ -712,14 +712,15 @@ The live deployed application - [Retro](https://forgottenit-retro.herokuapp.com/
     - Wait for Heroku to finish deploying your app, and then click "View".
     - It is also optional to select Automatic Deploys.
 </details>
-<details><summary><b>Spotify Album Application</b></summary>
-## Setting up the Django Spotify Album Application
+<details><summary><b>Setting up Spotify Album Application</b></summary>
 
-This guide provides step-by-step instructions for setting up and running the Django Spotify Album application. The application allows you to fetch and display album data from the Spotify API.
+## Setting up the Django Spotify Album Retrieval
+
+ This application allows you to fetch and display album data from the Spotify API. To implement, please follow the following steps.
 
 ### Prerequisites
 
-Before getting started, make sure you have the following:
+Ensure you have the following:
 
 - Python installed on your system.
 - A Spotify developer account. If you don't have one, you can create a new account at [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
@@ -810,7 +811,9 @@ Before getting started, make sure you have the following:
     - Access the album page in a web browser and verify the correct display of albums.
     - Test the form submission by entering different artist names and checking if the fixtures are updated accordingly.
 
-16. **Optional - Error Handling and Edge Cases:**
+16. **Error Handling and Edge Cases:**
+    - **This is a "Could Have", it depends on the functionality of the site and whether "store" items will be static or not.**
+
     - Implement error handling for API request failures and invalid artist names.
     - Handle scenarios where the fixture file is missing or empty.
     - Add appropriate error messages or fallback behavior to ensure a smooth user experience.
@@ -898,7 +901,7 @@ If you wish to run this project locally on your machine, please follow the steps
 <br>
 
 # Credits
-
+* [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) for API album retrieval.
 ## Design 
 
 * [The Record Hub](https://therecordhub.com)
@@ -909,7 +912,7 @@ If you wish to run this project locally on your machine, please follow the steps
 * 
 
 ## Media
-* 
+* [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)
 
 ## Code
 * Django Documentation 

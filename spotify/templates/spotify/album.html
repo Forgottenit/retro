@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="container">
+
     {% regroup albums by album_artists.0.name as artist_albums %}
 
     {% for artist in artist_albums|dictsort:"grouper" %}

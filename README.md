@@ -34,6 +34,7 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 10. As a site user, I want the site to ensure data security, so that my information is kept safe.
 
+
 </details>
 
 <details>
@@ -57,6 +58,8 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 
 9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
 
+10. As a Site Admin, I want to manage user accounts and access control, so that I can ensure the security and integrity of the site.
+
 </details>
 
 <details>
@@ -73,6 +76,8 @@ Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Cli
 5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
 
 6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
+
+7. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
 </details>
 
 <details>

@@ -6,7 +6,8 @@ class Customer(models.Model):
     """
     Model representing a customer user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, 
+                                related_name='customer')
     default_phone_number = models.CharField(max_length=20,
                                             null=True, blank=True)
     default_street_address1 = models.CharField(max_length=80,
@@ -30,7 +31,8 @@ class Staff(models.Model):
     """
     Model representing a staff user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, 
+                                related_name='staff')
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     hire_date = models.DateField()
 

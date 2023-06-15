@@ -41,9 +41,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['forgottenit-retro.herokuapp.com','8000-forgottenit-retro-s9wz1pwll0t.ws-eu99.gitpod.io', 'localhost']
 
-#required CSRF_TRUSTED_ORIGINS for Django 4.2
+# Required CSRF_TRUSTED_ORIGINS for Django 4.2
 CSRF_TRUSTED_ORIGINS = ['https://forgottenit-retro.herokuapp.com','https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu99.gitpod.io']
-
 
 
 # Application definition
@@ -58,15 +57,33 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django.contrib.sites',
+    "crispy_forms",
+    "crispy_bootstrap5",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.microsoft',
     'home',
     'spotify',
+    'accounts',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'APP': {
+            'client_id': 'your-facebook-app-client-id',
+            'secret': 'your-facebook-app-secret',
+        }
+    },
+    'google': {
+        'APP': {
+            'client_id': 'your-google-app-client-id',
+            'secret': 'your-google-app-secret',
+        }
+    },
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,6 +115,9 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -118,7 +138,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/signup'
 
 WSGI_APPLICATION = 'retro.wsgi.application'
 

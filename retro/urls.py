@@ -22,4 +22,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('spotify/', include('spotify.urls', namespace='spotify')),
+
 ]

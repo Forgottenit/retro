@@ -6,7 +6,7 @@ class Customer(models.Model):
     """
     Model representing a customer user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, 
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name='customer')
     default_phone_number = models.CharField(max_length=20,
                                             null=True, blank=True)
@@ -27,11 +27,35 @@ class Customer(models.Model):
         return str(self.user)
 
 
+class BillingAddress(models.Model):
+
+    """
+    Model representing a customer billing address.
+    """
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,
+                                 related_name='billing_addresses')
+    billing_address_line1 = models.CharField(max_length=80,
+                                             null=True, blank=True)
+    billing_address_line2 = models.CharField(max_length=80,
+                                             null=True, blank=True)
+    billing_city = models.CharField(max_length=40, null=True, blank=True)
+    billing_county = models.CharField(max_length=80, null=True, blank=True)
+    billing_postcode = models.CharField(max_length=20, null=True, blank=True)
+    billing_country = models.CharField(max_length=80, null=True, blank=True)
+
+    def __str__(self):
+
+        """
+        Return Billing address and username
+        """
+        return f"Billing Address for {self.customer.user.username}"
+
+
 class Staff(models.Model):
     """
     Model representing a staff user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, 
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name='staff')
     role = models.ForeignKey('Role', on_delete=models.CASCADE)
     hire_date = models.DateField()
@@ -53,4 +77,4 @@ class Role(models.Model):
         """
         Return role.
         """
-        return self.role_name
+        return str(self.role_name)

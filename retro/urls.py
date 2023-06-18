@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
-    path('spotify/', include('spotify.urls', namespace='spotify')),
+    path('fixtures/', include('fixtures.urls', namespace='fixtures')),
 
 ]

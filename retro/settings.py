@@ -39,7 +39,7 @@ SPOTIFY_CLIENT_SECRET = os.environ.get('SPOTIFY_CLIENT_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['forgottenit-retro.herokuapp.com', 'localhost', '8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io']
+ALLOWED_HOSTS = ['forgottenit-retro.herokuapp.com', 'localhost', '.gitpod.io']
 
 # Required CSRF_TRUSTED_ORIGINS for Django 4.2
 CSRF_TRUSTED_ORIGINS = ['https://forgottenit-retro.herokuapp.com', 'https://localhost', 'https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io',]

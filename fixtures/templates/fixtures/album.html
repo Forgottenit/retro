@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
 
 <div class="container">
-
     {% regroup albums by album_artists.0.name as artist_albums %}
 
     {% for artist in artist_albums|dictsort:"grouper" %}
     <h1>{{ artist.grouper }}</h1>
-
 
     <div class="row">
         {% for album in artist.list %}
@@ -28,6 +27,9 @@
                             <h6>Total Tracks: {{ album.album_data.total_tracks }}</h6>
                             <h6>Popularity: {{ album.album_data.popularity }}</h6>
                             <h6>Album ID: {{ album.album_data.id }}</h6>
+                            <h6>Album Type: {{ album.album_data.album_type }}</h6>
+                            <h6>Label: {{ album.album_data.label }}</h6>
+                            <h6>Copyright: {{ album.album_data.copyrights.0.text }}</h6>
 
                             <h4>Artists:</h4>
                             <ul class="list-unstyled">
@@ -44,8 +46,10 @@
                             <ul class="list-unstyled">
                                 {% for track in album.album_tracks %}
                                 <li>
+                                    <h6>Track Number: {{ track.track_number }}</h6>
                                     <h6>Name: {{ track.name }}</h6>
-                                    <h6>Duration: {{ track.duration_ms }} ms</h6>
+                                    <h6>Duration: {{ track.duration_formatted  }}</h6>
+                                    <h6>Explicit: {{ track.explicit }}</h6>
                                     <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
                                 </li>
                                 {% endfor %}

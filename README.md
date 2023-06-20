@@ -506,8 +506,97 @@ While regular software updates and patches are not a part of this project's scop
 * [JSHint](https://jshint.com/) was used to validate JavaScript codes.
 * [CI Python Linter](https://pep8ci.herokuapp.com/) was used to validate Python codes.
 
+<br>
+
 # Testing
 
+
+<details><summary><b>BUGS:</b></summary>
+
+###  ALLOWED_HOSTS = ["forgottenit-retro.herokuapp.com", "localhost", ".gitpod.io"]
+* Problem: Page not rendering ("DisallowedHost"), I needed to add the site ('8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io') to allowed hosts.
+* Issue: The site '8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io' at the ws-eu100 section increments over time (i.e. "ws-eu99" then "ws-eu100" etc.). So adding it only temporarily fixed the issue. i.e.
+```python
+ALLOWED_HOSTS = [
+    "forgottenit-retro.herokuapp.com",
+    "localhost",
+    "8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io",
+]
+
+```
+- "8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io" would have to be changed regularly. This was just an issue in Development (as it wouldn't affect the Production site on Heroku) but it was still an issue.
+* I had thought having "localhost" would suffice but it did not. I tried using "*.gitpod.io" and "*.*.gitpod.io" but they didn't work, finally I tried just ".gitpod.io" and that worked.
+
+```python
+ALLOWED_HOSTS = [
+    "forgottenit-retro.herokuapp.com",
+    "localhost",
+    ".gitpod.io",
+]
+
+```
+
+
+- ### Required CSRF_TRUSTED_ORIGINS for Django 4.2
+* Problem: Page not rendering CSRF verification failed.
+* Using:
+
+```python
+ Django==4.2.2
+```
+
+* Solution: [DJANGO](https://docs.djangoproject.com/en/4.2/ref/settings/)
+ - "A list of trusted origins for unsafe requests (e.g. POST)."
+
+```python
+CSRF_TRUSTED_ORIGINS = [
+    "https://forgottenit-retro.herokuapp.com",
+    "https://localhost",
+    "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io",
+    "https://.gitpod.io",
+]
+```
+
+Added CSRF_TRUSTED_ORIGINS to settings.py, NB: "https://" is required, unlike ALLOWED_HOSTS. 
+
+* ### Crispy forms
+* Problem: Submit button not working on login templates when using Crispy Forms
+ - First I tried Stack Overflow, a possible solution to the issue was to use a context processor ("accounts.context_processors.login_ctx.login_form_ctx"), [Stack Overflow](https://stackoverflow.com/questions/39197723/how-to-move-singup-signin-templates-into-dropdown-menu/39235634#39235634). This did not work for me.
+ - Next, I rendered the form using {{ form }} (the form submitted with this render) and compared the elements using "Inspect" in Chrome to the {% crispy form %} and noticed that when using Crispy forms as {% crispy form %} in the HTML the "submit" button was rendered outside the form. I copied the submit element into the form and it worked. Unfortunately, I was unable to ascertain why this was the case. I am using:
+ ```python
+ Django==4.2.2
+ django-allauth==0.54.0
+ django-crispy-forms==2.0
+ ```
+- I found a solution at [Stack Overflow](https://stackoverflow.com/questions/30355040/submit-button-no-longer-works-with-django-crispy-forms). By simply using the crispy filter {{ form|crispy }} the form was then rendered correctly. 
+</details>
+
+<details><summary><b>Testing:</b></summary>
+
+```python
+From: webmaster@localhost
+To: forgottenit2@gmail.com
+Date: Tue, 20 Jun 2023 15:26:31 -0000
+Message-ID: <168727479171.4895.12410208213484624068@localhost>
+
+Hello from Retro!
+
+You are receiving this e-mail because you or someone else tried to signup for an
+account using e-mail address:
+
+forgottenit2@gmail.com
+
+However, an account using that e-mail address already exists.  In case you have
+forgotten about this, please use the password forgotten procedure to recover
+your account:
+
+http://8000-forgottenit-retro-s9wz1pwll0t.xxx.gitpod.io/xxx/xxx/xxx/
+
+
+```
+
+</details>
+<br>
 
 # Deployment
 The live deployed application - [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Click to open in a new browser tab).

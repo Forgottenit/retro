@@ -8,7 +8,6 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-
 <hr>
 <h2 class="logo-font mb-4 text-center">{% trans "Sign In" %}</h2>
 <hr>
@@ -17,6 +16,11 @@
   {% csrf_token %}
   <div class="row">
     <div class="col-md-6 offset-md-3">
+      {% for message in messages %}
+      <div class="alert alert-info">
+        {{ message }}
+      </div>
+      {% endfor %}
       <div class="form-group mx-2">
         <label for="id_login">{% trans "Login" %}:</label>
         <input type="text" name="login" id="id_login" class="form-control" placeholder="{% trans 'Username or email' %}"

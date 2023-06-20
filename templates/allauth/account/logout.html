@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
@@ -14,6 +15,7 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
+  {{ form|crispy }}
   <button type="submit">{% trans 'Sign Out' %}</button>
 </form>
 

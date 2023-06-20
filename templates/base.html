@@ -207,7 +207,13 @@
     {% include "home/nav-bar.html" %}
 
     {% if messages %}
-    <div class="message-container"></div>
+    <div class="message-container mt-2">
+        {% for message in messages %}
+        <div class="alert alert-info">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
     {% block page_header %}
@@ -219,6 +225,15 @@
     {% endblock %}
 
     {% block postloadjs %}
+    <script>
+        // Remove messages after 4 seconds
+        setTimeout(function () {
+            let messageContainer = document.querySelector('.message-container');
+            if (messageContainer) {
+                messageContainer.remove();
+            }
+        }, 4000);
+    </script>
     {% endblock %}
 
 </body>

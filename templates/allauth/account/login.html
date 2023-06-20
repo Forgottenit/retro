@@ -10,24 +10,60 @@
 {% block content %}
 
 <hr>
-<h2 class="logo-font mb-4">{% trans "Sign In" %}</h2>
+<h2 class="logo-font mb-4 text-center">{% trans "Sign In" %}</h2>
 <hr>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group mx-2">
+        <label for="id_login">{% trans "Login" %}:</label>
+        <input type="text" name="login" id="id_login" class="form-control" placeholder="{% trans 'Username or email' %}"
+          required>
+      </div>
+      <div class="form-group mx-2">
+        <label for="id_password">{% trans "Password" %}:</label>
+        <input type="password" name="password" id="id_password" class="form-control"
+          placeholder="{% trans 'Password' %}" required>
+      </div>
+      <div class="form-group form-check mt-2 d-flex justify-content-between">
+        <div class="form-check mt-1">
+          <input type="checkbox" name="remember" id="id_remember" class="form-check-input">
+          <label for="id_remember" class="form-check-label">{% trans "Remember Me" %}</label>
+        </div>
+        <a class="btn btn-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+      </div>
+      <div class="text-center mt-4 mb-4">
+        <button class="btn btn-primary btn-lg col-6 mx-auto" type="submit">{% trans "Sign In" %}</button>
+      </div>
+    </div>
+  </div>
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+  {% endif %}
+  <div class="text-center mt-3"></div>
+  <p class="text-center mt-3">
+    <a class="btn btn-light btn-block" href="{% url 'account_signup' %}">
+      {% trans "Sign Up" %}
+    </a>
+  </p>
+</form>
 
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-  for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
+<div class="socialaccount_ballot mt-5 mb-4 text-center">
+  <h3>{% trans "Sign in with Social Media" %}</h3>
+  <div class="socialaccount_providers mt-4 d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-light mb-3" href="{% provider_login_url 'google' %}">
+      <i class="fab fa-google text-danger"></i> Google
+    </a>
+    <button class="btn btn-light mb-3" type="button">
+      <i class="fab fa-facebook-f text-primary"></i> Facebook
+    </button>
+    <!-- Add other social login buttons here -->
+  </div>
 </div>
 
 {% include "socialaccount/snippets/login_extra.html" %}
@@ -36,27 +72,5 @@
 <p>{% blocktrans %}If you have not created an account yet, then please
   <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button class="btn btn-primary primaryAction" type="submit">{% trans "Sign In" %}</button>
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <div class="text-center mt-3">
-    <a class="btn btn-light" href="{% url 'home' %}">{% trans "Home" %}</a>
-    <button class="btn btn-primary primaryAction" type="submit">{% trans "Sign In" %}</button>
-  </div>
-  <p class="text-center mt-2">
-    <a class="btn btn-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  </p>
-  <p class="text-center mt-3">
-    <a class="btn btn-primary" href="{% url 'account_signup' %}">
-      {% trans "Don't have an account? Sign Up" %}
-    </a>
-  </p>
-
-</form>
 
 {% endblock %}

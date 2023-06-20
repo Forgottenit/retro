@@ -486,7 +486,8 @@ While regular software updates and patches are not a part of this project's scop
 * [Heroku](https://id.heroku.com/login) was used to 
 * [Google Fonts](https://fonts.google.com/) was used
 * [Font Awesome](https://fontawesome.com/) was used 
-
+* [JSON Formatter](https://jsonformatter.curiousconcept.com/#) was used to format JSON files
+* [Black](https://pypi.org/project/black/) was used as a Python formatter
 
 ## Other Online Tools used
 * [Balsamiq](https://balsamiq.com/) wireframes 

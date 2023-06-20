@@ -24,7 +24,7 @@
             <ul class="list-inline list-unstyled text-lg-right my-0">
                 <li class="list-inline-item dropdown">
                     <a class="text-black nav-link" href="#" id="user-options-dropdown" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                        aria-haspopup="true" aria-expanded="false" aria-label="User options">
                         <div class="text-center">
                             <div class="account-icon"><i class="fas fa-user fa-lg"></i></div>
                         </div>
@@ -32,7 +32,9 @@
                     </a>
                     <div class="dropdown-menu border-0 user-options" aria-labelledby="user-options-dropdown">
                         {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
                         <a href="#" class="dropdown-item">Product Management</a>
+                        {% endif %}
                         <a href="#" class="dropdown-item">My Profile</a>
                         <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
@@ -41,11 +43,18 @@
                     </div>
                 </li>
                 <li class="list-inline-item">
-                    <a class="text-info font-weight-bold nav-link" href="#">
+                    <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link"
+                        href="#" aria-label="Shopping bag">
                         <div class="text-center">
                             <div class="bag-icon"><i class="fas fa-shopping-bag fa-lg"></i></div>
                         </div>
-                        <p class="text-center my-0">€00.00</p>
+                        <p class="text-center my-0">
+                            {% if grand_total %}
+                            €{{ grand_total|floatformat:2 }}
+                            {% else %}
+                            €0.00
+                            {% endif %}
+                        </p>
                     </a>
                 </li>
             </ul>

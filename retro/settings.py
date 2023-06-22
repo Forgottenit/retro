@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "home",
     "fixtures",
     "accounts",
+    "products",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

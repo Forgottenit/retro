@@ -48,7 +48,7 @@
                                 <li>
                                     <h6>Track Number: {{ track.track_number }}</h6>
                                     <h6>Name: {{ track.name }}</h6>
-                                    <h6>Duration: {{ track.duration_formatted  }}</h6>
+                                    <h6>Duration: {{ track.duration_ms }}</h6>
                                     <h6>Explicit: {{ track.explicit }}</h6>
                                     <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
                                 </li>
@@ -73,5 +73,7 @@
         <button type="submit" class="btn btn-primary">Update Albums</button>
     </div>
 </form>
+
+
 
 {% endblock %}

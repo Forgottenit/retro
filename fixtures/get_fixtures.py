@@ -29,6 +29,25 @@ def get_auth_token():
     return response.json()["access_token"]
 
 
+def get_artist_genres(artist_id):
+    access_token = get_auth_token()
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+    }
+
+    response = requests.get(
+        f"https://api.spotify.com/v1/artists/{artist_id}", headers=headers
+    )
+    artist_data = response.json()
+
+    if artist_data and "genres" in artist_data:
+        genres = artist_data["genres"]
+    else:
+        genres = []
+
+    return genres
+
+
 def get_album_details(album_ids):
     access_token = get_auth_token()
     headers = {
@@ -41,7 +60,15 @@ def get_album_details(album_ids):
         response = requests.get(
             f"https://api.spotify.com/v1/albums/{album_id}", headers=headers
         )
-        albums_data.append(response.json())
+        album_data = response.json()
+
+        for artist in album_data.get("artists", []):
+            artist_id = artist.get("id")
+            if artist_id:
+                artist_genres = get_artist_genres(artist_id)
+                artist["genres"] = artist_genres
+
+        albums_data.append(album_data)
 
     return albums_data
 
@@ -84,7 +111,12 @@ def create_fixtures(artist_name):
     print("Album Data:", album_data)
     try:
         with open("fixtures/album_fixtures.json", "r", encoding="utf-8") as f:
-            fixtures = json.load(f)
+            try:
+                fixtures = json.load(f)
+            except json.JSONDecodeError as e:
+                # Handle JSONDecodeError when the file is empty or contains invalid JSON
+                print("Error occurred while decoding JSON response:", str(e))
+                fixtures = []
     except FileNotFoundError:
         fixtures = []
     # Extract all existing album IDs in the fixtures

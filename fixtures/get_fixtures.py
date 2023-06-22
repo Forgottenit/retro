@@ -62,6 +62,12 @@ def get_album_details(album_ids):
         )
         album_data = response.json()
 
+        explicit = any(
+            track.get("explicit", False)
+            for track in album_data.get("tracks", {}).get("items", [])
+        )
+        album_data["explicit"] = explicit
+
         for artist in album_data.get("artists", []):
             artist_id = artist.get("id")
             if artist_id:

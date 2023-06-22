@@ -178,7 +178,7 @@ def create_fixtures(artist_name):
         album["album_images"] = album_images
 
         fixture = {
-            "model": "myapp.album",  # Replace with your actual model
+            "model": "products.album",  # Replace with your actual model
             "pk": i,
             "fields": album,
         }

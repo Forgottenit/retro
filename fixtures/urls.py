@@ -4,9 +4,9 @@ from .views import album_view, update_albums
 
 from . import views
 
-app_name = 'fixtures'
+app_name = "fixtures"
 
 urlpatterns = [
-    path('album/', views.album_view, name='album'),
-    path('update_albums/', views.update_albums, name='update-albums'),  
+    path("album/", views.album_view, name="album"),
+    path("update_albums/", views.update_albums, name="update_albums"),
 ]

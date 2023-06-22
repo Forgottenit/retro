@@ -3,6 +3,17 @@
 
 {% block content %}
 
+<a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
+
+<form method="POST" action="{% url 'fixtures:update_albums' %}" class="my-4">
+    {% csrf_token %}
+    <div class="input-group">
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
+        <button type="submit" class="btn btn-primary">Update Albums</button>
+    </div>
+</form>
+
+
 <div class="container">
     {% regroup albums by album_artists.0.name as artist_albums %}
 
@@ -37,6 +48,12 @@
                                 <li>
                                     <h6>Name: {{ artist.name }}</h6>
                                     <h6>Artist ID: {{ artist.id }}</h6>
+                                    <h6>Genres:
+                                        {% for genre in artist.genres %}
+                                        {{ genre|capfirst }}
+                                        {% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </h6>
                                     <a href="{{ artist.external_urls.spotify }}">Spotify URL</a>
                                 </li>
                                 {% endfor %}
@@ -48,7 +65,7 @@
                                 <li>
                                     <h6>Track Number: {{ track.track_number }}</h6>
                                     <h6>Name: {{ track.name }}</h6>
-                                    <h6>Duration: {{ track.duration_ms }}</h6>
+                                    <h6>Duration: {{ track.duration_ms }} mins</h6>
                                     <h6>Explicit: {{ track.explicit }}</h6>
                                     <a href="{{ track.external_urls.spotify }}">Spotify URL</a>
                                 </li>
@@ -63,17 +80,6 @@
     </div>
     {% endfor %}
 </div>
-
-<a href="{% url 'fixtures:update-albums' %}" class="btn btn-primary">Update Albums</a>
-
-<form method="POST" action="{% url 'fixtures:update-albums' %}" class="my-4">
-    {% csrf_token %}
-    <div class="input-group">
-        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
-        <button type="submit" class="btn btn-primary">Update Albums</button>
-    </div>
-</form>
-
 
 
 {% endblock %}

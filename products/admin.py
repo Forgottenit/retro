@@ -3,8 +3,24 @@ from .models import Album, CD, Vinyl, TShirt, TShirtVariant
 from django.utils.safestring import mark_safe
 
 
+class ImageDisplayMixin:
+    def get_image(self, obj):
+        if obj.image:
+            return mark_safe(
+                '<img src="{url}" width="{width}" height={height} />'.format(
+                    url=obj.image.url,
+                    width=50,
+                    height=50,
+                )
+            )
+        else:
+            return "No Image"
+
+    get_image.short_description = "Image"
+
+
 @admin.register(Album)
-class AlbumAdmin(admin.ModelAdmin):
+class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
         "album_id",
         "release_date",
@@ -18,23 +34,9 @@ class AlbumAdmin(admin.ModelAdmin):
     )
     search_fields = ("album_id", "label")
 
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.image.url,
-                    width=50,
-                    height=50,
-                )
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"
-
 
 @admin.register(CD)
-class CDAdmin(admin.ModelAdmin):
+class CDAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
         "name",
         "album",
@@ -45,24 +47,10 @@ class CDAdmin(admin.ModelAdmin):
     )
     search_fields = ("name", "album__name")
     list_filter = ("on_sale",)
-
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.image.url,
-                    width=50,
-                    height=50,
-                )
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"
 
 
 @admin.register(Vinyl)
-class VinylAdmin(admin.ModelAdmin):
+class VinylAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
         "name",
         "album",
@@ -74,23 +62,9 @@ class VinylAdmin(admin.ModelAdmin):
     search_fields = ("name", "album__name")
     list_filter = ("on_sale",)
 
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.image.url,
-                    width=50,
-                    height=50,
-                )
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"
-
 
 @admin.register(TShirt)
-class TShirtAdmin(admin.ModelAdmin):
+class TShirtAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
         "name",
         "description",
@@ -103,26 +77,11 @@ class TShirtAdmin(admin.ModelAdmin):
     search_fields = ("name", "description", "album__album_id")
     list_filter = ("on_sale", "sleeve_length", "colour")
 
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.image.url,
-                    width=50,
-                    height=50,
-                )
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"
-
 
 @admin.register(TShirtVariant)
-class TShirtVariantAdmin(admin.ModelAdmin):
+class TShirtVariantAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
-        "get_name",
-        "get_album",
+        "tshirt",
         "size",
         "quantity",
         "get_image",
@@ -132,27 +91,3 @@ class TShirtVariantAdmin(admin.ModelAdmin):
         "tshirt__album__album_id",
         "size__size",
     )
-
-    def get_name(self, obj):
-        return obj.tshirt.name
-
-    get_name.short_description = "T-Shirt Name"
-
-    def get_album(self, obj):
-        return obj.tshirt.album
-
-    get_album.short_description = "Associated Album"
-
-    def get_image(self, obj):
-        if obj.tshirt.image:
-            return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.tshirt.image.url,
-                    width=50,
-                    height=50,
-                )
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"

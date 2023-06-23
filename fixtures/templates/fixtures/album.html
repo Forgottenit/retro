@@ -13,6 +13,17 @@
     </div>
 </form>
 
+<a href="{% url 'fixtures:load_albums' %}" class="btn btn-primary">Update Albums</a>
+
+<form method="POST" action="{% url 'fixtures:load_albums' %}" class="my-4">
+    {% csrf_token %}
+    <div class="input-group">
+        <p>LOAD MODELS</p>
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
+        <button type="submit" class="btn btn-primary">LOAD Albums</button>
+    </div>
+</form>
+
 
 <div class="container">
     {% regroup albums by album_artists.0.name as artist_albums %}

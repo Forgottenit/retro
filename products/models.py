@@ -1,6 +1,16 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+EXPLICIT_CHOICES = (
+    ("E", "Explicit"),
+    ("C", "Clean"),
+    ("U", "Unknown"),
+)
+
+
+class ExternalUrl(models.Model):
+    spotify = models.URLField(blank=True, null=True)
+
 
 class Artist(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
@@ -9,6 +19,12 @@ class Artist(models.Model):
     )
     genres = models.ManyToManyField("Genre")
     spotify_url = models.URLField(blank=True, null=True)
+    uri = models.CharField(max_length=200, blank=True, null=True)
+    type = models.CharField(max_length=50, blank=True, null=True)
+    href = models.URLField(blank=True, null=True)
+    external_urls = models.OneToOneField(
+        ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
         return self.name
@@ -25,14 +41,24 @@ class Track(models.Model):
     track_number = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=10, blank=True, null=True)
-    explicit = models.BooleanField(blank=True, null=True)
+    explicit = models.CharField(
+        max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
+    )
     spotify_url = models.URLField(blank=True, null=True)
+    uri = models.CharField(max_length=200, blank=True, null=True)
+    type = models.CharField(max_length=50, blank=True, null=True)
+    href = models.URLField(blank=True, null=True)
+    external_urls = models.OneToOneField(
+        ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
+    )
+    artists = models.ManyToManyField(Artist, related_name="tracks")
 
     def __str__(self):
         return self.name
 
 
 class Album(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
     total_tracks = models.IntegerField(blank=True, null=True)
     popularity = models.IntegerField(blank=True, null=True)
@@ -42,7 +68,10 @@ class Album(models.Model):
     album_type = models.CharField(max_length=100, blank=True, null=True)
     label = models.CharField(max_length=100, blank=True, null=True)
     copyright = models.CharField(max_length=100, blank=True, null=True)
-    explicit = models.BooleanField(blank=True, null=True)
+
+    explicit = models.CharField(
+        max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
+    )
     artists = models.ManyToManyField(Artist, related_name="albums")
     genres = models.ManyToManyField(Genre, related_name="albums")
     tracks = models.ManyToManyField(Track, related_name="albums")
@@ -50,7 +79,7 @@ class Album(models.Model):
     image = models.ImageField(upload_to="album_images", blank=True, null=True)
 
     def __str__(self):
-        return self.album_id
+        return f"{self.album_id} - {self.name}"
 
 
 class Product(models.Model):
@@ -119,3 +148,9 @@ class TShirtVariant(models.Model):
 
     def __str__(self):
         return f"{self.tshirt} - Size: {self.size} - Quantity: {self.quantity}"
+
+
+class Image(models.Model):
+    height = models.IntegerField(blank=True, null=True)
+    width = models.IntegerField(blank=True, null=True)
+    url = models.URLField(blank=True, null=True)

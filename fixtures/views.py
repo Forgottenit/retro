@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from fixtures.get_fixtures import create_fixtures
+from fixtures.create_and_load_models import load_models
 from json.decoder import JSONDecodeError
 
 
@@ -47,4 +48,12 @@ def update_albums(request):
             create_fixtures(artist_name)
         except JSONDecodeError as e:
             print("Error occurred while decoding JSON response:", str(e))
+    return HttpResponseRedirect(reverse("fixtures:album"))
+
+
+def load_albums(request):
+    if request.method == "POST":
+        artist_name = request.POST.get("artist_name")
+        load_models(artist_name)
+
     return HttpResponseRedirect(reverse("fixtures:album"))

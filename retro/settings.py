@@ -37,6 +37,10 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
 
+# Spotify Access Token and expiration, set in fixtures app
+SPOTIFY_ACCESS_TOKEN = None
+SPOTIFY_TOKEN_EXPIRY_TIME = None
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

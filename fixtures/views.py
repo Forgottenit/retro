@@ -1,6 +1,6 @@
 import json
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from fixtures.get_fixtures import create_fixtures
 from fixtures.create_and_load_models import load_models
@@ -56,11 +56,9 @@ def load_albums(request):
     if request.method == "POST":
         artist_name = request.POST.get("artist_name")
         load_models(artist_name)
-
-    return HttpResponseRedirect(reverse("fixtures:album"))
-
-
-def display_albums(request):
-    albums = Album.objects.all()
-    context = {"albums": albums}
-    return HttpResponseRedirect(reverse("fixtures:album"))
+        return redirect(
+            "fixtures:album"
+        )  # Redirect to the album view after loading albums
+    return render(
+        request, "fixtures/album.html", {}
+    )  # Pass an empty context dictionary

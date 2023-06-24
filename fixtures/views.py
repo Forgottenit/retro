@@ -5,6 +5,7 @@ from django.urls import reverse
 from fixtures.get_fixtures import create_fixtures
 from fixtures.create_and_load_models import load_models
 from json.decoder import JSONDecodeError
+from products.models import Album
 
 
 def album_view(request):
@@ -56,4 +57,10 @@ def load_albums(request):
         artist_name = request.POST.get("artist_name")
         load_models(artist_name)
 
+    return HttpResponseRedirect(reverse("fixtures:album"))
+
+
+def display_albums(request):
+    albums = Album.objects.all()
+    context = {"albums": albums}
     return HttpResponseRedirect(reverse("fixtures:album"))

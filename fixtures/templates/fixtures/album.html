@@ -24,6 +24,14 @@
     </div>
 </form>
 
+<body>
+    <h1>Albums</h1>
+    <ul>
+        {% for album in albums %}
+        <li>{{ album.album_id }} - {{ album.album_name }}</li>
+        {% endfor %}
+    </ul>
+</body>
 
 <div class="container">
     {% regroup albums by album_artists.0.name as artist_albums %}

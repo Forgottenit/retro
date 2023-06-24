@@ -22,17 +22,36 @@ class ImageDisplayMixin:
 @admin.register(Album)
 class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
+        "display_artists",
+        "album",
+        "artist_id",
         "album_id",
         "release_date",
         "total_tracks",
         "popularity",
         "album_type",
         "label",
-        "copyright",
+        "copyrights",
+        "display_genres",
         "explicit",
+        "display_tracks",
+        "spotify_url",
         "get_image",
     )
     search_fields = ("album_id", "label")
+
+    def display_artists(self, obj):
+        return ", ".join([str(artist) for artist in obj.artists.all()])
+
+    def display_genres(self, obj):
+        return ", ".join([str(genre) for genre in obj.genres.all()])
+
+    def display_tracks(self, obj):
+        return ", ".join([str(track) for track in obj.tracks.all()])
+
+    display_artists.short_description = "Artists"
+    display_genres.short_description = "Genres"
+    display_tracks.short_description = "Tracks"
 
 
 @admin.register(CD)

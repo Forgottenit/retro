@@ -5,6 +5,34 @@ import json
 import os
 import urllib.request
 from django.core.files import File
+import time
+
+
+def spotify_request(url, headers, params=None):
+    while True:
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code == 429:
+            delay = int(response.headers.get("Retry-After"))
+            time.sleep(delay)
+        else:
+            break
+
+    data = response.json()
+
+    # Pagination
+    while data.get("next"):
+        url = data.get("next")
+        while True:
+            response = requests.get(url, headers=headers)
+            if response.status_code == 429:
+                delay = int(response.headers.get("Retry-After"))
+                time.sleep(delay)
+            else:
+                break
+
+        data["items"].extend(response.json()["items"])
+
+    return data
 
 
 def get_auth_token():
@@ -29,15 +57,26 @@ def get_auth_token():
     return response.json()["access_token"]
 
 
+artist_cache = {}
+
+
 def get_artist_genres(artist_id):
+    if artist_id in artist_cache:
+        return artist_cache[artist_id]
+
     access_token = get_auth_token()
     headers = {
         "Authorization": f"Bearer {access_token}",
     }
 
-    response = requests.get(
-        f"https://api.spotify.com/v1/artists/{artist_id}", headers=headers
-    )
+    try:
+        response = requests.get(
+            f"https://api.spotify.com/v1/artists/{artist_id}", headers=headers
+        )
+    except requests.RequestException as e:
+        print(f"Error retrieving genres for artist {artist_id}: {e}")
+        return []
+
     artist_data = response.json()
 
     if artist_data and "genres" in artist_data:
@@ -45,6 +84,7 @@ def get_artist_genres(artist_id):
     else:
         genres = []
 
+    artist_cache[artist_id] = genres
     return genres
 
 
@@ -72,7 +112,7 @@ def get_album_details(album_ids):
             artist_id = artist.get("id")
             if artist_id:
                 artist_genres = get_artist_genres(artist_id)
-                artist["genres"] = artist_genres
+                artist["genres"] = list(set(artist_genres))
 
         albums_data.append(album_data)
 

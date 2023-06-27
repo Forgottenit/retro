@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
+
+<form method="POST" action="{% url 'fixtures:update_albums' %}" class="my-4">
+    {% csrf_token %}
+    <div class="input-group">
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
+        <button type="submit" class="btn btn-primary">Update Albums</button>
+    </div>
+</form>
+
+<a href="{% url 'fixtures:load_albums' %}" class="btn btn-primary">Update Albums</a>
+
+<form method="POST" action="{% url 'fixtures:load_albums' %}" class="my-4">
+    {% csrf_token %}
+    <div class="input-group">
+        <p>LOAD MODELS</p>
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
+        <button type="submit" class="btn btn-primary">LOAD Albums</button>
+    </div>
+</form>
+
+<div class="container">
+    {% for album in albums %}
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <!-- Display album image, NEED TO ADD default image  -->
+                {% if album.image %}
+                <img src="{{ album.image.url }}" class="card-img-top" alt="Album Image">
+                {% else %}
+                <img src="{% static 'img/default.jpg' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.album }}</h5>
+                    <h6>Album ID: {{ album.album_id }}</h6>
+                    <h6>Release Date: {{ album.release_date }}</h6>
+                    <h6>Total Tracks: {{ album.total_tracks }}</h6>
+                    <h6>Popularity: {{ album.popularity }}</h6>
+                    <h6>Album Type: {{ album.album_type }}</h6>
+                    <h6>Label: {{ album.label }}</h6>
+                    <h6>Copyrights: {{ album.copyrights }}</h6>
+                    <h6>Explicit: {{ album.explicit }}</h6>
+
+                    <h4>Artists:</h4>
+
+                    <ul>
+                        {% for artist in album.artists.all %}
+                        <li>{{ artist.name }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h4>Genres:</h4>
+
+                    <ul>
+                        {% for genre in album.genres.all %}
+                        <li>{{ genre.name }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h4>Tracks:</h4>
+
+                    <ul>
+                        {% for track in album.tracks.all %}
+                        <li>{{ track.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

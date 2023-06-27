@@ -25,4 +25,7 @@ urlpatterns = [
     path("", include("home.urls")),
     path("fixtures/", include("fixtures.urls", namespace="fixtures")),
     path("products/", include("products.urls", namespace="products")),
+    path(
+        "product_data/", include("product_data.urls", namespace="product_data")
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

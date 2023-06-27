@@ -8,7 +8,7 @@ def album_model_view(request):
     albums = Album.objects.all().order_by(
         "artists__name"
     )  # Fetch album instances
-    paginator = Paginator(albums, 9)
+    paginator = Paginator(albums, 21)
     page_number = request.GET.get("page")
     albums = paginator.get_page(page_number)
     return render(

@@ -241,6 +241,12 @@ def load_models(artist_name):
                 track.artists.add(artist)
             track_objs.append(track)
 
+        # Break down Copyrights from Dictionary
+        copyrights_list = album_dict.get(
+            "copyrights", [{"text": "default_copyright"}]
+        )
+        first_copyright_text = copyrights_list[0]["text"]
+
         # Process the album data
         album, _ = Album.objects.get_or_create(
             album=album_dict.get("name", None),
@@ -253,7 +259,8 @@ def load_models(artist_name):
             album_id=album_dict.get("id", "default_id"),
             album_type=album_dict.get("album_type", "default_type"),
             label=album_dict.get("label", "default_label"),
-            copyrights=album_dict.get("copyrights", "default_copyright"),
+            copyrights=first_copyright_text,
+            # copyrights=album_dict.get("copyrights", "default_copyright"),
             explicit=album_dict.get("explicit", False),
             spotify_url=album_dict.get("external_urls", {}).get(
                 "spotify", "default_url"

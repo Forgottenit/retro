@@ -48,13 +48,14 @@ ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",
     "localhost",
     ".gitpod.io",
+    "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu101.gitpod.io",
 ]
 
 # Required CSRF_TRUSTED_ORIGINS for Django 4.2
 CSRF_TRUSTED_ORIGINS = [
     "https://forgottenit-retro.herokuapp.com",
     "https://localhost",
-    "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io",
+    "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu101.gitpod.io",
     "https://.gitpod.io",
 ]
 
@@ -82,6 +83,7 @@ INSTALLED_APPS = [
     "fixtures",
     "accounts",
     "products",
+    "product_data",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

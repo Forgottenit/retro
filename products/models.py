@@ -27,17 +27,17 @@ class Artist(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name} ({self.artist_id})"
-
-
-class Genre(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
         return self.name
 
 
 class Track(models.Model):
+    album = models.ForeignKey(
+        "Album",
+        related_name="track_set",
+        related_query_name="track",  # Update the related_name here
+        null=True,
+        on_delete=models.CASCADE,
+    )
     track_number = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=10, blank=True, null=True)
@@ -55,6 +55,13 @@ class Track(models.Model):
         return self.name
 
 
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Image(models.Model):
     height = models.IntegerField(blank=True, null=True)
     width = models.IntegerField(blank=True, null=True)
@@ -64,7 +71,7 @@ class Image(models.Model):
 class Album(models.Model):
     artists = models.ManyToManyField(Artist, related_name="albums")
     artist_id = models.CharField(max_length=100, blank=True, null=True)
-    album = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
     release_date = models.CharField(
         max_length=10, blank=True, null=True
     )  # Changed due to differing formats on spotify
@@ -81,7 +88,9 @@ class Album(models.Model):
     #     max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
     # )
     genres = models.ManyToManyField(Genre, related_name="albums")
-    tracks = models.ManyToManyField(Track, related_name="albums")
+    tracks = models.ManyToManyField(
+        Track, related_name="albums", db_table="albums_tracks"
+    )
     spotify_url = models.URLField(blank=True, null=True)
     image = models.ImageField(upload_to="album_images", blank=True, null=True)
     image_data = models.ForeignKey(
@@ -89,7 +98,7 @@ class Album(models.Model):
     )
 
     def __str__(self):
-        return f"{self.album_id} - {self.album}"
+        return f"{self.album_id} - {self.name}"
 
 
 class Product(models.Model):

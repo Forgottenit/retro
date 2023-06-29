@@ -135,21 +135,21 @@ def get_auth_token():
         response.raise_for_status()
         response_data = response.json()
 
-        error_status = (
-            response_data["error"]["status"]
-            if "status" in response_data["error"]
-            else None
-        )
-        error_message = (
-            response_data["error"]["message"] if error_status else None
-        )
-        error_description = (
-            response_data["error_description"]
-            if "error_description" in response_data
-            else None
-        )
-
         if "error" in response_data:
+            error_status = (
+                response_data["error"]["status"]
+                if "status" in response_data["error"]
+                else None
+            )
+            error_message = (
+                response_data["error"]["message"] if error_status else None
+            )
+            error_description = (
+                response_data["error_description"]
+                if "error_description" in response_data
+                else None
+            )
+
             if error_status:  # Regular error object
                 raise Exception(
                     "Spotify API error {}: {}".format(

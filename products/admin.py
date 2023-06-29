@@ -114,8 +114,8 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
         return ", ".join([str(genre) for genre in obj.genres.all()])
 
     def display_tracks(self, obj):
-        print("Tracks:", obj.track_set.all())
-        return ", ".join([str(track) for track in obj.track_set.all()])
+        print("Tracks:", obj.tracks.all())
+        return ", ".join([str(track.name) for track in obj.tracks.all()])
 
     def artist_name(self, obj):
         return obj.artists.first().name if obj.artists.exists() else ""

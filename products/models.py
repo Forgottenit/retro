@@ -13,7 +13,7 @@ class ExternalUrl(models.Model):
 
 
 class Artist(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
+    artist_name = models.CharField(max_length=100, blank=True, null=True)
     artist_id = models.CharField(
         max_length=100, unique=True, blank=True, null=True
     )
@@ -30,7 +30,7 @@ class Artist(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.artist_name
 
 
 # class AlbumArtist(models.Model):
@@ -44,12 +44,12 @@ class Artist(models.Model):
 class Track(models.Model):
     album = models.ForeignKey(
         "Album",
-        related_name="tracks",  # updated related_name here
+        related_name="tracks",  # updated related_name
         null=True,
         on_delete=models.CASCADE,
     )
     track_number = models.IntegerField(blank=True, null=True)
-    name = models.CharField(max_length=100, blank=True, null=True)
+    track_name = models.CharField(max_length=100, blank=True, null=True)
     duration = models.CharField(max_length=10, blank=True, null=True)
     explicit = models.BooleanField(null=True)
     spotify_url = models.URLField(blank=True, null=True)
@@ -62,7 +62,7 @@ class Track(models.Model):
     artists = models.ManyToManyField(Artist, related_name="tracks")
 
     def __str__(self):
-        return self.name
+        return self.track_name
 
 
 class Genre(models.Model):
@@ -81,7 +81,7 @@ class Image(models.Model):
 class Album(models.Model):
     artists = models.ManyToManyField(Artist, related_name="albums")
     artist_id = models.CharField(max_length=100, blank=True, null=True)
-    name = models.CharField(max_length=100, blank=True, null=True)
+    album_name = models.CharField(max_length=100, blank=True, null=True)
     release_date = models.CharField(
         max_length=10, blank=True, null=True
     )  # Changed due to differing formats on spotify
@@ -105,11 +105,11 @@ class Album(models.Model):
     )
 
     def __str__(self):
-        return f"{self.album_id} - {self.name}"
+        return f"{self.album_name}"
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100, null=True)
+    product_name = models.CharField(max_length=100, null=True)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(
         upload_to="product_images", blank=True, null=True
@@ -119,7 +119,7 @@ class Product(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.name
+        return self.product_name
 
 
 class CD(Product):

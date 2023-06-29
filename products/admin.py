@@ -10,14 +10,15 @@ from .models import (
     TShirt,
     TShirtVariant,
     Image,
+    # AlbumArtist,
 )
 from django.utils.safestring import mark_safe
 
 
-class TrackInline(admin.TabularInline):
-    model = Track
-    extra = 1
-    classes = ("collapse",)
+# class TrackInline(admin.TabularInline):
+#     model = Track
+#     extra = 1
+#     classes = ("collapse",)
 
 
 class ImageDisplayMixin:
@@ -38,20 +39,36 @@ class ImageDisplayMixin:
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
-    list_display = ("name", "album", "track_number", "duration", "explicit")
+    list_display = (
+        "name",
+        "display_artists",
+        "album",
+        "track_number",
+        "duration",
+        "explicit",
+    )
     list_filter = ("name",)
     search_fields = ("name", "album__album_id")
     autocomplete_fields = ("album",)
 
+    def display_artists(self, obj):
+        return ", ".join([str(artist) for artist in obj.artists.all()])
 
-class AlbumArtist(models.Model):
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    display_artists.short_description = "Artists"
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(
+            request, queryset, search_term
+        )
+        queryset |= self.model.objects.filter(
+            artists__name__icontains=search_term
+        )
+        return queryset, use_distinct
 
 
-class AlbumInline(admin.TabularInline):
-    model = AlbumArtist
-    extra = 1
+# class AlbumArtistInline(admin.TabularInline):
+#     model = AlbumArtist
+#     extra = 1
 
 
 @admin.register(Artist)
@@ -66,7 +83,8 @@ class ArtistAdmin(admin.ModelAdmin):
     )
     list_filter = ("name",)
     search_fields = ("name", "artist_id")
-    inlines = [AlbumInline]
+    # list_select_related = ("albums",)
+    # inlines = [AlbumArtistInline]
 
     def get_genres(self, obj):
         return ", ".join([genre.name for genre in obj.genres.all()])
@@ -78,10 +96,27 @@ class ArtistAdmin(admin.ModelAdmin):
 
     get_albums.short_description = "Albums"
 
+    # def get_queryset(self, request):
+    #     queryset = super().get_queryset(request)
+    #     queryset = queryset.prefetch_related("albums")
+    #     return queryset
+
+    # def get_search_results(self, request, queryset, search_term):
+    #     queryset, use_distinct = super().get_search_results(
+    #         request, queryset, search_term
+    #     )
+    #     if search_term:
+    #         album_results = Album.objects.filter(name__icontains=search_term)
+    #         queryset = queryset | self.model.objects.filter(
+    #             albums__in=album_results
+    #         )
+    #     return queryset, use_distinct
+
 
 @admin.register(Album)
 class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    inlines = [TrackInline]
+    # inlines = [TrackInline, AlbumArtistInline]
+
     list_display = (
         "name",
         "display_artists",

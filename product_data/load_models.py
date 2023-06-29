@@ -29,7 +29,7 @@ def load_models(artist_name):
         artist_objs = []
         for artist_dict in album_dict.get("artists", []):
             artist, _ = Artist.objects.get_or_create(
-                name=artist_dict["name"],
+                artist_name=artist_dict["name"],
                 artist_id=artist_dict.get("id", "default_id"),
                 spotify_url=artist_dict.get("external_urls", {}).get(
                     "spotify", "default_url"
@@ -63,7 +63,7 @@ def load_models(artist_name):
             track_duration = format_duration(track_dict["duration_ms"])
             track, _ = Track.objects.get_or_create(
                 track_number=track_dict.get("track_number", 0),
-                name=track_dict.get("name", "default_name"),
+                track_name=track_dict.get("name", "default_name"),
                 duration=track_duration,
                 explicit=track_dict.get("explicit", False),
                 spotify_url=track_dict.get("external_urls", {}).get(
@@ -102,7 +102,7 @@ def load_models(artist_name):
 
         # Process the album data
         album, _ = Album.objects.get_or_create(
-            name=album_dict.get("name", None),
+            album_name=album_dict.get("name", None),
             release_date=album_dict.get("release_date", None),
             total_tracks=album_dict.get("total_tracks", 0),
             popularity=album_dict.get("popularity", 0),

@@ -102,7 +102,7 @@ def load_models(artist_name):
 
         # Process the album data
         album, _ = Album.objects.get_or_create(
-            album=album_dict.get("name", None),
+            name=album_dict.get("name", None),
             release_date=album_dict.get("release_date", None),
             total_tracks=album_dict.get("total_tracks", 0),
             popularity=album_dict.get("popularity", 0),

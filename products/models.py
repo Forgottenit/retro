@@ -33,8 +33,7 @@ class Artist(models.Model):
 class Track(models.Model):
     album = models.ForeignKey(
         "Album",
-        related_name="track_set",
-        related_query_name="track",  # Update the related_name here
+        related_name="tracks",  # updated related_name here
         null=True,
         on_delete=models.CASCADE,
     )
@@ -88,9 +87,6 @@ class Album(models.Model):
     #     max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
     # )
     genres = models.ManyToManyField(Genre, related_name="albums")
-    tracks = models.ManyToManyField(
-        Track, related_name="albums", db_table="albums_tracks"
-    )
     spotify_url = models.URLField(blank=True, null=True)
     image = models.ImageField(upload_to="album_images", blank=True, null=True)
     image_data = models.ForeignKey(

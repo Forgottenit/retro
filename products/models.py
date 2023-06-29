@@ -17,7 +17,10 @@ class Artist(models.Model):
     artist_id = models.CharField(
         max_length=100, unique=True, blank=True, null=True
     )
+    # albums = models.ManyToManyField("Album", through="AlbumArtist")
+
     genres = models.ManyToManyField("Genre")
+
     spotify_url = models.URLField(blank=True, null=True)
     uri = models.CharField(max_length=200, blank=True, null=True)
     type = models.CharField(max_length=50, blank=True, null=True)
@@ -28,6 +31,14 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# class AlbumArtist(models.Model):
+#     album = models.ForeignKey("Album", on_delete=models.CASCADE)
+#     artist = models.ForeignKey("Artist", on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return f"{self.artist.name} - {self.album.name}"
 
 
 class Track(models.Model):

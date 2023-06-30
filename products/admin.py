@@ -42,14 +42,15 @@ class TrackAdmin(admin.ModelAdmin):
     list_display = (
         "track_name",
         "display_artists",
-        "album",
+        "albums",
         "track_number",
         "duration",
         "explicit",
+        "display_album_image",
     )
     list_filter = ("track_name",)
     search_fields = ("track_name", "album__album_id")
-    autocomplete_fields = ("album",)
+    autocomplete_fields = ("albums",)
     ordering = ("track_name",)
 
     def display_artists(self, obj):
@@ -65,6 +66,21 @@ class TrackAdmin(admin.ModelAdmin):
             artists__artist_name__icontains=search_term
         )
         return queryset, use_distinct
+
+    def display_album_image(self, obj):
+        if obj.albums and obj.albums.image_data:
+            image_data = obj.albums.image_data
+            if image_data.url:
+                return mark_safe(
+                    '<img src="{url}" width="{width}" height="{height}" />'.format(
+                        url=image_data.url,
+                        width=50,
+                        height=50,
+                    )
+                )
+        return "No Image"
+
+    display_album_image.short_description = "Album Image"
 
 
 # class AlbumArtistInline(admin.TabularInline):
@@ -155,8 +171,8 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
         print("Tracks:", obj.tracks.all())
         return ", ".join([str(track.track_name) for track in obj.tracks.all()])
 
-    def artist_name(self, obj):
-        return obj.artists.first().artist_name if obj.artists.exists() else ""
+    # def artist_name(self, obj):
+    #     return obj.artists.first().artist_name if obj.artists.exists() else ""
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -164,7 +180,7 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
             artist_name=models.F("artists__artist_name")
         ).order_by("artist_name")
 
-    display_artists.short_description = "Artists"
+    # display_artists.short_description = "Artists"
     display_genres.short_description = "Genres"
     display_tracks.short_description = "Tracks"
 

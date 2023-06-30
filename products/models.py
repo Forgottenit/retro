@@ -42,7 +42,7 @@ class Artist(models.Model):
 
 
 class Track(models.Model):
-    album = models.ForeignKey(
+    albums = models.ForeignKey(
         "Album",
         related_name="tracks",  # updated related_name
         null=True,

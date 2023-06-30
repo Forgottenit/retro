@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 def album_model_view(request):
     print("TEST")
     albums = Album.objects.all().order_by(
-        "artists__name"
+        "artists__artist_name"
     )  # Fetch album instances
     paginator = Paginator(albums, 21)
     page_number = request.GET.get("page")

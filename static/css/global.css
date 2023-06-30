@@ -1,0 +1,32 @@
+/* general.css */
+/* Global Styling */
+
+body {
+    background-color: #141529;
+    color: #ffffff;
+}
+
+/* Body Styling  */
+
+.card {
+    border: 2px solid #fbe689;
+    border-radius: 0;
+}
+
+.card-title {
+    color: #141529;
+}
+
+.card-text {
+    color: #141529;
+}
+
+.btn-primary {
+    background-color: #f39237;
+    border-color: #f39237;
+}
+
+.btn-primary:hover {
+    background-color: #f433ab;
+    border-color: #f433ab;
+}

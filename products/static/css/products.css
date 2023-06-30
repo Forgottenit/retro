@@ -1,0 +1,24 @@
+.spotify_link {
+    text-decoration: underline;
+    color: rgb(30, 215, 96);
+}
+
+.spotify_icon {
+    color: rgb(30, 215, 96);
+    margin-left: 5px;
+    text-decoration: none;
+}
+
+.spotify_link_text {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.track_listing {
+    display: inline-block;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

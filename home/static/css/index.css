@@ -1,0 +1,22 @@
+/* Body Styling */
+
+.sales-section,
+.delivery-section,
+.other-section {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+
+.carousel-caption {
+    background-color: #fbe689;
+    padding: 16px;
+}
+
+.carousel-caption h5 {
+    color: #141529;
+}
+
+.carousel-caption p {
+    color: #141529;
+}

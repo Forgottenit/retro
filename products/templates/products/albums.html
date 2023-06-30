@@ -3,7 +3,7 @@
 
 {% block extra_css %}
 
-<link rel="stylesheet" href="{% static 'products.css' %}">
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
 
 {% endblock %}
 
@@ -53,19 +53,34 @@
                         aria-controls="collapse{{ forloop.counter }}">Details</button>
                     <div class="collapse" id="collapse{{ forloop.counter }}">
                         <div class="mt-2 p-2 border-top">
+                            {% if album.spotify_url %}
+                            <p class="d-flex justify-content-between"><strong>Album: {{ album.album_name }} </strong>
+
+                                <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                    class="spotify_link">
+                                    <span class="spotify_link_text">Spotify</span>
+                                    <i class="fab fa-spotify" class="spotify_icon"></i>
+                                </a>
+                            </p>
+                            {% endif %}
+                            {% for artist in album.artists.all %}
+                            {% if artist.spotify_url %}
+                            <p class="d-flex justify-content-between"><strong>Artist: {{ artist.artist_name }} </strong>
+                                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                    class="spotify_link">
+                                    <span class="spotify_link_text">Spotify</span>
+                                    <i class="fab fa-spotify" class="spotify_icon"></i>
+                                </a>
+                            </p>
+                            {% endif %}
+                            {% endfor %}
                             <p><strong>Release Date:</strong> {{ album.release_date }}</p>
                             <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
                             <p><strong>Popularity:</strong> {{ album.popularity }}</p>
                             <p><strong>Album ID:</strong> {{ album.album_id }}</p>
                             <p><strong>Album Type:</strong> {{ album.album_type|capfirst }}</p>
                             <p><strong>Label:</strong> {{ album.label }}</p>
-                            {% if album.spotify_url %}
-                            <p><strong>Spotify:</strong>
-                                <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                    style="color: rgb(30, 215, 96); text-decoration: underline; font-weight: bold;">
-                                    <i class="fab fa-spotify"></i> Spotify
-                                </a></p>
-                            {% endif %}
+
                             {% if album.genres.all %}
                             <p><strong>Genres:</strong>
                                 {% for genre in album.genres.all %}
@@ -78,22 +93,16 @@
                             <ul>
                                 {% for track in album.tracks.all %}
                                 <li class="d-flex justify-content-between">
-                                    <div class="me-auto" style="display: inline-block;
-                                    width: 150px; 
-                                    white-space: nowrap;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;">
+                                    <div class="me-auto track_listing">
                                         <span class="me-2">{{ track.track_number }}</span>
                                         <span>{{ track.track_name }}</span>
                                     </div>
                                     {% if track.spotify_url %}
                                     <div>
                                         <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                            style="text-decoration: underline; color: rgb(30, 215, 96);">
-                                            <span
-                                                style="color: black; font-weight: bold; text-decoration: none;">Spotify</span>
-                                            <i class="fab fa-spotify"
-                                                style="color: rgb(30, 215, 96); margin-left: 5px; text-decoration: none;"></i>
+                                            class="spotify_link">
+                                            <span class="spotify_link_text">Spotify</span>
+                                            <i class="fab fa-spotify" class="spotify_icon"></i>
                                         </a>
                                     </div>
                                     {% endif %}

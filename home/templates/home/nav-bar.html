@@ -69,10 +69,12 @@
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if selected_page == 'home' %}selected-page{% endif %}" href="#">Home</a>
+                        <a class="nav-link {% if selected_page == 'home' %}selected-page{% endif %}"
+                            href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if selected_page == 'shop' %}selected-page{% endif %}" href="#">Shop</a>
+                        <a class="nav-link {% if selected_page == 'shop' %}selected-page{% endif %}"
+                            href="{% url 'products:album_model_view' %}">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if selected_page == 'new_arrivals' %}selected-page{% endif %}"

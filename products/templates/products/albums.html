@@ -9,7 +9,7 @@
 
 
 {% block content %}
-<a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
+<!-- <a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
 
 <form method="POST" action="{% url 'fixtures:update_albums' %}" class="my-4">
     {% csrf_token %}
@@ -17,14 +17,15 @@
         <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
         <button type="submit" class="btn btn-primary">Update Albums</button>
     </div>
-</form>
+</form> -->
 
-<a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a>
+<!-- <a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a> -->
 
 <form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
     {% csrf_token %}
+    <p>LOAD MODELS : </p>
     <div class="input-group">
-        <p>LOAD MODELS</p>
+
         <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
         <button type="submit" class="btn btn-primary"> LOAD Albums </button>
     </div>
@@ -46,7 +47,7 @@
                 {% endif %}
 
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ album.album }}</h5>
+                    <h5 class="card-title">{{ album.album_name }}</h5>
 
                     <button class="btn btn-primary mt-auto" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
@@ -84,7 +85,7 @@
                             {% if album.genres.all %}
                             <p><strong>Genres:</strong>
                                 {% for genre in album.genres.all %}
-                                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                                {{ genre.name|capfirst  }}{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </p>
                             {% endif %}

@@ -86,6 +86,21 @@
                                         </a>
                                     </div>
                                     {% endif %} -->
+                            {% if album.artist_count > 1 %}
+                            <p class="d-flex justify-content-between">
+                                <strong>Artists: </strong>
+                                {% for artist in album.artists.all %}
+                                {% if artist.spotify_url %}
+                                <strong>{{ artist.artist_name }}</strong>
+                                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                    class="spotify_link">
+
+                                    <i class="fab fa-spotify" class="spotify_icon"></i>
+                                </a>{% if not forloop.last %}, {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+                            {% else %}
                             {% for artist in album.artists.all %}
                             {% if artist.spotify_url %}
                             <p class="d-flex justify-content-between"><strong>Artist: {{ artist.artist_name }} </strong>
@@ -97,6 +112,8 @@
                             </p>
                             {% endif %}
                             {% endfor %}
+                            {% endif %}
+
                             <p><strong>Release Date:</strong> {{ album.release_date }}</p>
                             <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
                             <p><strong>Popularity:</strong> {{ album.popularity }}</p>
@@ -148,22 +165,23 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 {% if albums.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ albums.previous_page_number }}">Previous</a>
-                </li>
+                <li class="page-item"><a class="page-link"
+                        href="?{{ params }}&page={{ albums.previous_page_number }}">Previous</a></li>
                 {% else %}
                 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 {% endif %}
 
                 {% for i in albums.paginator.page_range %}
                 {% if albums.number == i %}
-                <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                <li class="page-item active"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
                 {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                <li class="page-item"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
                 {% endif %}
                 {% endfor %}
 
                 {% if albums.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ albums.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link"
+                        href="?{{ params }}&page={{ albums.next_page_number }}">Next</a></li>
                 {% else %}
                 <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                 {% endif %}

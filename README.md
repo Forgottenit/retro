@@ -548,6 +548,16 @@ ALLOWED_HOSTS = [
 ```
  .distinct() leading to the album being displayed just once.  
 
+ * Follow Up: A further Bug arose due to an Album having multiple Artists, so the Album displayed multiple times, once for each artist, for the same filter. So .distinct() was removed and as each album has a unique Album Id, a set was created, so that the album would only display once. 
+
+ Also, for **pagination**, this proved difficult, as when a genre returned multiple pages, the pararmeters were lost when the next page was clicked, leading to all Albums being displayed. To overcome this 
+
+ - First create a modifiable copy of the GET parameters: params = request.GET.copy(). request.GET contains all of the parameters passed in the URL, but it's an immutable object, meaning you cannot modify it. Therefore, a copy is made, which is mutable and can be modified.
+ - Remove the 'page' parameter: page_number = params.pop("page", None). The pop() function removes the specified key ('page') from the dictionary and returns its value. If the key is not found, it returns the default value specified (None in this case). This is done because the 'page' parameter doesn't need to be included in the filter search parameters.
+ - Turn parameters into URL format: params_str = params.urlencode(). This prepares filters to be put in the URL. URL encoding replaces unsafe ASCII characters with a "%" followed by two hexadecimal digits, making them safe for transmission over the internet.
+ - Pagination: paginator = Paginator(albums, 18) creates a Paginator object. The Paginator takes two arguments: the list of items to be paginated (albums in this case), and the number of items to be displayed per page (18 in this case). page_number = request.GET.get("page") gets the current page number from the GET parameters. albums = paginator.get_page(page_number) gets the specific page of albums.
+ - Pass to template: params_str is sent to the template. It's added to pagination URLs to keep filters when changing pages.
+
 
 - ### Required CSRF_TRUSTED_ORIGINS for Django 4.2
 * Problem: Page not rendering CSRF verification failed.

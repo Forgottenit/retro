@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from .models import Album
+from .models import Album, Genre
 
 
 def album_model_view(request):
@@ -11,6 +11,13 @@ def album_model_view(request):
 
     albums = Album.objects.all().order_by("artists__artist_name")
     search_query = request.GET.get("q")
+
+    genres = Genre.objects.all()
+    genre_query = request.GET.get("genre")
+    print(genre_query)
+
+    if genre_query is not None and genre_query != "All":
+        albums = albums.filter(genres__name__icontains=genre_query).distinct()
 
     if search_query is not None:
         search_query = search_query.strip()
@@ -30,5 +37,5 @@ def album_model_view(request):
     return render(
         request,
         "products/albums.html",
-        {"albums": albums, "search_term": search_query},
+        {"albums": albums, "search_term": search_query, "genres": genres},
     )

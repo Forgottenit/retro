@@ -9,8 +9,9 @@ from .models import (
     Vinyl,
     TShirt,
     TShirtVariant,
+    TShirtSize,
     Image,
-    # AlbumArtist,
+    ExternalUrl,
 )
 from django.utils.safestring import mark_safe
 
@@ -241,3 +242,24 @@ class TShirtVariantAdmin(ImageDisplayMixin, admin.ModelAdmin):
         "tshirt__album__album_id",
         "size__size",
     )
+
+
+@admin.register(TShirtSize)
+class TShirtSizeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(ExternalUrl)
+class ExternalUrlAdmin(admin.ModelAdmin):
+    pass

@@ -89,11 +89,38 @@
                             Genres
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Rock</a></li>
-                            <li><a class="dropdown-item" href="#">Pop</a></li>
-                            <li><a class="dropdown-item" href="#">Folk</a></li>
+                            <li>
+                                <form method="GET" action="{% url 'products:albums' %}">
+                                    <select name="genre" class="form-select" onchange="this.form.submit()">
+                                        <option value="All">All</option>
+                                        <option value="Rock">Rock</option>
+                                        <option value="Pop">Pop</option>
+                                        <option value="Folk">Folk</option>
+                                    </select>
+                                </form>
+                            </li>
                         </ul>
                     </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Genres 2
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <form method="GET" action="{% url 'products:albums' %}">
+                                    <select name="genre" class="form-select" onchange="this.form.submit()">
+                                        <option value="All">All</option>
+                                        {% for genre in genres %}
+                                        <option value="{{ genre.name }}"
+                                            {% if genre.name == selected_genre %}selected="selected" {% endif %}>
+                                            {{ genre.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </li>
+                        </ul>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link {% if selected_page == 'new_arrivals' %}selected-page{% endif %}"
                             href="#">New

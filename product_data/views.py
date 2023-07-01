@@ -9,9 +9,9 @@ def load_albums(request):
         artist_name = request.POST.get("artist_name")
         load_models(artist_name)
 
-    albums = Album.objects.all().order_by("artists__name")
+    albums = Album.objects.all().order_by("artists__artist_name")
     paginator = Paginator(albums, 21)
     page_number = request.GET.get("page")
     albums = paginator.get_page(page_number)
 
-    return render(request, "product_data/products.html", {"albums": albums})
+    return render(request, "products/albums.html", {"albums": albums})

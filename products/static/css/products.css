@@ -15,10 +15,25 @@
     text-decoration: none;
 }
 
+.album_listing,
 .track_listing {
-    display: inline-block;
-    width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+.album_name,
+.track_name {
+    flex: 1;
+    min-width: 0;
+
+    word-wrap: break-word;
+
+}
+
+
+ul {
+    padding-left: 0;
 }

@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from decimal import Decimal
 
 EXPLICIT_CHOICES = (
     ("E", "Explicit"),
@@ -102,6 +103,9 @@ class Album(models.Model):
     image = models.ImageField(upload_to="album_images", blank=True, null=True)
     image_data = models.ForeignKey(
         Image, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    price = models.DecimalField(
+        max_digits=6, decimal_places=2, default=Decimal("25.00")
     )
 
     def __str__(self):

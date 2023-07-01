@@ -535,6 +535,18 @@ ALLOWED_HOSTS = [
 ]
 
 ```
+### SEARCH Queries
+* Problem: Couldn't filter by Genre for Albums
+* Solution:
+ - The issue related to Case Sensitivity of the filtering, as the genres are stored as lowercase letters, the filter search wasn't taking this into account, this was solved by:
+```python
+  albums.filter(genres__name__icontains=genre_query)
+```
+ - This lead to another issue as some artists have multiple keywords in their genres that are duplicated, i.e. Folk Rock, Rock, Country Rock etc for the same album, so "Rock" as a Genre filter would display the same album multiple times, this was overcome by using:
+```python
+  albums.filter(genres__name__icontains=genre_query).distinct()
+```
+ .distinct() leading to the album being displayed just once.  
 
 
 - ### Required CSRF_TRUSTED_ORIGINS for Django 4.2

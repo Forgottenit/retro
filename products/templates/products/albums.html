@@ -30,7 +30,9 @@
         <button type="submit" class="btn btn-primary"> LOAD Albums </button>
     </div>
 </form>
-
+{% if query %}
+<p>You searched for "{{ query }}".</p>
+{% endif %}
 <div class="container">
     {% regroup albums by artists.all.first as albums_by_artist %}
 
@@ -137,8 +139,10 @@
                 </div>
             </div>
         </div>
+
         {% endfor %}
     </div>
+
     {% endfor %}
     <div class="d-flex justify-content-center my-4">
         <nav aria-label="Page navigation">

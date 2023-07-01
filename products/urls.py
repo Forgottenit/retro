@@ -4,5 +4,5 @@ from .views import album_model_view
 app_name = "products"
 
 urlpatterns = [
-    path("album/", album_model_view, name="album_model_view"),
+    path("album/", album_model_view, name="albums"),
 ]

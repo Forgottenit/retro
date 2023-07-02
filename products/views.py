@@ -21,6 +21,8 @@ def album_model_view(request):
 
     if genre_query is not None and genre_query != "All":
         albums = albums.filter(genres__name__icontains=genre_query)
+    elif genre_query == "All":
+        albums = albums.all()
 
     if search_query is not None:
         search_query = search_query.strip()

@@ -27,8 +27,9 @@
 
 .dropdown-menu {
     min-width: 200px;
-    padding-left: 16px;
-    background-color: #141529;
+    /* padding-left: 16px; */
+    background: linear-gradient(to right, #fefeff, #c0cbf9);
+
 }
 
 .dropdown-item {
@@ -36,7 +37,7 @@
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 0;
-    color: #ffffff;
+    color: #000000;
 }
 
 .navbar-brand {

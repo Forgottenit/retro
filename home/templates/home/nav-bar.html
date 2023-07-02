@@ -92,6 +92,7 @@
                             <li>
                                 <form method="GET" action="{% url 'products:albums' %}">
                                     <select name="genre" class="form-select" onchange="this.form.submit()">
+                                        <option disabled selected value> -- select an option -- </option>
                                         <option value="All">All</option>
                                         <option value="Rock">Rock</option>
                                         <option value="Pop">Pop</option>

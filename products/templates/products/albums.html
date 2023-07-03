@@ -30,10 +30,68 @@
         <button type="submit" class="btn btn-primary"> LOAD Albums </button>
     </div>
 </form>
-{% if query %}
-<p>You searched for "{{ query }}".</p>
+
+
+{% if search_term %}
+<h4>You searched for "{{ search_term }}".</h4>
 {% endif %}
+{% if genre %}
+<h4>You searched for "{{ genre }}".</h4>
+{% endif %}
+{% if current_sorting_display %}
+<h4>You sorted by {{ current_sorting_display }}.</h4>
+{% endif %}
+
+
+
 <div class="container">
+    <div class="row mt-1 mb-2">
+        <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+            <div class="sort-select-wrapper w-50">
+                <select id="sort-selector"
+                    class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                    <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to
+                        high)</option>
+                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high
+                        to low)</option>
+                    <option value="popularity_asc" {% if current_sorting == 'popularity_asc' %}selected{% endif %}>
+                        Rating (low to high)</option>
+                    <option value="popularity_desc" {% if current_sorting == 'popularity_desc' %}selected{% endif %}>
+                        Rating (high to low)</option>
+                    <option value="album_name_asc" {% if current_sorting == 'album_name_asc' %}selected{% endif %}>Album
+                        (A-Z)</option>
+                    <option value="album_name_desc" {% if current_sorting == 'album_name_desc' %}selected{% endif %}>
+                        Album (Z-A)</option>
+                    <option value="artists_asc" {% if current_sorting == 'artists_asc' %}selected{% endif %}>Artist
+                        (A-Z)</option>
+                    <option value="artists_desc" {% if current_sorting == 'artists_desc' %}selected{% endif %}>Artist
+                        (Z-A)</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 order-md-first search-results">
+            <p class="mt-3 text-center text-md-left">
+                {% if search_term or current_sorting != 'None_None' %}
+                <span class="small"><a href="{% url 'products:albums' %}">Products Home</a> | </span>
+                {% endif %}
+                {% with albums.paginator.count as total_albums %}
+                {{ total_albums }} Albums
+                {% endwith %}
+                {% if search_term %}
+                found for <strong>"{{ search_term }}"</strong>
+                {% endif %}
+                {% if genre %}
+                {% if search_term %} and {% else %} found for {% endif %}
+                <strong>"{{ genre }}"</strong>
+                {% endif %}
+                {% if current_sorting_display %}
+                <span class="small"> | Sorted by: {{ current_sorting_display }}</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
     {% regroup albums by artists.all.first as albums_by_artist %}
 
     {% for artist in albums_by_artist %}

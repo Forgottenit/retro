@@ -21,6 +21,17 @@ def album_model_view(request):
     sort = None
     direction = None
 
+    sort_display_map = {
+        "price_asc": "Price (low to high)",
+        "price_desc": "Price (high to low)",
+        "popularity_asc": "Rating (low to high)",
+        "popularity_desc": "Rating (high to low)",
+        "artists_asc": "Artist (A-Z)",
+        "artists_desc": "Artist (Z-A)",
+        "album_name_asc": "Album (A-Z)",
+        "album_name_desc": "Album (Z-A)",
+    }
+
     if request.GET:
         if "sort" in request.GET:
             sortkey = request.GET.get("sort")
@@ -76,6 +87,7 @@ def album_model_view(request):
     albums = paginator.get_page(page_number)
 
     current_sorting = f"{sort}_{direction}"
+    current_sorting_display = sort_display_map.get(current_sorting, "")
 
     context = {
         "albums": albums,
@@ -84,6 +96,7 @@ def album_model_view(request):
         "genre": genre_query,
         "params": params_str,
         "current_sorting": current_sorting,
+        "current_sorting_display": current_sorting_display,
     }
 
     return render(

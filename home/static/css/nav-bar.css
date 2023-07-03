@@ -6,13 +6,27 @@
     margin-right: 8px;
 }
 
+.banner-font {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 0;
+    background: #f433ab;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
 .logo-font {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 32px;
     margin-bottom: 0;
+    /* Fallback color: #fbe689; */
     color: #fbe689;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(to right, #f39237, #f433ab, #89f0fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .nav-link {
@@ -25,10 +39,13 @@
     margin-left: auto;
 }
 
+.form-select,
 .dropdown-menu {
+    font-weight: bold;
     min-width: 200px;
     /* padding-left: 16px; */
-    background: linear-gradient(to right, #fefeff, #c0cbf9);
+    /* background: linear-gradient(to right, #fefeff, #c0cbf9, #f39237); */
+    background: linear-gradient(to right, rgba(251, 230, 137, 0.9), rgba(244, 51, 171, 0.9), rgba(137, 240, 251, 0.9));
 
 }
 
@@ -96,6 +113,12 @@
 .search-bar button:hover {
     background-color: #f433ab;
     border-color: #f433ab;
+}
+
+.banner {
+    margin-top: 0;
+    padding: 0;
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(192, 203, 249, 1));
 }
 
 #delivery-banner {

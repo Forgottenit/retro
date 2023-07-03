@@ -90,11 +90,12 @@
                             <a href="{% url 'products:albums' %}?sort=popularity&direction=desc"
                                 class="dropdown-item ">By
                                 Rating</a>
+                            <a href="{% url 'products:albums' %}?sort=artists&direction=asc" class="dropdown-item ">By
+                                Artist</a>
                             <a href="{% url 'products:albums' %}?sort=album_name&direction=asc"
                                 class="dropdown-item ">By
                                 Album</a>
-                            <a href="{% url 'products:albums' %}?sort=artists&direction=asc" class="dropdown-item ">By
-                                Artist</a>
+
                             <a href="{% url 'products:albums' %}" class="dropdown-item">All Products</a>
                         </div>
                     </li>

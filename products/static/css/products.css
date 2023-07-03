@@ -43,3 +43,37 @@
 ul {
     padding-left: 0;
 }
+
+/* SEARCH RESULTS CSS */
+.search-results {
+    background-color: #202041;
+
+    border: 1px solid #fbe689;
+    border-radius: 5px;
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+}
+
+.search-results p {
+    color: #ffffff;
+
+}
+
+.search-results a {
+    color: #f39237;
+
+    text-decoration: underline;
+
+}
+
+.search-results a:hover {
+    color: #f433ab;
+
+}
+
+.search-results strong {
+    color: #fbe689;
+
+}

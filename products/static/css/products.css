@@ -9,6 +9,12 @@
     text-decoration: none;
 }
 
+.detail_spotify_link {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .spotify_link_text {
     color: black;
     font-weight: bold;

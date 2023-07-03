@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
@@ -65,3 +65,14 @@ def album_model_view(request):
             "params": params_str,
         },
     )
+
+
+def album_details(request, album_id):
+    """A view to show one album and details"""
+    album = get_object_or_404(Album, album_id=album_id)
+
+    context = {
+        "album": album,
+    }
+
+    return render(request, "products/album_details.html", context)

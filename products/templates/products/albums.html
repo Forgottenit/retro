@@ -43,7 +43,9 @@
         <div class="col">
             <div class="card h-100">
                 {% if album.image %}
-                <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
+                <a href="{% url 'products:album_details' album.album_id %}">
+                    <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
+                </a>
                 {% else %}
                 <img class="card-img-top" src="{% static 'img/default.jpg' %}" alt="Default Image">
                 {% endif %}
@@ -65,7 +67,7 @@
                                     <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
                                         class="spotify_link">
                                         <span class="spotify_link_text">Spotify</span>
-                                        <i class="fab fa-spotify" class="spotify_icon"></i>
+                                        <i class="fab fa-spotify spotify_icon"></i>
                                     </a>
                                 </p>
 

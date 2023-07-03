@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from .models import Album, Genre
 from urllib.parse import urlencode
+from django.db.models.functions import Lower
 
 
 def album_model_view(request):
@@ -17,7 +18,27 @@ def album_model_view(request):
 
     genres = Genre.objects.all()
     genre_query = request.GET.get("genre")
-    print(genre_query)
+    sort = None
+    direction = None
+
+    if request.GET:
+        if "sort" in request.GET:
+            sortkey = request.GET.get("sort")
+            sort = sortkey
+            if sortkey == "album_name":
+                sortkey = "lower_album_name"
+                albums = albums.annotate(lower_album_name=Lower("album_name"))
+            elif sortkey == "artists":
+                sortkey = "lower_artists"
+                albums = albums.annotate(
+                    lower_artists=Lower("artists__artist_name")
+                )
+
+            if "direction" in request.GET:
+                direction = request.GET.get("direction")
+                if direction == "desc":
+                    sortkey = f"-{sortkey}"
+            albums = albums.order_by(sortkey)
 
     if genre_query is not None and genre_query != "All":
         albums = albums.filter(genres__name__icontains=genre_query)
@@ -54,16 +75,21 @@ def album_model_view(request):
     page_number = request.GET.get("page")
     albums = paginator.get_page(page_number)
 
+    current_sorting = f"{sort}_{direction}"
+
+    context = {
+        "albums": albums,
+        "search_term": search_query,
+        "genres": genres,
+        "genre": genre_query,
+        "params": params_str,
+        "current_sorting": current_sorting,
+    }
+
     return render(
         request,
         "products/albums.html",
-        {
-            "albums": albums,
-            "search_term": search_query,
-            "genres": genres,
-            "genre": genre_query,
-            "params": params_str,
-        },
+        context,
     )
 
 

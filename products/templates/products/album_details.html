@@ -37,49 +37,77 @@
             </p>
             {% endif %}
 
-            <!-- Spotify Link -->
-            {% if album.spotify_url %}
-            <div class="album_listing">
-                <p class="album_name">
-                    <strong>Album: {{ album.album_name }} </strong>
-                </p>
-                <p>
-                    <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                        class="detail_spotify_link">
-                        <span class="">Spotify</span>
-                        <i class="fab fa-spotify spotify_icon"></i>
-                    </a>
-                </p>
+            <!-- Add To Cart Form -->
+            <form class="form mt-4" action="{% url 'cart:add_to_cart' album.album_id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-12">
+                        <p class="mt-3"><strong>Quantity:</strong></p>
+                        <div class="form-group w-50">
+                            <div class="input-group">
+                                <input class="form-control qty_input form-control-qty" type="number" name="quantity"
+                                    value="1" min="1" max="99" data-item_id="{{ album.album_id }}"
+                                    id="id_qty_{{ album.album_id }}">
+                            </div>
+                        </div>
+                    </div>
 
-                {% endif %}
-            </div>
+                    <div class="col-12">
+                        <a href="{% url 'products:albums' %}" class="btn rounded-0 mt-5">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="text-uppercase">Keep Shopping</span>
+                        </a>
+                        <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Cart">
+                    </div>
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                </div>
+            </form>
+
+
         </div>
-        <!-- Tracks -->
-        {% if album.tracks.all %}
-        <div class="row mt-5">
-            <div class="col-12">
-                <h3>Tracks</h3>
-                <ul>
-                    {% for track in album.tracks.all %}
-                    <li class="track_listing">
-                        <div class="me-auto track_name">
-                            <span class="me-2">{{ track.track_number }}</span>
-                            <span>{{ track.track_name }}</span>
-                        </div>
-                        {% if track.spotify_url %}
-                        <div>
-                            <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                class="detail_spotify_link">
-                                <span class="">Spotify</span>
-                                <i class="fab fa-spotify spotify_icon"></i>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
     </div>
-    {% endblock %}
+    <!-- Spotify Link -->
+    {% if album.spotify_url %}
+    <div class="album_listing mt-5">
+        <h3 class="album_name">
+            <strong>Album: {{ album.album_name }} </strong>
+        </h3>
+        <p>
+            <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer" class="detail_spotify_link">
+                <span class="">Spotify</span>
+                <i class="fab fa-spotify spotify_icon"></i>
+            </a>
+        </p>
+    </div>
+    {% endif %}
+    <!-- Tracks -->
+    {% if album.tracks.all %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Tracks</h3>
+            <ul>
+                {% for track in album.tracks.all %}
+                <li class="track_listing">
+                    <div class="me-auto track_name">
+                        <span class="me-2">{{ track.track_number }}</span>
+                        <span>{{ track.track_name }}</span>
+                    </div>
+                    {% if track.spotify_url %}
+                    <div>
+                        <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                            class="detail_spotify_link">
+                            <span class="">Spotify</span>
+                            <i class="fab fa-spotify spotify_icon"></i>
+                        </a>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

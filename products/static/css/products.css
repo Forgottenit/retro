@@ -173,3 +173,36 @@ ul {
         width: 300px;
     }
 }
+
+/* SHOPPING Form Input */
+.form-control-qty {
+    background-color: #202041;
+    border: 1px solid #fbe689;
+    color: #f39237;
+    padding: 10px;
+    font-weight: bold;
+    max-width: 100px;
+}
+
+/* Button styling */
+.btn {
+    background-color: #f39237;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #f433ab;
+    color: #050505;
+}
+
+.btn-black {
+    background-color: #000;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: #444;
+    color: #fff;
+}

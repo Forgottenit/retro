@@ -77,3 +77,99 @@ ul {
     color: #fbe689;
 
 }
+
+/* STLYING FOR SELECT BOX */
+
+.sort-select-wrapper {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+
+    justify-content: center;
+}
+
+.custom-select {
+    background: linear-gradient(to right, rgba(251, 230, 137, 1), rgba(244, 51, 171, 1), rgba(137, 240, 251, 1));
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    width: 100%;
+
+    max-width: 200px;
+
+    margin: 0 auto;
+}
+
+/* STLYING FOR BACK TO TOP BUTTON */
+.btt-button {
+    height: 54px;
+    width: 54px;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    border-radius: 50%;
+    background-color: #fab5ed;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 0px 3px rgba(137, 240, 251, 1), 0px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btt-button::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: linear-gradient(to right, rgba(251, 230, 137, 0.5), rgba(244, 51, 171, 0.5), rgba(137, 240, 251, 0.5));
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.btt-button:hover {
+    color: #000000;
+    box-shadow: 0px 0px 0px 4px rgba(137, 240, 251, 1), 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.btt-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.btt-link svg {
+    fill: currentColor;
+}
+
+.btt-button:hover .btt-link {
+    color: #050505;
+}
+
+/* Pagination */
+
+.floating-search-results {
+    position: fixed;
+    bottom: 1rem;
+
+    left: 1rem;
+
+    width: 400px;
+
+    z-index: 1000;
+
+}
+
+@media (max-width: 768px) {
+    .floating-search-results {
+        left: 0;
+        width: 300px;
+    }
+}

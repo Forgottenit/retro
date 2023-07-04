@@ -6,6 +6,7 @@ from django.db.models import Q, Count
 from .models import Album, Genre
 from urllib.parse import urlencode
 from django.db.models.functions import Lower
+from django_user_agents.utils import get_user_agent
 
 
 def album_model_view(request):
@@ -67,7 +68,15 @@ def album_model_view(request):
                 | Q(artists__artist_name__icontains=search_query)
             )
 
-    # Convert QuerySet to list and remove duplicates at Python level
+    if request.GET:
+        if "sort" in request.GET or "q" in request.GET:
+            page_number = 1
+        else:
+            page_number = request.GET.get("page")
+    else:
+        page_number = request.GET.get("page")
+
+    # Convert QuerySet to list and remove duplicates
     albums = list(albums)
     seen = set()
     albums = [
@@ -82,7 +91,15 @@ def album_model_view(request):
         params.urlencode()
     )  # convert the QueryDict to a URL-encoded string
 
-    paginator = Paginator(albums, 18)
+    # Set the number of albums per page based on screen size
+    user_agent = get_user_agent(request)
+
+    if user_agent.is_mobile:
+        albums_per_page = 7  # 7 albums per page for mobile devices
+    else:
+        albums_per_page = 15  # 15 albums per page for larger screens
+
+    paginator = Paginator(albums, albums_per_page)
     page_number = request.GET.get("page")
     albums = paginator.get_page(page_number)
 

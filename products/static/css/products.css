@@ -85,20 +85,22 @@ ul {
     padding: 10px;
     margin: 10px;
     display: flex;
-
     justify-content: center;
+    max-width: 300px;
+
 }
 
-.custom-select {
-    background: linear-gradient(to right, rgba(251, 230, 137, 1), rgba(244, 51, 171, 1), rgba(137, 240, 251, 1));
-    color: #000;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    width: 100%;
 
-    max-width: 200px;
 
-    margin: 0 auto;
+#sort-selector {
+    border: 3px solid #fbe689 !important;
+    border-radius: 10px !important;
+    background: linear-gradient(to right, rgb(255, 255, 255), rgba(137, 240, 251, 1)) !important;
+    color: #000 !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    padding: 12px !important;
 }
 
 /* STLYING FOR BACK TO TOP BUTTON */

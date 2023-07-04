@@ -182,18 +182,21 @@ ul {
     padding: 10px;
     font-weight: bold;
     max-width: 100px;
+    height: 38px;
+    /* Added to match button height */
 }
 
 /* Button styling */
 .btn {
     background-color: #f39237;
     color: #fff;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1em;
 }
 
 .btn:hover {
     background-color: #f433ab;
-    color: #050505;
+    font-weight: bold;
 }
 
 .btn-add {
@@ -205,5 +208,29 @@ ul {
 .btn-add:hover {
     background-color: rgba(137, 240, 251, 1);
     color: #000000;
-    font-weight: bold
+    font-weight: bold;
+}
+
+.input-group-prepend,
+.input-group-append {
+    height: 38px;
+}
+
+.input-group-prepend .btn,
+.input-group-append .btn {
+    height: 100%;
+    /* Ensures button fills container */
+    border: none;
+    /* Remove any default borders */
+    background-color: #f39237;
+    /* Your button color */
+    color: #fff;
+    /* Button text color */
+    transition: background-color 0.3s ease;
+}
+
+.input-group-prepend .btn:hover,
+.input-group-append .btn:hover {
+    background-color: #f433ab;
+    color: #050505;
 }

@@ -22,6 +22,7 @@
         <div class="col">
             {% if cart_items %}
             <div class="table-responsive rounded card"></div>
+            {{cart_items}}
             {% else %}
             <p class="lead mb-5 card-text">Your cart is empty.</p>
             <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 btn-lg">

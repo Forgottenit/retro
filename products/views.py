@@ -66,6 +66,7 @@ def album_model_view(request):
             albums = albums.filter(
                 Q(album_name__icontains=search_query)
                 | Q(artists__artist_name__icontains=search_query)
+                | Q(genres__name__icontains=search_query)
             )
 
     if request.GET:

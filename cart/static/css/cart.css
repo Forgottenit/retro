@@ -40,6 +40,17 @@
     border-color: #f433ab;
 }
 
+.btn-checkout {
+    border-color: #f433ab;
+}
+
+.btn-checkout:hover {
+    border-color: #f433ab;
+    background-color: rgba(137, 240, 251, 1);
+    color: #000000;
+    font-weight: bold
+}
+
 .icon {
     margin-right: 5px;
 }

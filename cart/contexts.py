@@ -20,6 +20,8 @@ def cart_contents(request):
                 "item_id": item_id,
                 "quantity": quantity,
                 "album": album,
+                "artists": album.artists.all(),
+                "copyrights": album.copyrights,
             }
         )
 

@@ -1,0 +1,49 @@
+/* CART CSS */
+.container {
+    background-color: #141529;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+.logo-font {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 0;
+    color: #fbe689;
+    background: linear-gradient(to right, #f39237, #f433ab, #89f0fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card {
+    border: 2px solid #fbe689;
+    border-radius: 0;
+}
+
+.card-title {
+    color: #141529;
+}
+
+.card-text {
+    color: #ffffff;
+    /* Changed this color to white */
+}
+
+.btn-primary {
+    background-color: #f39237;
+    border-color: #f39237;
+}
+
+.btn-primary:hover {
+    background-color: #f433ab;
+    border-color: #f433ab;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}

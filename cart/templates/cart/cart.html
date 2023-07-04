@@ -23,7 +23,7 @@
             {% if cart_items %}
             <div class="table-responsive rounded">
                 <table class="table table-sm table-borderless">
-                    <thead class="text-black text-decoration-underline">
+                    <thead class="">
                         <tr>
                             <th scope="col">Product Info</th>
                             <th scope="col"></th>
@@ -56,13 +56,51 @@
                         <td class="py-3">
                             <p class="my-0">€{{ item.album.price }}</p>
                         </td>
+
+
+
+
                         <td class="py-3 w-25">
-                            <p class="my-0">{{ item.quantity }}</p>
+                            <form class="form update-form" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="decrement-qty btn btn-sm  rounded-0"
+                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                <span>
+                                                    <i class="fas fa-minus fa-sm"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <input class="form-control form-control-sm qty_input" type="number"
+                                            name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                            data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                        <div class="input-group-append">
+                                            <button class="increment-qty btn btn-sm  rounded-0"
+                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                                <span>
+                                                    <i class="fas fa-plus fa-sm"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="update-remove-container">
+                                <a class="update-link " role="button">Update</a>
+                                <a class="remove-item " id="remove_{{ item.item_id }}" role="button">Remove</a>
+                            </div>
                         </td>
+
+
                         <td class="py-3">
                             <p class="my-0">€{{ item.album.price }}</p>
                         </td>
                     </tr>
+
+
                     {% endfor %}
                     <tr>
                         <td colspan="5" class="pt-5 text-right">
@@ -110,4 +148,36 @@
     </div>
 </div>
 
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_js_script.html' %}
+<script type="text/javascript">
+    // Update quantity on click
+    $('.update-link').click(function (e) {
+        const form = $(this).prev('.update-form');
+        form.submit();
+    })
+
+    // Remove item and reload on click
+    $('.remove-item').click(function (e) {
+        const csrfToken = "{{ csrf_token }}";
+        const itemId = $(this).attr('id').split('remove_')[1];
+
+        const url = `/bag/remove/${itemId}`;
+        const data = {
+            'csrfmiddlewaretoken': csrfToken,
+
+        };
+
+        $.post(url, data)
+            .done(function () {
+                location.reload();
+            })
+            .fail(function () {
+                $('.message-container').html(
+                    "<p class='alert alert-danger'>Error: Unable to remove item. Please try again.</p>");
+            });
+    })
+</script>
 {% endblock %}

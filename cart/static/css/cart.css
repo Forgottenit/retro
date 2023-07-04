@@ -58,3 +58,115 @@
 .text-uppercase {
     text-transform: uppercase;
 }
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table td,
+.table th {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 16px;
+}
+
+.table th {
+    background-color: #f39237;
+    color: white;
+}
+
+/* SHOPPING Form Input */
+.qty_input {
+    background-color: #202041;
+    border: 1px solid #fbe689;
+    color: #f39237;
+    padding: 10px;
+    font-weight: bold;
+    width: 100px;
+    height: 38px;
+    text-align: center;
+}
+
+/* Button styling */
+.decrement-qty,
+.increment-qty {
+    border: none;
+    color: #fff;
+    background-color: #f39237;
+    height: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.decrement-qty:hover,
+.increment-qty:hover {
+    background-color: #f433ab;
+    color: #050505;
+    cursor: pointer;
+}
+
+/* Update and Remove buttons */
+.update-remove-container {
+    display: flex;
+    justify-content: space-evenly;
+    /* evenly space buttons */
+    /* background-color: #202041; */
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.update-link {
+    background-color: #fbe689;
+}
+
+.remove-item {
+    background-color: #f433ab;
+}
+
+.update-link,
+.remove-item {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-weight: 500;
+    color: #202041;
+
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.remove-item:hover {
+    background-color: #f39237;
+    color: #202041;
+}
+
+.update-link:hover {
+    background-color: rgba(137, 240, 251, 1);
+
+    color: #202041;
+
+}
+
+@media screen and (max-width: 600px) {
+    .qty_input {
+        width: 80px;
+        height: 32px;
+        padding: 5px;
+    }
+
+    .decrement-qty,
+    .increment-qty {
+        font-size: 10px;
+        /* decrease button size */
+    }
+
+    .update-link,
+    .remove-item {
+        padding: 5px;
+        font-size: 12px;
+        /* decrease button size */
+    }
+}

@@ -22,6 +22,7 @@
             <h2 class="mb-4">{{ album.album_name }}</h2>
             <p><strong>Artist:</strong> {{ album.artists.all.first }}</p>
             <p><strong>Release Date:</strong> {{ album.release_date }}</p>
+            <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>
             <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
             <p><strong>Popularity:</strong> {{ album.popularity }}</p>
             <p><strong>Album ID:</strong> {{ album.album_id }}</p>
@@ -59,7 +60,7 @@
                             </span>
                             <span class="text-uppercase">Keep Shopping</span>
                         </a>
-                        <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Cart">
+                        <input type="submit" class="btn btn-add rounded-0 text-uppercase mt-5" value="Add to Cart">
                     </div>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </div>

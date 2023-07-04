@@ -196,13 +196,14 @@ ul {
     color: #050505;
 }
 
-.btn-black {
-    background-color: #000;
+.btn-add {
+    background-color: #f433ab;
     color: #fff;
     transition: background-color 0.3s ease;
 }
 
-.btn-black:hover {
-    background-color: #444;
-    color: #fff;
+.btn-add:hover {
+    background-color: rgba(137, 240, 251, 1);
+    color: #000000;
+    font-weight: bold
 }

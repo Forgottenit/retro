@@ -202,7 +202,7 @@
                     <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
                 </a>
                 {% else %}
-                <img class="card-img-top" src="{% static 'img/default.jpg' %}" alt="Default Image">
+                <img class="card-img-top" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
                 {% endif %}
 
                 <div class="card-body d-flex flex-column">

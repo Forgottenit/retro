@@ -36,7 +36,12 @@
                     {% for item in cart_items %}
                     <tr>
                         <td data-label="Product Info" class="p-3">
-                            <img class="img-fluid rounded" src="{{ item.album.image.url}}">
+                            {% if item.album.image %}
+                            <img class="img-fluid rounded" src="{{ item.album.image.url }}">
+                            {% else %}
+                            <img class="img-fluid rounded" src="{{ MEDIA_URL }}default_image/default.png"
+                                alt="Default Image">
+                            {% endif %}
                         </td>
                         <td data-label="Product Details" class="py-3">
                             <p class="my-0"><strong

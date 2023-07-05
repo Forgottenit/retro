@@ -1,4 +1,9 @@
 /* CART CSS */
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
 .container {
     background-color: #141529;
     color: #ffffff;
@@ -40,6 +45,15 @@
     border-color: #f433ab;
 }
 
+.btn-lg {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .btn-checkout {
     border-color: #f433ab;
 }
@@ -67,6 +81,7 @@
 .table td,
 .table th {
     padding: 12px 15px;
+    /* padding: 0px !important; */
     border: 1px solid #ddd;
     text-align: left;
     font-size: 16px;
@@ -160,13 +175,47 @@
     .decrement-qty,
     .increment-qty {
         font-size: 10px;
-        /* decrease button size */
+
     }
 
     .update-link,
     .remove-item {
         padding: 5px;
         font-size: 12px;
-        /* decrease button size */
+
+    }
+}
+
+@media (max-width: 430px) {
+
+
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .table td {
+        display: block;
+
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+    }
+
+    .table td:last-child {
+        border-bottom: 0;
+    }
+
+    .table td:before {
+
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 }

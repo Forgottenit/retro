@@ -21,12 +21,12 @@
     <div class="row">
         <div class="col">
             {% if cart_items %}
-            <div class="table-responsive rounded">
+            <div class=" rounded">
                 <table class="table table-sm table-borderless">
                     <thead class="">
                         <tr>
                             <th scope="col">Product Info</th>
-                            <th scope="col"></th>
+                            <th scope="col">Product Details</th>
                             <th scope="col">Price</th>
                             <th scope="col">Qty</th>
                             <th scope="col">Subtotal</th>
@@ -35,12 +35,13 @@
 
                     {% for item in cart_items %}
                     <tr>
-                        <td class="p-3 w-25">
+                        <td data-label="Product Info" class="p-3">
                             <img class="img-fluid rounded" src="{{ item.album.image.url}}">
                         </td>
-                        <td class="py-3">
+                        <td data-label="Product Details" class="py-3">
                             <p class="my-0"><strong
-                                    class="text-decoration-underline">{{ item.album.album_name }}</strong></p>
+                                    class="text-decoration-underline">{{ item.album.album_name }}</strong>
+                            </p>
                             <p class="my-0 small">
                                 <strong>Artists:
                                     {% for artist in item.album.artists.all %}
@@ -53,14 +54,10 @@
                             <p class="my-0 small text-muted font-monospace">Album ID: {{ item.album.album_id|upper }}
                             </p>
                         </td>
-                        <td class="py-3">
+                        <td data-label="Price" class="py-3">
                             <p class="my-0">€{{ item.album.price }}</p>
                         </td>
-
-
-
-
-                        <td class="py-3 w-25">
+                        <td data-label="Qty" class="py-3">
                             <form class="form update-form" method="POST" action="">
                                 {% csrf_token %}
                                 <div class="form-group">
@@ -84,7 +81,6 @@
                                                 </span>
                                             </button>
                                         </div>
-
                                     </div>
                                 </div>
                             </form>
@@ -93,17 +89,13 @@
                                 <a class="remove-item " id="remove_{{ item.item_id }}" role="button">Remove</a>
                             </div>
                         </td>
-
-
-                        <td class="py-3">
+                        <td data-label="Subtotal" class="py-3">
                             <p class="my-0">€{{ item.album.price }}</p>
                         </td>
                     </tr>
-
-
                     {% endfor %}
                     <tr>
-                        <td colspan="5" class="pt-5 text-right">
+                        <td colspan="5" class="pt-5 text-end">
                             <h6><strong>Cart Total: €{{ total|floatformat:2 }}</strong></h6>
                             <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
                             <h4 class="mt-4"><strong class="text-decoration-underline">Grand Total:
@@ -117,7 +109,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5" class="text-right">
+                        <td colspan="5" class="text-end">
                             <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 btn-lg">
                                 <span class="icon">
                                     <i class="fas fa-chevron-left"></i>

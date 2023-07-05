@@ -95,12 +95,13 @@ ul {
 #sort-selector {
     border: 3px solid #fbe689 !important;
     border-radius: 10px !important;
-    background: linear-gradient(to right, rgb(255, 255, 255), rgba(137, 240, 251, 1)) !important;
-    color: #000 !important;
+    background: #202041 !important;
+    color: #fcfcfc !important;
     font-family: 'Roboto', sans-serif !important;
     font-weight: bold !important;
     font-size: 16px !important;
     padding: 12px !important;
+
 }
 
 /* STLYING FOR BACK TO TOP BUTTON */
@@ -194,6 +195,18 @@ ul {
     color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 1em;
+}
+
+.details-btn {
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.details-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #000;
+    background-color: #fff;
 }
 
 .btn:hover {

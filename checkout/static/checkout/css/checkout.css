@@ -1,0 +1,104 @@
+body {
+    background-color: #f6f6f6;
+    color: #000000;
+}
+
+hr.dark-hr {
+    background-color: #000000;
+    height: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.dark-hr {
+    border-top: 1px solid #333333;
+}
+
+.logo-font {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.t {
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.small {
+    font-size: 14px;
+}
+
+.my-0 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.form-check-inline {
+    display: inline-flex;
+    align-items: center;
+}
+
+.submit-button {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+.text-info {
+    color: #17a2b8;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+/* BUTTONS */
+
+.adjust-btn {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.adjust-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    background-color: #000;
+}
+
+.complete-btn {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.complete-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #000;
+    background-color: #fff;
+}

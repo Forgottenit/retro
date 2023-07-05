@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.contrib import messages
 
 
 def view_cart(request):
@@ -24,23 +25,16 @@ def add_to_cart(request, item_id):
     return redirect(redirect_url)
 
 
-def empty_cart(request):
-    """Method to empty Cart when needed TO BE REMOVED"""
-    request.session[
-        "cart"
-    ] = {}  # Set the cart dictionary to an empty dictionary
-    return redirect("cart:view_cart")
-
-
 def edit_cart(request, item_id):
     """Adjust the quantity of the specified product to the specified amount"""
 
     try:
         quantity = int(request.POST.get("quantity"))
     except ValueError:
-        return HttpResponse(
-            status=400
-        )  # Return 400 Bad Request error for invalid data
+        messages.error(
+            request, "Invalid quantity. Please enter a valid number."
+        )
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
     cart = request.session.get("cart", {})
 
@@ -59,9 +53,9 @@ def delete_from_cart(request, item_id):
     try:
         cart = request.session.get("cart", {})
         cart.pop(item_id)
-        print("CART 1:", cart)
+
         request.session["cart"] = cart
-        print("CART 2:", cart)
+
         return HttpResponse(status=200)
 
     except Exception as e:

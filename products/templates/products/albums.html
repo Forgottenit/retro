@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_filters %}
+{% load products_custom_filters %}
 
 {% block extra_css %}
 
@@ -130,7 +130,7 @@
     </div> -->
 
     <!-- PAGINATION -->
-    <div class="d-flex justify-content-center my-4 floating-search-results">
+    <div class="d-flex justify-content-center  floating-pagination-results">
         <nav aria-label="Page navigation">
             <ul class="pagination">
 
@@ -353,7 +353,7 @@
 </rect>
 <div class="btt-button">
     <a href="#" class="btt-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-up"
+        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="currentColor" class="bi bi-arrow-up"
             viewBox="0 0 16 16">
             <path fill-rule="evenodd"
                 d="M8 12a.5.5 0 0 0 .5-.5V5.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />

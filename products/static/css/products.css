@@ -157,9 +157,9 @@ ul {
 
 /* Pagination */
 
-.floating-search-results {
+.floating-pagination-results {
     position: fixed;
-    bottom: 1rem;
+    bottom: 0.3rem;
 
     left: 1rem;
 

@@ -56,7 +56,7 @@
                                 </div>
                                 <input class="form-control qty_input form-control-qty" type="number" name="quantity"
                                     value="1" min="1" max="99" data-item_id="{{ album.album_id }}"
-                                    id="id_qty_{{ album.album_id }}">
+                                    id="id_qty_{{ album.album_id }}" oninput="this.value = Math.max(this.value, 1)">
                                 <div class="input-group-append">
                                     <button class="increment-qty btn  rounded-0" data-item_id="{{ album.album_id  }}"
                                         id="increment-qty_{{ album.album_id  }}">

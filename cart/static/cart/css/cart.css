@@ -56,9 +56,13 @@
 
 .btn-checkout {
     border-color: #f433ab;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn-checkout:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     border-color: #f433ab;
     background-color: rgba(137, 240, 251, 1);
     color: #000000;

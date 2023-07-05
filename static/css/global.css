@@ -24,9 +24,13 @@ body {
 .btn-primary {
     background-color: #f39237;
     border-color: #f39237;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     background-color: #f433ab;
     border-color: #f433ab;
 }
@@ -84,50 +88,7 @@ body {
     color: #141529;
 }
 
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
-.arrow-up {
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 10px solid #fbe689;
-    position: absolute;
-    top: -10px;
-    right: 36px;
-}
 
-.arrow-primary {
-    border-bottom-color: #f39237 !important;
-}
-
-.arrow-secondary {
-    border-bottom-color: #6c757d !important;
-}
-
-.arrow-success {
-    border-bottom-color: #28a745 !important;
-}
-
-.arrow-danger {
-    border-bottom-color: #dc3545 !important;
-
-}
-
-.arrow-warning {
-    border-bottom-color: #ffc107 !important;
-}
-
-.arrow-info {
-    border-bottom-color: #17a2b8 !important;
-}
-
-.arrow-light {
-    border-bottom-color: #f8f9fa !important;
-}
-
-.arrow-dark {
-    border-bottom-color: #343a40 !important;
-}
 
 .cart-notification-wrapper {
     height: 100px;

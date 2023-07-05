@@ -122,14 +122,21 @@
 }
 
 /* Update and Remove buttons */
-.update-remove-container {
-    display: flex;
-    justify-content: space-evenly;
-    /* evenly space buttons */
-    /* background-color: #202041; */
-    padding: 5px;
-    margin-top: 10px;
+.update-link,
+.remove-item {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
     border-radius: 5px;
+    border: 2px solid black;
+    font-weight: 500;
+    color: #202041;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    width: calc(80%);
+    margin: 5px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .update-link {
@@ -138,6 +145,45 @@
 
 .remove-item {
     background-color: #f433ab;
+}
+
+.remove-item:hover {
+    background-color: #f39237;
+    color: #202041;
+}
+
+.update-link:hover {
+    background-color: rgba(137, 240, 251, 1);
+    color: #202041;
+}
+
+/* When screen is small, elements will stack and take full width */
+@media (max-width: 600px) {
+
+    .update-link,
+    .remove-item {
+        width: 40%;
+        /* take full width */
+    }
+}
+
+/* .update-link {
+    background-color: #fbe689;
+    display: inline-flex;
+    justify-content: center;
+
+    margin-top: 10px;
+    border-radius: 5px;
+
+}
+
+.remove-item {
+    background-color: #f433ab;
+    display: inline-flex;
+    justify-content: center;
+
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 .update-link,
@@ -160,8 +206,7 @@
 
 .update-link:hover {
     background-color: rgba(137, 240, 251, 1);
-
-    color: #202041;
+    color: #202041; */
 
 }
 

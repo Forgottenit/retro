@@ -14,7 +14,7 @@
             {% if album.image %}
             <img class="img-fluid" src="{{ album.image.url }}" alt="Album Image">
             {% else %}
-            <img class="img-fluid" src="{% static 'img/default.jpg' %}" alt="Default Image">
+            <img class="img-fluid" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
             {% endif %}
         </div>
         <div class="col-lg-6">

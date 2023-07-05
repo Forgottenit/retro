@@ -46,14 +46,22 @@
 </head>
 
 <body>
-    {% include "home/nav-bar.html" %}
+    {% include "includes/nav-bar.html" %}
 
     {% if messages %}
-    <div class="message-container mt-2">
+    <div class="message-container">
         {% for message in messages %}
-        <div class="alert alert-info">
-            {{ message }}
-        </div>
+        {% with message.level as level %}
+        {% if level == 40 %}
+        {% include 'includes/toasts/toast_error.html' %}
+        {% elif level == 30 %}
+        {% include 'includes/toasts/toast_warning.html' %}
+        {% elif level == 25 %}
+        {% include 'includes/toasts/toast_success.html' %}
+        {% else %}
+        {% include 'includes/toasts/toast_info.html' %}
+        {% endif %}
+        {% endwith %}
         {% endfor %}
     </div>
     {% endif %}
@@ -67,14 +75,24 @@
     {% endblock %}
 
     {% block postloadjs %}
+    <script type="text/javascript">
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl, {
+                autohide: false
+            })
+        });
+        toastList.forEach(toast => toast.show());
+    </script>
+
     <script>
-        // Remove messages after 4 seconds
+        // Remove messages after 9 seconds
         setTimeout(function () {
             let messageContainer = document.querySelector('.message-container');
             if (messageContainer) {
                 messageContainer.remove();
             }
-        }, 4000);
+        }, 9000);
     </script>
     {% endblock %}
 

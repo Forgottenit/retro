@@ -30,3 +30,135 @@ body {
     background-color: #f433ab;
     border-color: #f433ab;
 }
+
+/* Messages css */
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 99999999999;
+    color: #ffffff;
+}
+
+.me-auto {
+    padding-left: 5px;
+}
+
+.success-custom-toast {
+    overflow: visible;
+    background-color: #141529;
+    border: 2px solid #fbe689;
+    color: #ffffff;
+}
+
+.toast-capper {
+    height: 2px;
+    background-color: #fbe689;
+}
+
+.success-toast-header {
+    background-color: #fbe689;
+    color: #141529;
+    border-radius: 0;
+}
+
+.error-toast-header {
+    background: linear-gradient(to right, rgb(253, 95, 95), #fd0202) !important;
+    color: #141529;
+    border-radius: 0;
+}
+
+.info-toast-header {
+    background: linear-gradient(to right, #59cddf, #17a2b8) !important;
+    color: #141529;
+    border-radius: 0;
+}
+
+.warning-toast-header {
+    background: linear-gradient(to right, #f9d568, #ffc107) !important;
+    color: #141529;
+    border-radius: 0;
+}
+
+.close {
+    color: #141529;
+}
+
+/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 10px solid #fbe689;
+    position: absolute;
+    top: -10px;
+    right: 36px;
+}
+
+.arrow-primary {
+    border-bottom-color: #f39237 !important;
+}
+
+.arrow-secondary {
+    border-bottom-color: #6c757d !important;
+}
+
+.arrow-success {
+    border-bottom-color: #28a745 !important;
+}
+
+.arrow-danger {
+    border-bottom-color: #dc3545 !important;
+
+}
+
+.arrow-warning {
+    border-bottom-color: #ffc107 !important;
+}
+
+.arrow-info {
+    border-bottom-color: #17a2b8 !important;
+}
+
+.arrow-light {
+    border-bottom-color: #f8f9fa !important;
+}
+
+.arrow-dark {
+    border-bottom-color: #343a40 !important;
+}
+
+.cart-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #141529;
+    color: #ffffff;
+}
+
+/* Define your custom button style */
+.btn-custom {
+    background-color: #fbe689;
+    color: #141529;
+    border-color: #fbe689;
+}
+
+.btn-custom:hover {
+    background-color: #f433ab;
+    border-color: #f433ab;
+}
+
+/* Message styling */
+hr {
+    border-top: 1px solid #fbe689;
+}
+
+.logo-font {
+    color: #fbe689;
+}
+
+.shadow-sm {
+    background-color: #f39237;
+    color: #141529;
+}

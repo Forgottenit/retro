@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load cart_custom_filters %}
 {% block extra_css %}
 
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
@@ -95,7 +95,7 @@
                             </div> -->
                         </td>
                         <td data-label="Subtotal" class="py-3">
-                            <p class="my-0">€{{ item.album.price }}</p>
+                            <p class="my-0">€{{ item.album.price | calc_subtotal:item.quantity }}</p>
                         </td>
                     </tr>
                     {% endfor %}
@@ -107,8 +107,9 @@
                                     €{{ grand_total|floatformat:2 }}</strong></h4>
                             {% if free_delivery_delta > 0 %}
                             <p class="mb-1 text-danger">
-                                You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong>
-                                more!
+                                If you spend another <strong>€{{ free_delivery_delta }}</strong> you can get
+                                <strong>FREE DELIVERY!</strong>
+
                             </p>
                             {% endif %}
                         </td>

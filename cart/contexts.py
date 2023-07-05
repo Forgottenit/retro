@@ -9,7 +9,6 @@ def cart_contents(request):
     total = 0
     product_count = 0
     cart = request.session.get("cart", {})
-    print(cart)
 
     for item_id, quantity in cart.items():
         album = get_object_or_404(Album, album_id=item_id)

@@ -1,5 +1,12 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import (
+    render,
+    redirect,
+    reverse,
+    HttpResponse,
+    get_object_or_404,
+)
 from django.contrib import messages
+from products.models import Album
 
 
 def view_cart(request):
@@ -11,14 +18,26 @@ def view_cart(request):
 def add_to_cart(request, item_id):
     """Add a quantity to cart"""
 
+    quantity_str = request.POST.get("quantity")
+    if not quantity_str:
+        messages.error(request, "Quantity cannot be empty.")
+        return redirect(request.META.get("HTTP_REFERER", "/"))
+
+    product = get_object_or_404(Album, album_id=item_id)
+
     quantity = int(request.POST.get("quantity"))
     redirect_url = request.POST.get("redirect_url")
     cart = request.session.get("cart", {})
 
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
+        messages.success(
+            request,
+            f"Updated {product.album_name} quantity to {cart[item_id]}",
+        )
     else:
         cart[item_id] = quantity
+        messages.success(request, f"Added {product.album_name} to your cart")
 
     request.session["cart"] = cart
 
@@ -27,6 +46,13 @@ def add_to_cart(request, item_id):
 
 def edit_cart(request, item_id):
     """Adjust the quantity of the specified product to the specified amount"""
+
+    product = get_object_or_404(Album, album_id=item_id)
+
+    quantity_str = request.POST.get("quantity")
+    if not quantity_str:
+        messages.error(request, "Quantity cannot be empty.")
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
     try:
         quantity = int(request.POST.get("quantity"))
@@ -40,8 +66,15 @@ def edit_cart(request, item_id):
 
     if quantity > 0:
         cart[item_id] = quantity
+        messages.success(
+            request,
+            f"Updated {product.album_name} quantity to {cart[item_id]}",
+        )
     else:
         cart.pop(item_id, None)
+        messages.success(
+            request, f"Removed {product.album_name} from your cart"
+        )
 
     request.session["cart"] = cart
     return redirect(reverse("cart:view_cart"))
@@ -49,10 +82,14 @@ def edit_cart(request, item_id):
 
 def delete_from_cart(request, item_id):
     """Remove the item from the shopping cart"""
+    product = get_object_or_404(Album, album_id=item_id)
 
     try:
         cart = request.session.get("cart", {})
         cart.pop(item_id)
+        messages.success(
+            request, f"Removed {product.album_name} from your cart"
+        )
 
         request.session["cart"] = cart
 

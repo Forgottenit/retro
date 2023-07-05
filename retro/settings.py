@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     "product_data",
     "django_user_agents",
     "cart",
+    "checkout",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

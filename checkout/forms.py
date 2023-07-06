@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from .models import Order
 
 
@@ -18,11 +20,13 @@ class OrderForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
-        """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
-        """
         super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = "payment-form"
+        self.helper.form_method = "POST"
+        self.helper.form_action = "{% url 'checkout:checkout' %}"
+        self.helper.add_input(Submit("submit", "Complete Order"))
+
         placeholders = {
             "full_name": "Full Name",
             "email": "Email Address",

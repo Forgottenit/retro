@@ -68,14 +68,13 @@ def checkout(request):
             order.save()
             for item_id, item_data in cart.items():
                 try:
-                    album = Album.objects.get(id=item_id)
-                    if isinstance(item_data, int):
-                        order_line_item = OrderLineItem(
-                            order=order,
-                            album=album,
-                            quantity=item_data,
-                        )
-                        order_line_item.save()
+                    album = Album.objects.get(album_id=item_id)
+                    order_line_item = OrderLineItem(
+                        order=order,
+                        album=album,
+                        quantity=item_data,
+                    )
+                    order_line_item.save()
 
                 except Album.DoesNotExist:
                     messages.error(

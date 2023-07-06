@@ -41,8 +41,15 @@ SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "")
 SPOTIFY_ACCESS_TOKEN = None
 SPOTIFY_TOKEN_EXPIRY_TIME = None
 
+# STRIPE SECRET KEYS and settings
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+# STRIPE_WH_SECRET = os.getenv("STRIPE_WH_SECRET", "")
+
+STRIPE_CURRENCY = "eur"
+FREE_DELIVERY_THRESHOLD = 40
+STANDARD_DELIVERY_PERCENTAGE = 10
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -235,6 +242,3 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-FREE_DELIVERY_THRESHOLD = 40
-STANDARD_DELIVERY_PERCENTAGE = 10

@@ -41,17 +41,18 @@
       <div class="text-center mt-4 mb-4">
         <button class="btn btn-primary btn-lg col-6 mx-auto" type="submit">{% trans "Sign In" %}</button>
       </div>
+      <p class="text-center mt-4 mb-4">
+        <a class="btn btn-secondary btn-lg col-6 mx-auto" href="{% url 'account_signup' %}">
+          {% trans "Sign Up" %}
+        </a>
+      </p>
     </div>
   </div>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
   {% endif %}
-  <div class="text-center mt-3"></div>
-  <p class="text-center mt-3">
-    <a class="btn btn-light btn-block" href="{% url 'account_signup' %}">
-      {% trans "Sign Up" %}
-    </a>
-  </p>
+
+
 </form>
 
 {% get_providers as socialaccount_providers %}

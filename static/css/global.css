@@ -35,6 +35,20 @@ body {
     border-color: #f433ab;
 }
 
+.btn-secondary {
+    background-color: #f433ab;
+    border-color: #f433ab;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f39237;
+    border-color: #f39237;
+}
+
 /* Messages css */
 .delivery-spend {
     background-color: #f433ab;
@@ -102,7 +116,7 @@ body {
     color: #ffffff;
 }
 
-/* Define your custom button style */
+/*  custom button style */
 .btn-custom {
     background-color: #fbe689;
     color: #141529;
@@ -121,4 +135,43 @@ hr {
 
 .logo-font {
     color: #fbe689;
+}
+
+form input {
+    border-color: #000 !important;
+    border-radius: 0;
+}
+
+form input::placeholder {
+    color: #aab7c4 !important;
+}
+
+form input[type='submit'] {
+    /* btn */
+    display: inline-block;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #000;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0;
+
+    /* standard bootstrap btn transitions */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+form input[type='submit']:hover {
+
+    border-color: #222;
+}
+
+form input[name='q']::placeholder {
+    color: #aab7c4;
 }

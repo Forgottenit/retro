@@ -195,10 +195,11 @@
     <h1 class="mt-4 mb-3">{{ artist.grouper }}</h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 align-items-stretch ">
         {% for album in artist.list %}
+
         <div class="col">
             <div class="card h-100">
                 {% if album.image %}
-                <a href="{% url 'products:album_details' album.album_id %}">
+                <a href="{% url 'products:album_details' album.album_id %}?={{album.album_name}}">
                     <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
                 </a>
                 {% else %}
@@ -216,7 +217,7 @@
                             {% if album.spotify_url %}
                             <div class="album_listing">
                                 <p class="album_name">
-                                    <strong>Album: {{ album.album_name }} </strong>
+                                    <strong class="me-3">Album: {{ album.album_name }} </strong>
                                 </p>
                                 <p>
                                     <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
@@ -225,42 +226,34 @@
                                         <i class="fab fa-spotify spotify_icon"></i>
                                     </a>
                                 </p>
-
-                                {% endif %}
                             </div>
-                            <!-- <li class="track_listing">
-                                <div class="me-auto track_info">
-                                    <span class="me-2">{{ track.track_number }}</span>
-                                    <span>{{ track.track_name }}</span>
-                                </div>
+                            {% endif %}
 
-                            {% if track.spotify_url %}
-                                    <div>
-                                        <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                            class="spotify_link">
-                                            <span class="spotify_link_text">Spotify</span>
-                                            <i class="fab fa-spotify spotify_icon"></i>
-                                        </a>
-                                    </div>
-                                    {% endif %} -->
-                            {% if album.artist_count > 1 %}
-                            <p class="d-flex justify-content-between">
+
+                            {% if album.artists.all.count > 1 %}
+                            <p class="d-flex justify-content-between ">
                                 <strong>Artists: </strong>
                                 {% for artist in album.artists.all %}
                                 {% if artist.spotify_url %}
-                                <strong>{{ artist.artist_name }}</strong>
-                                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                    class="spotify_link">
-
-                                    <i class="fab fa-spotify" class="spotify_icon"></i>
-                                </a>{% if not forloop.last %}, {% endif %}
+                                <p class="d-flex justify-content-between"><strong class="me-3">
+                                        {{ artist.artist_name }}
+                                    </strong>
+                                    <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                        class="spotify_link">
+                                        <span class="spotify_link_text">Spotify</span>
+                                        <i class="fab fa-spotify" class="spotify_icon"></i>
+                                    </a>
+                                </p>
+                                {% if not forloop.last %} {% endif %}
                                 {% endif %}
                                 {% endfor %}
                             </p>
                             {% else %}
                             {% for artist in album.artists.all %}
                             {% if artist.spotify_url %}
-                            <p class="d-flex justify-content-between"><strong>Artist: {{ artist.artist_name }} </strong>
+                            <p class="d-flex justify-content-between"><strong class="me-3">Artist:
+                                    {{ artist.artist_name }}
+                                </strong>
                                 <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
                                     class="spotify_link">
                                     <span class="spotify_link_text">Spotify</span>
@@ -270,6 +263,10 @@
                             {% endif %}
                             {% endfor %}
                             {% endif %}
+
+
+
+
 
                             <p><strong>Release Date:</strong> {{ album.release_date }}</p>
                             <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>

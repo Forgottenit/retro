@@ -20,7 +20,38 @@
         <div class="col-lg-6">
             <!-- Album Details -->
             <h2 class="mb-4">{{ album.album_name }}</h2>
-            <p><strong>Artist:</strong> {{ album.artists.all.first }}</p>
+            <!-- <p><strong>Artist:</strong> {{ album.artists.all.first }}</p> -->
+
+            {% if album.artist_count > 1 %}
+            <p class="d-flex justify-content-between artist-listing">
+                <strong>Artists: </strong>
+                {% for artist in album.artists.all %}
+                {% if artist.spotify_url %}
+
+                <strong>{{ artist.artist_name }}</strong>
+                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                    class="detail_spotify_link">
+
+                    <i class="fab fa-spotify" class="spotify_icon"></i>
+                </a>{% if not forloop.last %}, {% endif %}
+                {% endif %}
+                {% endfor %}
+            </p>
+            {% else %}
+            {% for artist in album.artists.all %}
+            {% if artist.spotify_url %}
+            <p class="d-flex justify-content-between artist-listing"><strong>Artist: {{ artist.artist_name }} </strong>
+                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                    class="detail_spotify_link">
+                    <span class="">Spotify</span>
+                    <i class="fab fa-spotify spotify_icon"></i>
+                </a>
+            </p>
+
+
+            {% endif %}
+            {% endfor %}
+            {% endif %}
             <p><strong>Release Date:</strong> {{ album.release_date }}</p>
             <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>
             <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>

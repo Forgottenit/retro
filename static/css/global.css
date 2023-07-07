@@ -36,6 +36,10 @@ body {
 }
 
 /* Messages css */
+.delivery-spend {
+    background-color: #f433ab;
+}
+
 .message-container {
     position: fixed;
     top: 72px;
@@ -117,9 +121,4 @@ hr {
 
 .logo-font {
     color: #fbe689;
-}
-
-.shadow-sm {
-    background-color: #f39237;
-    color: #141529;
 }

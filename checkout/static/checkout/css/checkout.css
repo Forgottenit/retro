@@ -155,6 +155,16 @@ select option[value=""] {
 }
 
 
+#loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 115, 241, 0.85);
+    z-index: 9999;
+}
 
 .loading-spinner {
     display: flex;

@@ -22,18 +22,21 @@
             <h2 class="mb-4">{{ album.album_name }}</h2>
             <!-- <p><strong>Artist:</strong> {{ album.artists.all.first }}</p> -->
 
-            {% if album.artist_count > 1 %}
-            <p class="d-flex justify-content-between artist-listing">
-                <strong>Artists: </strong>
+            {% if album.artists.all.count > 1 %}
+            <p class="d-flex justify-content-between ">
+                <strong class="text-decoration-underline">Artists: </strong>
                 {% for artist in album.artists.all %}
                 {% if artist.spotify_url %}
-
-                <strong>{{ artist.artist_name }}</strong>
-                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                    class="detail_spotify_link">
-
-                    <i class="fab fa-spotify" class="spotify_icon"></i>
-                </a>{% if not forloop.last %}, {% endif %}
+                <p class="d-flex justify-content-between artist-listing"><strong class="me-3">
+                        {{ artist.artist_name }}
+                    </strong>
+                    <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                        class="detail_spotify_link">
+                        <span class="">Spotify</span>
+                        <i class="fab fa-spotify spotify_icon"></i>
+                    </a>
+                </p>
+                {% if not forloop.last %} {% endif %}
                 {% endif %}
                 {% endfor %}
             </p>

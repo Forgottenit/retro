@@ -217,7 +217,7 @@
                             {% if album.spotify_url %}
                             <div class="album_listing">
                                 <p class="album_name">
-                                    <strong class="me-3">Album: {{ album.album_name }} </strong>
+                                    <strong class="me-5">Album: {{ album.album_name }} </strong>
                                 </p>
                                 <p>
                                     <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer"
@@ -232,7 +232,7 @@
 
                             {% if album.artists.all.count > 1 %}
                             <p class="d-flex justify-content-between ">
-                                <strong>Artists: </strong>
+                                <strong class="text-decoration-underline">Artists: </strong>
                                 {% for artist in album.artists.all %}
                                 {% if artist.spotify_url %}
                                 <p class="d-flex justify-content-between"><strong class="me-3">

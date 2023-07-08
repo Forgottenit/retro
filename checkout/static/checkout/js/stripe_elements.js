@@ -62,15 +62,23 @@ form.addEventListener('submit', function (ev) {
     var saveInfo = Boolean($('#id-save-info').attr('checked'));
     // From using {% csrf_token %} in the form
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+    var fullName = $.trim(form.first_name.value) + ' ' + $.trim(form.last_name.value);
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
     };
+
+
+
     var url = '/checkout/cache_checkout_data/';
 
+    console.log('postData:', postData);
+
     $.post(url, postData).done(function () {
-        let fullName = $.trim(form.first_name.value) + ' ' + $.trim(form.last_name.value);
+
+        console.log('fullName:', fullName);
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -116,6 +124,7 @@ form.addEventListener('submit', function (ev) {
                 $('#submit-button').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
+
                     form.submit();
                 }
             }

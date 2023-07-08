@@ -31,8 +31,9 @@ body {
 .btn-primary:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background-color: #f433ab;
-    border-color: #f433ab;
+    background-color: #fbe689;
+    border-color: #fbe689;
+    color: #000;
 }
 
 .btn-secondary {
@@ -45,8 +46,8 @@ body {
 .btn-secondary:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background-color: #f39237;
-    border-color: #f39237;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
 }
 
 /* Messages css */

@@ -14,6 +14,7 @@ from .models import Order, OrderLineItem
 from products.models import Album
 from cart.contexts import cart_contents
 
+from django.contrib.auth.models import User
 from accounts.models import Customer
 from accounts.forms import CustomerProfileForm
 
@@ -116,9 +117,30 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
 
-        order_form = OrderForm()
+        # Attempt to prefill the form with any info the user maintains in their profile
+        if request.user.is_authenticated:
+            try:
+                profile = Customer.objects.get(user=request.user)
+
+                print("USERNAME", profile.user.get_full_name())
+                order_form = OrderForm(
+                    initial={
+                        "full_name": profile.user.get_full_name(),
+                        "email": profile.user.email,
+                        "phone_number": profile.default_phone_number,
+                        "country": profile.default_country,
+                        "postcode": profile.default_postcode,
+                        "town_or_city": profile.default_town_or_city,
+                        "street_address1": profile.default_street_address1,
+                        "street_address2": profile.default_street_address2,
+                        "county": profile.default_county,
+                    }
+                )
+            except Customer.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
     if not stripe_publishable_key:
         messages.warning(
@@ -183,49 +205,3 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
-
-
-# TO BE DELETED
-
-# from django.shortcuts import render, redirect, reverse
-# from django.contrib import messages
-
-# from .forms import OrderForm
-# from .models import Order, OrderLineItem
-
-
-# def checkout(request):
-#     cart = request.session.get("cart", {})
-#     if not cart:
-#         messages.error(request, "There's nothing in your cart at the moment")
-#         return redirect(reverse("cart:view_cart"))
-
-#     if request.method == "POST":
-#         order_form = OrderForm(request.POST)
-#         if order_form.is_valid():
-#             order = order_form.save()  # Save the Order instance
-#             for item_id, quantity in cart.items():
-#                 # Create OrderLineItem instances and assign the Order
-#                 product = Album.objects.get(id=item_id)
-#                 line_item = OrderLineItem(
-#                     order=order,
-#                     product=product,
-#                     quantity=quantity
-#                 )
-#                 line_item.save()
-#             order.update_total()
-#             messages.success(request, "Your order has been placed successfully!")
-#             # Clear the cart or perform any other necessary actions
-#             request.session["cart"] = {}
-#             return redirect(reverse("order:order_success"))
-#         else:
-#             messages.error(request, "Please correct the errors in the form.")
-#     else:
-#         order_form = OrderForm()
-
-#     template = "checkout/checkout.html"
-#     context = {
-#         "order_form": order_form,
-#     }
-
-#     return render(request, template, context)

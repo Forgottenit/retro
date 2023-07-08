@@ -14,6 +14,9 @@ from .models import Order, OrderLineItem
 from products.models import Album
 from cart.contexts import cart_contents
 
+from accounts.models import Customer
+from accounts.forms import CustomerProfileForm
+
 import stripe
 import json
 
@@ -140,6 +143,30 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get("save_info")
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = Customer.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.customer = profile
+        order.save()
+
+        # Save the user's info
+        if save_info:
+            profile_data = {
+                "default_phone_number": order.phone_number,
+                "default_country": order.country,
+                "default_postcode": order.postcode,
+                "default_town_or_city": order.town_or_city,
+                "default_street_address1": order.street_address1,
+                "default_street_address2": order.street_address2,
+                "default_county": order.county,
+            }
+            customer_profile_form = CustomerProfileForm(
+                profile_data, instance=profile
+            )
+            if customer_profile_form.is_valid():
+                customer_profile_form.save()
+
     messages.success(
         request,
         f"Order successfully processed! \

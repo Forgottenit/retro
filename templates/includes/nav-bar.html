@@ -11,7 +11,7 @@
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
             <a href="{% url 'home' %}" class="navbar-brand">
                 <div class="logo-img">
-                    <img src="{% static 'images/favicons/android-chrome-512x512.png' %}" alt="Logo" class="logo-img">
+                    <img src="{% static 'images/hero-image/hero.png' %}" alt="Logo" class="logo-img">
                 </div>
                 <h2 class="logo-font  my-0"><strong>RETRO</strong></h2>
             </a>
@@ -45,7 +45,7 @@
                         <a href="{% url 'accounts:profile' %}" class="dropdown-item">My Profile</a>
                         <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
-                        <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                        <a href="{% url 'account_login' %}" class="dropdown-item">Login/ Sign Up</a>
                         {% endif %}
                     </div>
                 </li>

@@ -6,11 +6,11 @@
 <head>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/favicons/logo/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicons/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicons/logo/favicon-16x16.png">
     <link rel="manifest" href="/static/images/favicons/site.webmanifest">
-    <link rel="icon" href="/static/images/favicons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicons/logo/favicon.ico" type="image/x-icon">
 
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -38,6 +38,7 @@
     <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
+
     {% block extra_css %}
 
     {% endblock %}
@@ -80,7 +81,10 @@
 
     {% endblock %}
 
+    {% include "includes/footer.html" %}
+
     {% block postloadjs %}
+
     <script type="text/javascript">
         var toastElList = [].slice.call(document.querySelectorAll('.toast'))
         var toastList = toastElList.map(function (toastEl) {

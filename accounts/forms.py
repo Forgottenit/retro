@@ -7,13 +7,31 @@ class CustomerProfileForm(forms.ModelForm):
         model = Customer
         exclude = ("user",)
 
+        fields = (
+            "first_name",
+            "last_name",
+            "default_phone_number",
+            "default_postcode",
+            "default_town_or_city",
+            "default_street_address1",
+            "default_street_address2",
+            "default_county",
+        )
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+
+        # user = self.instance.user
+        # if user:
+        #     self.fields["first_name"].initial = user.first_name
+
         placeholders = {
+            "first_name": "First Name",
+            "last_name": "Last Name",
             "default_phone_number": "Phone Number",
             "default_postcode": "Postal Code",
             "default_town_or_city": "Town or City",
@@ -34,3 +52,13 @@ class CustomerProfileForm(forms.ModelForm):
                 "class"
             ] = "border-black rounded-0 profile-form-input"
             self.fields[field].label = False
+
+    def save(self, commit=True):
+        customer = super().save(commit=False)
+        if commit:
+            user = customer.user
+            user.first_name = customer.first_name
+            user.last_name = customer.last_name
+            user.save()
+            customer.save()
+        return customer

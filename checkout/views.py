@@ -48,12 +48,17 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    stripe_total = None
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
 
     if request.method == "POST":
         cart = request.session.get("cart", {})
 
         form_data = {
-            "full_name": request.POST["full_name"],
+            # "full_name": request.POST["full_name"],
             "email": request.POST["email"],
             "phone_number": request.POST["phone_number"],
             "country": request.POST["country"],
@@ -126,7 +131,8 @@ def checkout(request):
                 print("USERNAME", profile.user.get_full_name())
                 order_form = OrderForm(
                     initial={
-                        "full_name": profile.user.get_full_name(),
+                        "first_name": profile.user.first_name,
+                        "last_name": profile.user.last_name,
                         "email": profile.user.email,
                         "phone_number": profile.default_phone_number,
                         "country": profile.default_country,
@@ -142,12 +148,12 @@ def checkout(request):
         else:
             order_form = OrderForm()
 
-    if not stripe_publishable_key:
-        messages.warning(
-            request,
-            "Stripe public key is missing. \
-            Did you forget to set it in your environment?",
-        )
+    # if not stripe_publishable_key:
+    #     messages.warning(
+    #         request,
+    #         "Stripe public key is missing. \
+    #         Did you forget to set it in your environment?",
+    #     )
 
     template = "checkout/checkout.html"
     context = {

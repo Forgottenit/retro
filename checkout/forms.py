@@ -8,6 +8,8 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = (
+            "first_name",
+            "last_name",
             "full_name",
             "email",
             "phone_number",
@@ -29,6 +31,8 @@ class OrderForm(forms.ModelForm):
 
         placeholders = {
             "full_name": "Full Name",
+            "first_name": "First Name",
+            "last_name": "Last Name",
             "email": "Email Address",
             "phone_number": "Phone Number",
             "postcode": "Postal Code",

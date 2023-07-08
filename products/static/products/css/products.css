@@ -191,29 +191,6 @@ ul {
 }
 
 /* Button styling */
-/* .btn {
-    background-color: #f39237;
-    color: #fff;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 1em;
-} */
-
-/* .details-btn {
-    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.details-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: #000;
-    background-color: #fff;
-} */
-
-/* .btn:hover {
-    background-color: #f433ab;
-    font-weight: bold;
-} */
 
 .btn-add {
     background-color: #f433ab;

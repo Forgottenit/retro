@@ -2,6 +2,7 @@
 {% load static %}
 {% load products_custom_filters %}
 
+
 {% block extra_css %}
 
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
@@ -98,37 +99,6 @@
         </div>
     </div>
 
-    <!-- PAGINATION  -->
-
-    <!-- <div class="d-flex justify-content-center my-4 floating-search-results">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                {% if albums.has_previous %}
-                <li class="page-item"><a class="page-link"
-                        href="?{{ params }}&page={{ albums.previous_page_number }}">Previous</a></li>
-                {% else %}
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                {% endif %}
-
-                {% for i in albums.paginator.page_range %}
-                {% if albums.number == i %}
-                <li class="page-item active"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-                {% endfor %}
-
-                {% if albums.has_next %}
-                <li class="page-item"><a class="page-link"
-                        href="?{{ params }}&page={{ albums.next_page_number }}">Next</a></li>
-                {% else %}
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                {% endif %}
-
-            </ul>
-        </nav>
-    </div> -->
-
     <!-- PAGINATION -->
     <div class="d-flex justify-content-center  floating-pagination-results">
         <nav aria-label="Page navigation">
@@ -189,32 +159,37 @@
         </nav>
     </div>
 
-    {% regroup albums by artists.all.first as albums_by_artist %}
+    <!-- ALBUM DISPLAY -->
+    <div class="container">
+        {% regroup albums by artists.all.first as albums_by_artist %}
 
-    {% for artist in albums_by_artist %}
-    <h1 class="mt-4 mb-3">{{ artist.grouper }}</h1>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 align-items-stretch ">
-        {% for album in artist.list %}
+        {% for artist in albums_by_artist %}
+        <h1 class="mt-4 mb-3">{{ artist.grouper }}</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 d-flex align-items-stretch">
+            {% for album in artist.list %}
 
-        <div class="col">
-            <div class="card h-100">
-                {% if album.image %}
-                <a href="{% url 'products:album_details' album.album_id %}?={{album.album_name}}">
-                    <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
-                </a>
-                {% else %}
-                <img class="card-img-top" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
-                {% endif %}
+            <div class="col" id="albums-div">
+                <div class="card">
+                    {% if album.image %}
+                    <a href="{% url 'products:album_details' album.album_id %}?={{album.album_name}}">
+                        <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
+                    </a>
+                    {% else %}
+                    <img class="card-img-top" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
+                    {% endif %}
 
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <h5 class="card-title">{{ album.album_name }}</h5>
-                        <h5 class="card-title fw-bolder">€{{ album.price }}</h5>
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <h5 class="card-title fw-bolder">€{{ album.price }}</h5>
+                        </div>
                     </div>
+
                     <button class="btn btn-primary mt-auto" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
-                        aria-controls="collapse{{ forloop.counter }}">Details</button>
-                    <div class="collapse" id="collapse{{ forloop.counter }}">
+                        data-bs-target="#album-details-{{ album.album_id }}" aria-expanded="false"
+                        aria-controls="album-details-{{ album.album_id }}" d>Details</button>
+
+                    <div class="collapse" id="album-details-{{ album.album_id }}">
                         <div class="mt-2 p-2 border-top">
                             {% if album.spotify_url %}
                             <div class="album_listing">
@@ -231,13 +206,29 @@
                             </div>
                             {% endif %}
 
-
-                            {% if album.artists.all.count > 1 %}
-                            <p class="d-flex justify-content-between ">
-                                <strong class="text-decoration-underline">Artists: </strong>
+                            <div>
+                                {% if album.artists.all.count > 1 %}
+                                <p class="d-flex justify-content-between">
+                                    <strong class="text-decoration-underline">Artists: </strong>
+                                    {% for artist in album.artists.all %}
+                                    {% if artist.spotify_url %}
+                                    <p class="d-flex justify-content-between"><strong class="me-3">
+                                            {{ artist.artist_name }}
+                                        </strong>
+                                        <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                            class="spotify_link">
+                                            <span class="spotify_link_text">Spotify</span>
+                                            <i class="fab fa-spotify" class="spotify_icon"></i>
+                                        </a>
+                                    </p>
+                                    {% if not forloop.last %} {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </p>
+                                {% else %}
                                 {% for artist in album.artists.all %}
                                 {% if artist.spotify_url %}
-                                <p class="d-flex justify-content-between"><strong class="me-3">
+                                <p class="d-flex justify-content-between"><strong class="me-3">Artist:
                                         {{ artist.artist_name }}
                                     </strong>
                                     <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
@@ -246,118 +237,77 @@
                                         <i class="fab fa-spotify" class="spotify_icon"></i>
                                     </a>
                                 </p>
-                                {% if not forloop.last %} {% endif %}
                                 {% endif %}
                                 {% endfor %}
-                            </p>
-                            {% else %}
-                            {% for artist in album.artists.all %}
-                            {% if artist.spotify_url %}
-                            <p class="d-flex justify-content-between"><strong class="me-3">Artist:
-                                    {{ artist.artist_name }}
-                                </strong>
-                                <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                    class="spotify_link">
-                                    <span class="spotify_link_text">Spotify</span>
-                                    <i class="fab fa-spotify" class="spotify_icon"></i>
-                                </a>
-                            </p>
-                            {% endif %}
-                            {% endfor %}
-                            {% endif %}
+                                {% endif %}
+                            </div>
 
+                            <div>
+                                <p><strong>Release Date:</strong> {{ album.release_date }}</p>
+                                <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>
+                                <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
+                                <p><strong>Popularity:</strong> {{ album.popularity }}</p>
+                                <p><strong>Album ID:</strong> {{ album.album_id }}</p>
+                                <p><strong>Album Type:</strong> {{ album.album_type|capfirst }}</p>
+                                <p><strong>Label:</strong> {{ album.label }}</p>
+                                <p><strong>Price:</strong> €{{ album.price }}</p>
 
-
-
-
-                            <p><strong>Release Date:</strong> {{ album.release_date }}</p>
-                            <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>
-                            <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
-                            <p><strong>Popularity:</strong> {{ album.popularity }}</p>
-                            <p><strong>Album ID:</strong> {{ album.album_id }}</p>
-                            <p><strong>Album Type:</strong> {{ album.album_type|capfirst }}</p>
-                            <p><strong>Label:</strong> {{ album.label }}</p>
-                            <p><strong>Price:</strong> €{{ album.price }}</p>
-
-                            {% if album.genres.all %}
-                            <p><strong>Genres:</strong>
-                                {% for genre in album.genres.all %}
-                                {{ genre.name|capfirst  }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
-                            </p>
-                            {% endif %}
-                            {% if album.tracks.all %}
-                            <p><strong>Tracks:</strong></p>
-                            <ul>
-                                {% for track in album.tracks.all %}
-                                <li class="track_listing">
-                                    <div class="me-auto track_name">
-                                        <span class="me-2">{{ track.track_number }}</span>
-                                        <span>{{ track.track_name }}</span>
-                                    </div>
-                                    {% if track.spotify_url %}
-                                    <div>
-                                        <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
-                                            class="spotify_link">
-                                            <span class="spotify_link_text">Spotify</span>
-                                            <i class="fab fa-spotify spotify_icon"></i>
-                                        </a>
-                                    </div>
-                                    {% endif %}
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
+                                {% if album.genres.all %}
+                                <p><strong>Genres:</strong>
+                                    {% for genre in album.genres.all %}
+                                    {{ genre.name|capfirst }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                                {% endif %}
+                            </div>
+                            <!-- ALBUM TRACKS -->
+                            <div>
+                                {% if album.tracks.all %}
+                                <p><strong>Tracks:</strong></p>
+                                <ul>
+                                    {% for track in album.tracks.all %}
+                                    <li class="track_listing">
+                                        <div class="me-auto track_name">
+                                            <span class="me-2">{{ track.track_number }}</span>
+                                            <span>{{ track.track_name }}</span>
+                                        </div>
+                                        {% if track.spotify_url %}
+                                        <div>
+                                            <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                                class="spotify_link">
+                                                <span class="spotify_link_text">Spotify</span>
+                                                <i class="fab fa-spotify spotify_icon"></i>
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
+            {% endfor %}
         </div>
 
         {% endfor %}
     </div>
 
-    {% endfor %}
-    <!-- <div class="d-flex justify-content-center my-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                {% if albums.has_previous %}
-                <li class="page-item"><a class="page-link"
-                        href="?{{ params }}&page={{ albums.previous_page_number }}">Previous</a></li>
-                {% else %}
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                {% endif %}
+    <!-- BACK TO TOP BUTTON-->
+    <div class="btt-button">
+        <a href="#" class="btt-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="currentColor" class="bi bi-arrow-up"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 12a.5.5 0 0 0 .5-.5V5.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+            </svg>
+        </a>
+    </div>
 
-                {% for i in albums.paginator.page_range %}
-                {% if albums.number == i %}
-                <li class="page-item active"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?{{ params }}&page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-                {% endfor %}
-
-                {% if albums.has_next %}
-                <li class="page-item"><a class="page-link"
-                        href="?{{ params }}&page={{ albums.next_page_number }}">Next</a></li>
-                {% else %}
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                {% endif %}
-
-            </ul>
-        </nav>
-    </div> -->
-</div>
-<rect>
-    <animate attributeName="opacity" from="1" to="0" dur="20s" repeatCount="indefinite" />
-</rect>
-<div class="btt-button">
-    <a href="#" class="btt-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="currentColor" class="bi bi-arrow-up"
-            viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                d="M8 12a.5.5 0 0 0 .5-.5V5.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
-        </svg>
-    </a>
 </div>
 {% endblock %}
 

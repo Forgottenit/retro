@@ -16,6 +16,7 @@ class CustomerProfileForm(forms.ModelForm):
             "default_street_address1",
             "default_street_address2",
             "default_county",
+            "default_country",
         )
 
     def __init__(self, *args, **kwargs):
@@ -38,6 +39,7 @@ class CustomerProfileForm(forms.ModelForm):
             "default_street_address1": "Street Address 1",
             "default_street_address2": "Street Address 2",
             "default_county": "County, State or Locality",
+            "default_country": "Country",
         }
 
         self.fields["default_phone_number"].widget.attrs["autofocus"] = True

@@ -29,7 +29,6 @@ class OrderForm(forms.ModelForm):
         self.helper.add_input(Submit("submit", "Complete Order"))
 
         placeholders = {
-            "full_name": "Full Name",
             "first_name": "First Name",
             "last_name": "Last Name",
             "email": "Email Address",

@@ -8,8 +8,8 @@ class CustomerProfileForm(forms.ModelForm):
         exclude = ("user",)
 
         fields = (
-            "first_name",
-            "last_name",
+            "default_first_name",
+            "default_last_name",
             "default_phone_number",
             "default_postcode",
             "default_town_or_city",
@@ -30,8 +30,8 @@ class CustomerProfileForm(forms.ModelForm):
         #     self.fields["first_name"].initial = user.first_name
 
         placeholders = {
-            "first_name": "First Name",
-            "last_name": "Last Name",
+            "default_first_name": "First Name",
+            "default_last_name": "Last Name",
             "default_phone_number": "Phone Number",
             "default_postcode": "Postal Code",
             "default_town_or_city": "Town or City",
@@ -57,8 +57,8 @@ class CustomerProfileForm(forms.ModelForm):
         customer = super().save(commit=False)
         if commit:
             user = customer.user
-            user.first_name = customer.first_name
-            user.last_name = customer.last_name
+            user.first_name = customer.default_first_name
+            user.last_name = customer.default_last_name
             user.save()
             customer.save()
         return customer

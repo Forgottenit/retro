@@ -1,10 +1,17 @@
 /* general.css */
 /* Global Styling */
 
+html,
 body {
     background-color: #141529;
     color: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+
+
 
 /* Body Styling  */
 
@@ -28,11 +35,13 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background-color: #fbe689;
-    border-color: #fbe689;
+    background-color: #fbe689 !important;
+    border-color: #fbe689 !important;
     color: #000;
 }
 
@@ -43,11 +52,13 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:focus {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
 }
 
 /* Messages css */
@@ -124,9 +135,11 @@ body {
     border-color: #fbe689;
 }
 
-.btn-custom:hover {
-    background-color: #f433ab;
-    border-color: #f433ab;
+.btn-custom:hover,
+.btn-custom:active,
+.btn-custom:focus {
+    background-color: #f433ab !important;
+    border-color: #f433ab !important;
 }
 
 /* Message styling */
@@ -168,9 +181,11 @@ form input[type='submit'] {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-form input[type='submit']:hover {
+form input[type='submit']:hover,
+form input[type='submit']:active,
+form input[type='submit']:focus {
 
-    border-color: #222;
+    border-color: #222 !important;
 }
 
 form input[name='q']::placeholder {

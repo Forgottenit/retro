@@ -50,10 +50,16 @@
                     </div>
                 </li>
                 <li class="list-inline-item">
-                    <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link"
-                        href="{% url 'cart:view_cart' %}" aria-label="Shopping bag">
+                    <a class="{% if grand_total %}text-info fw-bold{% else %}text-black{% endif %} nav-link"
+                        href="{% url 'cart:view_cart' %}" aria-label="Shopping Cart">
                         <div class="text-center">
-                            <div class="bag-icon"><i class="fas fa-shopping-bag fa-lg"></i></div>
+                            <div class="cart-icon"><i
+                                    class="fa-solid fa-cart-shopping position-relative">{% if grand_total %}<span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info"
+                                        style="font-size: 7px; padding: 4px;">
+                                        +
+                                        <span class="visually-hidden">unread messages</span>{% endif %}
+                                    </span></i></div>
                         </div>
                         <p class="text-center my-0">
                             {% if grand_total %}
@@ -84,26 +90,28 @@
                         <a class="nav-link dropdown-toggle{% if selected_page == 'shop' %}selected-page{% endif %}"
                             href="{% url 'products:albums' %}" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <div class="dropdown-menu border-0" aria-labelledby="all-albums">
-                            <a href="{% url 'products:albums' %}?sort=price&direction=asc" class="dropdown-item">By
-                                Price</a>
-                            <a href="{% url 'products:albums' %}?sort=popularity&direction=desc"
+                        <div class="dropdown-menu border-0" aria-labelledby="all-albums"><a
+                                href="{% url 'products:albums' %}" class="dropdown-item">All Products</a><a
+                                href="{% url 'products:albums' %}?sort=artists&direction=asc" class="dropdown-item ">By
+                                Artist</a><a href="{% url 'products:albums' %}?sort=album_name&direction=asc"
+                                class="dropdown-item ">By
+                                Album</a><a href="{% url 'products:albums' %}?sort=popularity&direction=desc"
                                 class="dropdown-item ">By
                                 Rating</a>
-                            <a href="{% url 'products:albums' %}?sort=artists&direction=asc" class="dropdown-item ">By
-                                Artist</a>
-                            <a href="{% url 'products:albums' %}?sort=album_name&direction=asc"
-                                class="dropdown-item ">By
-                                Album</a>
+                            <a href="{% url 'products:albums' %}?sort=price&direction=asc" class="dropdown-item">By
+                                Price</a>
 
-                            <a href="{% url 'products:albums' %}" class="dropdown-item">All Products</a>
+
+
+
+
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <button class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Genres
-                        </a>
+                        </button>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
                                 <form method="GET" action="{% url 'products:albums' %}">

@@ -10,6 +10,7 @@
 {% block content %}
 
 <div class="container mb-2">
+
     <div class="row">
         <div class="col">
             <hr>
@@ -140,13 +141,15 @@
             </div>
 
             {% else %}
-            <p class="lead mb-5 card-text">Your cart is empty.</p>
-            <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 btn-lg">
-                <span class="icon">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </span>
-                <span class="text-uppercase">Keep Shopping</span>
-            </a>
+            <div>
+                <p class="lead mb-5 card-text">Your cart is empty.</p>
+                <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </span>
+                    <span class="text-uppercase">Keep Shopping</span>
+                </a>
+            </div>
             {% endif %}
         </div>
     </div>

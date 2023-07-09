@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import (
     render,
     redirect,
@@ -8,18 +9,13 @@ from django.shortcuts import (
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
-
-from .forms import OrderForm
-from .models import Order, OrderLineItem
+import stripe
 from products.models import Album
 from cart.contexts import cart_contents
-
-from django.contrib.auth.models import User
 from accounts.models import Customer
 from accounts.forms import CustomerProfileForm
-
-import stripe
-import json
+from .forms import OrderForm
+from .models import Order, OrderLineItem
 
 
 @require_POST

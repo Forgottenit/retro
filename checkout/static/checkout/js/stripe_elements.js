@@ -6,11 +6,11 @@
     https://stripe.com/docs/stripe-js
 */
 
-var stripePublicKey = $('#id_stripe_publishable_key').text().slice(1, -1);
-var clientSecret = $('#id_client_secret').text().slice(1, -1);
-var stripe = Stripe(stripePublicKey);
-var elements = stripe.elements();
-var style = {
+let stripePublicKey = $('#id_stripe_publishable_key').text().slice(1, -1);
+let clientSecret = $('#id_client_secret').text().slice(1, -1);
+let stripe = Stripe(stripePublicKey);
+let elements = stripe.elements();
+let style = {
     base: {
         color: '#000',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -25,7 +25,7 @@ var style = {
         iconColor: '#dc3545'
     }
 };
-var card = elements.create('card', {
+let card = elements.create('card', {
     style: style,
     hidePostalCode: true
 });
@@ -33,9 +33,9 @@ card.mount('#card-element');
 
 // Handle realtime validation errors on the card element
 card.addEventListener('change', function (event) {
-    var errorDiv = document.getElementById('card-errors');
+    let errorDiv = document.getElementById('card-errors');
     if (event.error) {
-        var html = `
+        let html = `
             <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
             </span>
@@ -48,7 +48,7 @@ card.addEventListener('change', function (event) {
 });
 
 // Handle form submit
-var form = document.getElementById('payment-form');
+let form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function (ev) {
     ev.preventDefault();
@@ -59,12 +59,12 @@ form.addEventListener('submit', function (ev) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
-    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    let saveInfo = Boolean($('#id-save-info').attr('checked'));
     // From using {% csrf_token %} in the form
-    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
 
-    var fullName = $.trim(form.first_name.value) + ' ' + $.trim(form.last_name.value);
-    var postData = {
+    let fullName = $.trim(form.first_name.value) + ' ' + $.trim(form.last_name.value);
+    let postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
@@ -72,7 +72,7 @@ form.addEventListener('submit', function (ev) {
 
 
 
-    var url = '/checkout/cache_checkout_data/';
+    let url = '/checkout/cache_checkout_data/';
 
     console.log('postData:', postData);
 
@@ -109,8 +109,8 @@ form.addEventListener('submit', function (ev) {
             },
         }).then(function (result) {
             if (result.error) {
-                var errorDiv = document.getElementById('card-errors');
-                var html = `
+                let errorDiv = document.getElementById('card-errors');
+                let html = `
                     <span class="icon" role="alert">
                     <i class="fas fa-times"></i>
                     </span>

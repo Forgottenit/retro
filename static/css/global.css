@@ -1,16 +1,30 @@
 /* general.css */
 /* Global Styling */
 
+
+
+
 html,
-body {
+body,
+main {
+
     background-color: #141529;
     color: #ffffff;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+main {
+    flex-grow: 1;
+}
+
+footer {
+    flex-shrink: 0;
+}
 
 
 /* Body Styling  */

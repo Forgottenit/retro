@@ -40,9 +40,11 @@
     border-color: #f39237;
 }
 
-.btn-primary:hover {
-    background-color: #f433ab;
-    border-color: #f433ab;
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #f433ab !important;
+    border-color: #f433ab !important;
 }
 
 .btn-lg {
@@ -62,12 +64,14 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.btn-checkout:hover {
+.btn-checkout:hover,
+.btn-checkout:active,
+.btn-checkout:focus {
     transform: translateY(-4px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border-color: #f433ab;
-    background-color: rgba(137, 240, 251, 1);
-    color: #000000;
+    border-color: #f433ab !important;
+    background-color: rgba(137, 240, 251, 1) !important;
+    color: #000000 !important;
     font-weight: bold
 }
 
@@ -121,9 +125,13 @@
 }
 
 .decrement-qty:hover,
-.increment-qty:hover {
-    background-color: #f433ab;
-    color: #050505;
+.decrement-qty:active,
+.decrement-qty:focus,
+.increment-qty:hover,
+.increment-qty:active,
+.increment-qty:focus {
+    background-color: #f433ab !important;
+    color: #050505 !important;
     cursor: pointer;
 }
 
@@ -153,14 +161,18 @@
     background-color: #f433ab;
 }
 
-.remove-item:hover {
-    background-color: #f39237;
-    color: #202041;
+.remove-item:hover,
+.remove-item:active,
+.remove-item:focus {
+    background-color: #f39237 !important;
+    color: #202041 !important;
 }
 
-.update-link:hover {
-    background-color: rgba(137, 240, 251, 1);
-    color: #202041;
+.update-link:hover,
+.update-link:active,
+.update-link:focus {
+    background-color: rgba(137, 240, 251, 1) !important;
+    color: #202041 !important;
 }
 
 

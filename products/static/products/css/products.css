@@ -69,8 +69,10 @@ ul {
 
 }
 
-.search-results a:hover {
-    color: #f433ab;
+.search-results a:hover,
+.search-results a:active,
+.search-results a:focus {
+    color: #f433ab !important;
 
 }
 
@@ -136,9 +138,11 @@ ul {
     z-index: -1;
 }
 
-.btt-button:hover {
-    color: #000000;
-    box-shadow: 0px 0px 0px 4px rgba(137, 240, 251, 1), 0px 5px 15px rgba(0, 0, 0, 0.2);
+.btt-button:hover,
+.btt-button:active,
+.btt-button:focus {
+    color: #000000 !important;
+    box-shadow: 0px 0px 0px 4px rgba(137, 240, 251, 1), 0px 5px 15px rgba(0, 0, 0, 0.2) !important;
     transform: translateY(-3px);
 }
 
@@ -153,8 +157,10 @@ ul {
     fill: currentColor;
 }
 
-.btt-button:hover .btt-link {
-    color: #050505;
+.btt-button:hover .btt-link,
+.btt-button:active .btt-link,
+.btt-button:focus .btt-link {
+    color: #050505 !important;
 }
 
 /* Pagination */
@@ -198,9 +204,11 @@ ul {
     transition: background-color 0.3s ease;
 }
 
-.btn-add:hover {
-    background-color: rgba(137, 240, 251, 1);
-    color: #000000;
+.btn-add:hover,
+.btn-add:active,
+.btn-add:focus {
+    background-color: rgba(137, 240, 251, 1) !important;
+    color: #000000 !important;
     font-weight: bold;
 }
 
@@ -223,7 +231,11 @@ ul {
 }
 
 .input-group-prepend .btn:hover,
-.input-group-append .btn:hover {
-    background-color: #f433ab;
-    color: #050505;
+.input-group-prepend .btn:active,
+.input-group-prepend .btn:focus,
+.input-group-append .btn:hover,
+.input-group-append .btn:active,
+.input-group-append .btn:focus {
+    background-color: #f433ab !important;
+    color: #050505 !important;
 }

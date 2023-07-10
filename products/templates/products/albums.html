@@ -200,6 +200,12 @@
                         <div class="d-flex justify-content-between align-items-start">
                             <p class="card-title fw-bolder d-inline-block text-truncate" style="max-width: 200px;">
                                 {{ album.album_name }}</h>
+                                {% if request.user.is_superuser %}
+                                <small class="ml-3">
+                                    <a href="{% url 'edit_product' product.id %}">Edit</a> |
+                                    <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                                </small>
+                                {% endif %}
                                 <h5 class="card-price fw-bolder">€{{ album.price }}</h5>
                         </div>
                     </div>

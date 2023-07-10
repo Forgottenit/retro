@@ -16,12 +16,12 @@ class Customer(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    default_first_name = models.CharField(
+    default_full_name = models.CharField(
         max_length=150, null=False, blank=False
     )
-    default_last_name = models.CharField(
-        max_length=150, null=False, blank=False
-    )
+    # default_last_name = models.CharField(
+    #     max_length=150, null=False, blank=False
+    # )
     default_phone_number = models.CharField(
         max_length=20, null=True, blank=True
     )

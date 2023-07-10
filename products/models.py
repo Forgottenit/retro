@@ -4,8 +4,8 @@ from decimal import Decimal
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.db.models import Count
-import os
-from django.conf import settings
+from django.core.files.storage import default_storage
+from django.db.models.signals import post_delete
 
 EXPLICIT_CHOICES = (
     ("E", "Explicit"),
@@ -240,3 +240,18 @@ def delete_related_albums(sender, instance, **kwargs):
         # Check if this album has other artists associated, if not, delete it
         if album.artists.count() == 0:
             album.delete()
+
+
+# TEST
+@receiver(post_delete, sender=Album)
+def delete_album_image(sender, instance, **kwargs):
+    """Remove the associated image file after Album deletion."""
+    image_path = instance.image.name  # Get the image path
+
+    if image_path:
+        # Construct the full file path
+        full_image_path = default_storage.path(image_path)
+
+        # Delete the file if it exists
+        if default_storage.exists(full_image_path):
+            default_storage.delete(full_image_path)

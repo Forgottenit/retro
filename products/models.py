@@ -4,7 +4,8 @@ from decimal import Decimal
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.db.models import Count
-
+import os
+from django.conf import settings
 
 EXPLICIT_CHOICES = (
     ("E", "Explicit"),
@@ -107,7 +108,7 @@ class Album(models.Model):
     total_tracks = models.IntegerField(blank=True, null=True)
     popularity = models.IntegerField(blank=True, null=True)
     album_id = models.CharField(
-        max_length=100, unique=True, blank=True, null=True
+        max_length=100, unique=True, blank=False, null=False
     )
     album_type = models.CharField(max_length=100, blank=True, null=True)
     label = models.CharField(max_length=100, blank=True, null=True)
@@ -132,14 +133,18 @@ class Album(models.Model):
         return f"{self.album_name}"
 
     def delete(self, *args, **kwargs):
-        artists = (
-            self.artists.all()
-        )  # get all artists associated with the album
-        super().delete(*args, **kwargs)  # delete the album
+        # Get all artists associated with the album
+        artists = self.artists.all()
 
-        for artist in artists:  # check each artist
-            if artist.albums.count() == 0:  # if the artist has no other albums
-                artist.delete()  # delete the artist
+        # If album has an associated image
+        if self.image:
+            self.image.delete()
+
+        super().delete(*args, **kwargs)  # Call the "real" delete() method
+
+        for artist in artists:  # Check each artist
+            if artist.albums.count() == 0:  # If the artist has no other albums
+                artist.delete()  # Delete the artist
 
 
 class Product(models.Model):
@@ -226,10 +231,12 @@ def delete_related_objects(sender, instance, **kwargs):
 
 
 @receiver(pre_delete, sender=Artist)
-def delete_related_albums_and_tracks(sender, instance, **kwargs):
+def delete_related_albums(sender, instance, **kwargs):
+    # Get all albums associated with this artist
     albums_to_delete = instance.albums.all()
     for album in albums_to_delete:
-        # Delete the tracks of each album.
-        album.tracks.all().delete()
-    # After deleting all the tracks, delete the albums.
-    albums_to_delete.delete()
+        # Need to remove the artist from the album before deleting to prevent recursion
+        album.artists.remove(instance)
+        # Check if this album has other artists associated, if not, delete it
+        if album.artists.count() == 0:
+            album.delete()

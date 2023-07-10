@@ -56,6 +56,8 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 # DEBUG = True
 DEBUG = os.environ.get("DEVELOPMENT")
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
+
 
 ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",

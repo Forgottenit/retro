@@ -1,14 +1,19 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import (
+    render,
+    redirect,
+    reverse,
+    get_object_or_404,
+)
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
-from .models import Album, Genre
+from .models import Album, Genre, Artist
 from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
-from .models import Album
+
 from .forms import ProductForm
 
 
@@ -211,6 +216,22 @@ def delete_product(request, album_id):
         return redirect(reverse("home"))
 
     album = get_object_or_404(Album, album_id=album_id)
+    if album.image:  # if image exists
+        album.image.delete()
     album.delete()
     messages.success(request, "Product deleted!")
+    return redirect(reverse("products:albums"))
+
+
+@login_required
+def delete_artist(request, artist_id):
+    """Delete an artist and all their related objects from the store"""
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
+
+    artist = get_object_or_404(Artist, artist_id=artist_id)
+    artist.delete()
+
+    messages.success(request, "Artist and related objects deleted!")
     return redirect(reverse("products:albums"))

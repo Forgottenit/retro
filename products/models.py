@@ -1,6 +1,10 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from decimal import Decimal
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.db.models import Count
+
 
 EXPLICIT_CHOICES = (
     ("E", "Explicit"),
@@ -14,7 +18,9 @@ class ExternalUrl(models.Model):
 
 
 class Artist(models.Model):
-    artist_name = models.CharField(max_length=100, blank=True, null=True)
+    artist_name = models.CharField(
+        max_length=100, blank=True, null=True, db_index=True
+    )
     artist_id = models.CharField(
         max_length=100, unique=True, blank=True, null=True
     )
@@ -33,13 +39,14 @@ class Artist(models.Model):
     def __str__(self):
         return self.artist_name
 
-
-# class AlbumArtist(models.Model):
-#     album = models.ForeignKey("Album", on_delete=models.CASCADE)
-#     artist = models.ForeignKey("Artist", on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return f"{self.artist.name} - {self.album.name}"
+    def delete(self, *args, **kwargs):
+        # If this artist has an associated ExternalUrl
+        if self.external_urls:
+            external_url = self.external_urls
+            self.external_urls = None  # nullify the relationship
+            self.save()  # save the artist to update the foreign key
+            external_url.delete()  # then delete the ExternalUrl
+        super().delete(*args, **kwargs)  # Call the "real" delete() method.
 
 
 class Track(models.Model):
@@ -65,6 +72,15 @@ class Track(models.Model):
     def __str__(self):
         return self.track_name
 
+    def delete(self, *args, **kwargs):
+        # If this track has an associated ExternalUrl
+        if self.external_urls:
+            external_url = self.external_urls
+            self.external_urls = None  # nullify the relationship
+            self.save()  # save the track to update the foreign key
+            external_url.delete()  # then delete the ExternalUrl
+        super().delete(*args, **kwargs)  # Call the "real" delete() method.
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
@@ -82,7 +98,9 @@ class Image(models.Model):
 class Album(models.Model):
     artists = models.ManyToManyField(Artist, related_name="albums")
     artist_id = models.CharField(max_length=100, blank=True, null=True)
-    album_name = models.CharField(max_length=100, blank=True, null=True)
+    album_name = models.CharField(
+        max_length=100, blank=True, null=True, db_index=True
+    )
     release_date = models.CharField(
         max_length=10, blank=True, null=True
     )  # Changed due to differing formats on spotify
@@ -98,11 +116,13 @@ class Album(models.Model):
     # explicit = models.CharField(
     #     max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
     # )
-    genres = models.ManyToManyField(Genre, related_name="albums")
+    genres = models.ManyToManyField(
+        Genre, related_name="albums", db_index=True
+    )
     spotify_url = models.URLField(blank=True, null=True)
     image = models.ImageField(upload_to="album_images", blank=True, null=True)
     image_data = models.ForeignKey(
-        Image, on_delete=models.SET_NULL, null=True, blank=True
+        Image, on_delete=models.CASCADE, null=True, blank=True
     )
     price = models.DecimalField(
         max_digits=6, decimal_places=2, default=Decimal("25.00")
@@ -110,6 +130,16 @@ class Album(models.Model):
 
     def __str__(self):
         return f"{self.album_name}"
+
+    def delete(self, *args, **kwargs):
+        artists = (
+            self.artists.all()
+        )  # get all artists associated with the album
+        super().delete(*args, **kwargs)  # delete the album
+
+        for artist in artists:  # check each artist
+            if artist.albums.count() == 0:  # if the artist has no other albums
+                artist.delete()  # delete the artist
 
 
 class Product(models.Model):
@@ -178,3 +208,28 @@ class TShirtVariant(models.Model):
 
     def __str__(self):
         return f"{self.tshirt} - Size: {self.size} - Quantity: {self.quantity}"
+
+
+# SIGNAL PREDELETE FOR CUSTOM SEARCH DELETES
+
+
+@receiver(pre_delete, sender=Album)
+def delete_related_objects(sender, instance, **kwargs):
+    # Get all artists that only are on this album (to be deleted).
+    artists_to_delete = instance.artists.annotate(
+        album_count=Count("albums")
+    ).filter(album_count=1)
+    # Delete all tracks associated with this album.
+    instance.tracks.all().delete()
+    # Delete the artists that are only on this album.
+    artists_to_delete.delete()
+
+
+@receiver(pre_delete, sender=Artist)
+def delete_related_albums_and_tracks(sender, instance, **kwargs):
+    albums_to_delete = instance.albums.all()
+    for album in albums_to_delete:
+        # Delete the tracks of each album.
+        album.tracks.all().delete()
+    # After deleting all the tracks, delete the albums.
+    albums_to_delete.delete()

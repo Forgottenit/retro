@@ -18,10 +18,14 @@
             {% endif %}
         </div>
         {% if request.user.is_superuser %}
-        <small class="ml-3">
+        <p class="ml-3">
             <a href="{% url 'products:edit_product' album.album_id %}">Edit</a> |
-            <a class="text-danger" href="{% url 'products:delete_product' album.album_id %}">Delete</a>
-        </small>
+            <a class="text-danger" href="{% url 'products:delete_product' album.album_id %}">Delete</a> |
+            {% for artist in album.artists.all %}
+            <a class="text-danger" href="{% url 'products:delete_artist' artist.artist_id %}">Delete
+                Artist: {{ artist.artist_name }}</a>
+            {% endfor %}
+        </p>
         {% endif %}
         <div class="col-lg-6">
             <!-- Album Details -->

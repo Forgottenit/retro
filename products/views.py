@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
@@ -8,8 +8,9 @@ from .models import Album, Genre
 from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
-from .models import Album, Category
+from .models import Album
 from .forms import ProductForm
+
 
 def album_model_view(request):
     """A view to show all albums, including search queries"""
@@ -136,69 +137,80 @@ def album_details(request, album_id):
 
     return render(request, "products/album_details.html", context)
 
+
 @login_required
 def add_product(request):
-    """ Add a product to the store """
+    """Add a product to the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
-        return redirect(reverse('home'))
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            product = form.save()
-            messages.success(request, 'Successfully added product!')
-            return redirect(reverse('product_detail', args=[product.id]))
+            album = form.save()
+            messages.success(request, "Successfully added product!")
+            return redirect(
+                reverse("products:album_details", args=[album.album_id])
+            )
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(
+                request,
+                "Failed to add product. Please ensure the form is valid.",
+            )
     else:
         form = ProductForm()
-        
-    template = 'products/add_product.html'
+
+    template = "products/add_product.html"
     context = {
-        'form': form,
+        "form": form,
     }
 
     return render(request, template, context)
 
 
 @login_required
-def edit_product(request, product_id):
-    """ Edit a product in the store """
+def edit_product(request, album_id):
+    """Edit a product in the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
-        return redirect(reverse('home'))
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
 
-    product = get_object_or_404(Product, pk=product_id)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
+    album = get_object_or_404(Album, album_id=album_id)
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES, instance=album)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully updated product!')
-            return redirect(reverse('product_detail', args=[product.id]))
+            messages.success(request, "Successfully updated product!")
+            return redirect(
+                reverse("products:album_details", args=[album.album_id])
+            )
         else:
-            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+            messages.error(
+                request,
+                "Failed to update product. Please ensure the form is valid.",
+            )
     else:
-        form = ProductForm(instance=product)
-        messages.info(request, f'You are editing {product.name}')
+        form = ProductForm(instance=album)
+        messages.info(request, f"You are editing {album.album_name}")
 
-    template = 'products/edit_product.html'
+    template = "products/edit_product.html"
     context = {
-        'form': form,
-        'product': product,
+        "form": form,
+        "album": album,
     }
 
     return render(request, template, context)
 
 
 @login_required
-def delete_product(request, product_id):
-    """ Delete a product from the store """
+def delete_product(request, album_id):
+    """Delete a product from the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
-        return redirect(reverse('home'))
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
 
-    product = get_object_or_404(Product, pk=product_id)
-    product.delete()
-    messages.success(request, 'Product deleted!')
-    return redirect(reverse('products'))
+    album = get_object_or_404(Album, album_id=album_id)
+    album.delete()
+    messages.success(request, "Product deleted!")
+    return redirect(reverse("products:albums"))

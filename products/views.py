@@ -3,11 +3,13 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
+from django.contrib.auth.decorators import login_required
 from .models import Album, Genre
 from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
-
+from .models import Album, Category
+from .forms import ProductForm
 
 def album_model_view(request):
     """A view to show all albums, including search queries"""

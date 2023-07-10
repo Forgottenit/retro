@@ -24,7 +24,7 @@ class OrderAdmin(admin.ModelAdmin):
         "order_number",
         "customer",
         "date",
-        # "first_name",
+        "full_name",
         # "last_name",
         "email",
         "phone_number",
@@ -44,7 +44,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "order_number",
         "date",
-        # "first_name",
+        "full_name",
         # "last_name",
         "order_total",
         "delivery_cost",

@@ -7,18 +7,6 @@ class CustomerProfileForm(forms.ModelForm):
         model = Customer
         exclude = ("user",)
 
-        fields = (
-            "default_first_name",
-            "default_last_name",
-            "default_phone_number",
-            "default_postcode",
-            "default_town_or_city",
-            "default_street_address1",
-            "default_street_address2",
-            "default_county",
-            "default_country",
-        )
-
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
@@ -28,11 +16,11 @@ class CustomerProfileForm(forms.ModelForm):
 
         # user = self.instance.user
         # if user:
-        #     self.fields["first_name"].initial = user.first_name
+        #     self.fields["default_full_name"].initial = user.default_full_name
 
         placeholders = {
-            "default_first_name": "First Name",
-            "default_last_name": "Last Name",
+            "default_full_name": "Full Name",
+            # "default_last_name": "Last Name",
             "default_phone_number": "Phone Number",
             "default_postcode": "Postal Code",
             "default_town_or_city": "Town or City",
@@ -59,8 +47,8 @@ class CustomerProfileForm(forms.ModelForm):
         customer = super().save(commit=False)
         if commit:
             user = customer.user
-            user.first_name = customer.default_first_name
-            user.last_name = customer.default_last_name
+            user.full_name = customer.default_full_name
+            # user.last_name = customer.default_last_name
             user.save()
             customer.save()
         return customer

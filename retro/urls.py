@@ -30,6 +30,6 @@ urlpatterns = [
         "product_data/",
         include("product_data.urls", namespace="product_data"),
     ),
-    path("checkout/", include("checkout.urls")),
+    path("checkout/", include("checkout.urls", namespace="checkout")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

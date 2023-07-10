@@ -44,7 +44,7 @@ SPOTIFY_TOKEN_EXPIRY_TIME = None
 # STRIPE SECRET KEYS and settings
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_WH_SECRET = os.getenv("STRIPE_WH_SECRET", "")
+STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET", "")
 
 STRIPE_CURRENCY = "eur"
 FREE_DELIVERY_THRESHOLD = 40
@@ -69,6 +69,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://localhost",
     "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu101.gitpod.io",
     "https://.gitpod.io",
+    "https://dashboard.stripe.com",
+    "https://js.stripe.com/",
 ]
 
 

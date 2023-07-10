@@ -20,6 +20,9 @@ class Order(models.Model):
         blank=True,
         related_name="orders",
     )
+
+    full_name = models.CharField(max_length=50, null=False, blank=False)
+
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)

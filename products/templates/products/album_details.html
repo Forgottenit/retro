@@ -17,6 +17,12 @@
             <img class="img-fluid" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
             {% endif %}
         </div>
+        {% if request.user.is_superuser %}
+        <small class="ml-3">
+            <a href="{% url 'edit_product' product.id %}">Edit</a> |
+            <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+        </small>
+        {% endif %}
         <div class="col-lg-6">
             <!-- Album Details -->
             <h2 class="mb-4">{{ album.album_name }}</h2>

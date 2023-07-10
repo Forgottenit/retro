@@ -93,7 +93,7 @@ class Album(models.Model):
     )
     album_type = models.CharField(max_length=100, blank=True, null=True)
     label = models.CharField(max_length=100, blank=True, null=True)
-    copyrights = models.CharField(max_length=100, blank=True, null=True)
+    copyrights = models.CharField(max_length=500, blank=True, null=True)
     explicit = models.BooleanField(null=True)
     # explicit = models.CharField(
     #     max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True

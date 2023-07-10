@@ -208,6 +208,16 @@ form input[name='q']::placeholder {
 .btn-file {
     position: relative;
     overflow: hidden;
+    background-color: #0dcaf0;
+    font-weight: 500;
+}
+
+.btn-file:hover,
+.btn-file:focus,
+.btn-file:active {
+    background-color: #caf7ff;
+    color: #000;
+    font-weight: 700;
 }
 
 .btn-file input[type="file"] {
@@ -218,6 +228,7 @@ form input[name='q']::placeholder {
     min-height: 100%;
     opacity: 0;
     cursor: pointer;
+
 }
 
 .custom-checkbox .custom-control-label::before {

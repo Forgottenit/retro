@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
+<!-- <a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
 
 <form method="POST" action="{% url 'fixtures:update_albums' %}" class="my-4">
     {% csrf_token %}
@@ -13,7 +13,9 @@
     </div>
 </form>
 
-<a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a>
+<a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a> -->
+
+
 
 <form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
     {% csrf_token %}

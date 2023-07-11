@@ -23,7 +23,7 @@
 
 <!-- <a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a> -->
 
-<form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
+<!-- <form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
     {% csrf_token %}
     <p>LOAD MODELS : </p>
     <div class="input-group">
@@ -31,6 +31,16 @@
         <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
         <button type="submit" class="btn btn-primary"> LOAD Albums </button>
     </div>
+</form> -->
+
+<form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
+    {% csrf_token %}
+    <input type="text" name="query" placeholder="Search for an artist or an album...">
+    <select name="search_type">
+        <option value="artist">Artist</option>
+        <option value="album">Album</option>
+    </select>
+    <button type="submit">Search</button>
 </form>
 
 

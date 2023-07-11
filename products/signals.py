@@ -25,6 +25,7 @@ def delete_album_image(sender, instance, **kwargs):
 
         # Delete from Cloudinary
         public_id = os.path.splitext(instance.image.name)[0]
+        print("PUBLIC ID:", public_id)
         cloudinary.uploader.destroy(public_id)
 
 
@@ -42,6 +43,16 @@ def delete_related_albums(sender, instance, **kwargs):
 
 @receiver(pre_delete, sender=Track)
 def pre_delete_track(sender, instance, **kwargs):
+    # If this track has an associated ExternalUrl
+    if instance.external_urls:
+        external_url = instance.external_urls
+        instance.external_urls = None  # nullify the relationship
+        instance.save()  # save the track to update the foreign key
+        external_url.delete()  # then delete the ExternalUrl
+
+
+@receiver(pre_delete, sender=Artist)
+def pre_delete_artist(sender, instance, **kwargs):
     # If this track has an associated ExternalUrl
     if instance.external_urls:
         external_url = instance.external_urls

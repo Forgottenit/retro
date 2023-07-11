@@ -20,6 +20,7 @@ def load_models(artist_name):
     Returns:
     - None
     """
+
     album_ids = get_album_ids(artist_name)
     album_data = get_album_details(album_ids)
 
@@ -87,10 +88,6 @@ def load_models(artist_name):
             for genre_name in artist_dict.get("genres", []):
                 genre, _ = Genre.objects.get_or_create(name=genre_name)
                 genre_objs.add(genre)
-
-            for artist in artist_objs:
-                track.artists.add(artist)
-            track_objs.append(track)
 
         # Break down Copyrights from Dictionary
         copyrights_list = album_dict.get(

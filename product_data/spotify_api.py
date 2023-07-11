@@ -326,7 +326,7 @@ def get_album_details(album_ids):
     return albums_data
 
 
-def search_albums(query):
+def search_albums(query, search_type="album"):
     """
     Function to search for albums on Spotify and retrieve their details.
 
@@ -344,7 +344,7 @@ def search_albums(query):
 
     params = (
         ("q", query),
-        ("type", "album"),
+        ("type", search_type),
     )
 
     try:

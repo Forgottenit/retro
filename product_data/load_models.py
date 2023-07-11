@@ -14,8 +14,6 @@ def load_models(artist_name):
     """
     Function to load and store data fetched from Spotify into Django models.
 
-    less
-    Copy code
     Parameters:
     - artist_name (str): The name of the artist to fetch data for.
 

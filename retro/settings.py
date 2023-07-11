@@ -32,6 +32,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
+
 # Spotify Secret Key
 
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", "")
@@ -55,8 +57,6 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = os.environ.get("DEVELOPMENT")
-
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 
 ALLOWED_HOSTS = [

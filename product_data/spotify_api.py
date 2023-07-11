@@ -397,8 +397,6 @@ def get_album_ids(query):
     """
     Function to retrieve the Spotify IDs of albums based on a search query.
 
-    vbnet
-    Copy code
     Parameters:
     query (str): The search query to find albums on Spotify.
 

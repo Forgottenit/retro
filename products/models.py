@@ -1,11 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from decimal import Decimal
-from django.db.models.signals import pre_delete
-from django.dispatch import receiver
-from django.db.models import Count
-from django.core.files.storage import default_storage
-from django.db.models.signals import post_delete
+
 
 EXPLICIT_CHOICES = (
     ("E", "Explicit"),
@@ -136,15 +132,18 @@ class Album(models.Model):
         # Get all artists associated with the album
         artists = self.artists.all()
 
-        # If album has an associated image
-        if self.image:
-            self.image.delete()
-
-        super().delete(*args, **kwargs)  # Call the "real" delete() method
+        # Call the "real" delete() method
+        if self.image_data:
+            image_data = self.image_data
+            self.image_data = None  # nullify the relationship
+            self.save()  # save the album to update the foreign key
+            image_data.delete()
 
         for artist in artists:  # Check each artist
             if artist.albums.count() == 0:  # If the artist has no other albums
                 artist.delete()  # Delete the artist
+
+        super().delete(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -213,45 +212,3 @@ class TShirtVariant(models.Model):
 
     def __str__(self):
         return f"{self.tshirt} - Size: {self.size} - Quantity: {self.quantity}"
-
-
-# SIGNAL PREDELETE FOR CUSTOM SEARCH DELETES
-
-
-@receiver(pre_delete, sender=Album)
-def delete_related_objects(sender, instance, **kwargs):
-    # Get all artists that only are on this album (to be deleted).
-    artists_to_delete = instance.artists.annotate(
-        album_count=Count("albums")
-    ).filter(album_count=1)
-    # Delete all tracks associated with this album.
-    instance.tracks.all().delete()
-    # Delete the artists that are only on this album.
-    artists_to_delete.delete()
-
-
-@receiver(pre_delete, sender=Artist)
-def delete_related_albums(sender, instance, **kwargs):
-    # Get all albums associated with this artist
-    albums_to_delete = instance.albums.all()
-    for album in albums_to_delete:
-        # Need to remove the artist from the album before deleting to prevent recursion
-        album.artists.remove(instance)
-        # Check if this album has other artists associated, if not, delete it
-        if album.artists.count() == 0:
-            album.delete()
-
-
-# TEST
-@receiver(post_delete, sender=Album)
-def delete_album_image(sender, instance, **kwargs):
-    """Remove the associated image file after Album deletion."""
-    image_path = instance.image.name  # Get the image path
-
-    if image_path:
-        # Construct the full file path
-        full_image_path = default_storage.path(image_path)
-
-        # Delete the file if it exists
-        if default_storage.exists(full_image_path):
-            default_storage.delete(full_image_path)

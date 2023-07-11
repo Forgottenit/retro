@@ -9,91 +9,91 @@ import requests
 from django.conf import settings
 
 
-def spotify_request(url, headers, params=None):
-    """
-    Function to send a request to Spotify API and handle any errors.
+# def spotify_request(url, headers, params=None):
+#     """
+#     Function to send a request to Spotify API and handle any errors.
 
-    Parameters:
-    url (str): URL of the Spotify API endpoint
-    headers (dict): Request headers
-    params (dict): Query parameters for the request
+#     Parameters:
+#     url (str): URL of the Spotify API endpoint
+#     headers (dict): Request headers
+#     params (dict): Query parameters for the request
 
-    Returns:
-    dict: Response data from the Spotify API
-    """
-    # Main request handling loop
-    while True:
-        try:
-            response = requests.get(
-                url, headers=headers, params=params, timeout=5
-            )
-            response.raise_for_status()
+#     Returns:
+#     dict: Response data from the Spotify API
+#     """
+#     # Main request handling loop
+#     while True:
+#         try:
+#             response = requests.get(
+#                 url, headers=headers, params=params, timeout=5
+#             )
+#             response.raise_for_status()
 
-            data = response.json()
-            if "error" in data:
-                error_status = (
-                    data["error"]["status"]
-                    if "status" in data["error"]
-                    else None
-                )
-                error_message = (
-                    data["error"]["message"] if error_status else None
-                )
-                error_description = (
-                    data["error_description"]
-                    if "error_description" in data
-                    else None
-                )
+#             data = response.json()
+#             if "error" in data:
+#                 error_status = (
+#                     data["error"]["status"]
+#                     if "status" in data["error"]
+#                     else None
+#                 )
+#                 error_message = (
+#                     data["error"]["message"] if error_status else None
+#                 )
+#                 error_description = (
+#                     data["error_description"]
+#                     if "error_description" in data
+#                     else None
+#                 )
 
-                if error_status:  # Regular error object
-                    raise Exception(
-                        "Spotify API error {}: {}".format(
-                            error_status, error_message
-                        )
-                    )
-                else:  # Authentication error object
-                    raise Exception(
-                        "Spotify API error: {}, Description: {}".format(
-                            data["error"], error_description
-                        )
-                    )
-        except (requests.RequestException, json.JSONDecodeError):
-            raise Exception(
-                "Request failed or response does not contain valid JSON."
-            )
-        except Exception as e:
-            print("An error occurred: {}".format(e))
+#                 if error_status:  # Regular error object
+#                     raise Exception(
+#                         "Spotify API error {}: {}".format(
+#                             error_status, error_message
+#                         )
+#                     )
+#                 else:  # Authentication error object
+#                     raise Exception(
+#                         "Spotify API error: {}, Description: {}".format(
+#                             data["error"], error_description
+#                         )
+#                     )
+#         except (requests.RequestException, json.JSONDecodeError):
+#             raise Exception(
+#                 "Request failed or response does not contain valid JSON."
+#             )
+#         except Exception as e:
+#             print("An error occurred: {}".format(e))
 
-        # Handling rate limits
-        if response.status_code == 429:
-            delay = int(response.headers.get("Retry-After"))
-            time.sleep(delay)
-        elif response.status_code != 200:  # if not success
-            raise Exception(
-                "Error {}: {}".format(response.status_code, response.text)
-            )
-        else:
-            break
+#         # Handling rate limits
+#         if response.status_code == 429:
+#             delay = int(response.headers.get("Retry-After"))
+#             time.sleep(delay)
+#         elif response.status_code != 200:  # if not success
+#             raise Exception(
+#                 "Error {}: {}".format(response.status_code, response.text)
+#             )
+#         else:
+#             break
 
-    data = response.json()
+#     data = response.json()
 
-    while data.get("next"):
-        url = data.get("next")
-        while True:
-            response = requests.get(url, headers=headers, timeout=5)
-            if response.status_code == 429:
-                delay = int(response.headers.get("Retry-After"))
-                time.sleep(delay)
-            elif response.status_code != 200:  # if not success
-                raise Exception(
-                    "Error {}: {}".format(response.status_code, response.text)
-                )
-            else:
-                break
+#     while data.get("next"):
+#         url = data.get("next")
+#         while True:
+#             response = requests.get(url, headers=headers, timeout=5)
+#             if response.status_code == 429:
+#                 delay = int(response.headers.get("Retry-After"))
+#                 time.sleep(delay)
+#             elif response.status_code != 200:  # if not success
+#                 raise Exception(
+#                     "Error {}: {}".format(response.status_code, response.text)
+#                 )
+#             else:
+#                 break
 
-        data["items"].extend(response.json()["items"])
+#         data["items"].extend(response.json()["items"])
 
-    return data
+#     return data
 
 
 def get_auth_token():
@@ -356,7 +356,7 @@ def search_albums(query, search_type="album"):
         )
         response.raise_for_status()
         album_data = response.json().get("albums", {}).get("items", [])
-        print(album_data)  # Print the album data for debugging
+        print(album_data)  # Print the album data
 
         if "error" in album_data:
             error_status = (

@@ -216,8 +216,6 @@ def delete_product(request, album_id):
         return redirect(reverse("home"))
 
     album = get_object_or_404(Album, album_id=album_id)
-    if album.image:  # if image exists
-        album.image.delete()
     album.delete()
     messages.success(request, "Product deleted!")
     return redirect(reverse("products:albums"))

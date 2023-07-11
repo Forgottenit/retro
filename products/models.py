@@ -69,13 +69,13 @@ class Track(models.Model):
     def __str__(self):
         return self.track_name
 
-    def delete(self, *args, **kwargs):
-        # If this track has an associated ExternalUrl
-        if self.external_urls:
-            external_url = self.external_urls
-            self.external_urls = None  # nullify the relationship
-            self.save()  # save the track to update the foreign key
-            external_url.delete()  # then delete the ExternalUrl
+        # def delete(self, *args, **kwargs):
+        #     # If this track has an associated ExternalUrl
+        #     if self.external_urls:
+        #         external_url = self.external_urls
+        #         self.external_urls = None  # nullify the relationship
+        #         self.save()  # save the track to update the foreign key
+        #         external_url.delete()  # then delete the ExternalUrl
         super().delete(*args, **kwargs)  # Call the "real" delete() method.
 
 

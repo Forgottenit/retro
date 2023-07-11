@@ -96,6 +96,8 @@ def load_models(artist_name):
         copyrights_list = album_dict.get(
             "copyrights", [{"text": "default_copyright"}]
         )
+        if not copyrights_list:
+            copyrights_list = [{"text": "default_copyright"}]
         first_copyright_text = copyrights_list[0]["text"]
 
         # Process the album data

@@ -61,6 +61,7 @@ DEBUG = os.environ.get("DEVELOPMENT")
 
 ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",
+    "https://forgottenit-retro.herokuapp.com/*",
     "localhost",
     ".gitpod.io",
     "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu101.gitpod.io",
@@ -190,14 +191,17 @@ WSGI_APPLICATION = "retro.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if os.environ.get("DEBUG") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
-
-# DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+else:
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

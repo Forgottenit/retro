@@ -26,10 +26,10 @@ urlpatterns = [
     path("fixtures/", include("fixtures.urls", namespace="fixtures")),
     path("products/", include("products.urls", namespace="products")),
     path("cart/", include("cart.urls", namespace="cart")),
-    path(
-        "product_data/",
-        include("product_data.urls", namespace="product_data"),
-    ),
+    # path(
+    #     "product_data/",
+    #     include("product_data.urls", namespace="product_data"),
+    # ),
     path("checkout/", include("checkout.urls", namespace="checkout")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

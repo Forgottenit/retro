@@ -14,7 +14,40 @@ from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
 
-from .forms import ProductForm
+from .forms import LoadAlbumsForm, ProductForm
+
+from product_data.load_models import load_models
+
+
+def load_albums(request):
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only store owners can do that.")
+        return redirect(reverse("home"))
+
+    if request.method == "POST":
+        form = LoadAlbumsForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data["query"]
+            search_field = form.cleaned_data["search_field"]
+            load_models(query, search_field)
+            messages.success(request, "Albums loaded successfully!")
+            return redirect("products:albums")
+        else:
+            messages.error(
+                request,
+                "Failed to add product. Please ensure the form is valid.",
+            )
+    else:
+        form = LoadAlbumsForm()
+
+    albums = Album.objects.all().order_by("artists__artist_name")
+    # paginator = Paginator(albums, 21)
+    # page_number = request.GET.get("page")
+    # albums = paginator.get_page(page_number)
+
+    return render(
+        request, "products/add_product.html", {"albums": albums, "form": form}
+    )
 
 
 def album_model_view(request):
@@ -82,8 +115,6 @@ def album_model_view(request):
             page_number = 1
         else:
             page_number = request.GET.get("page")
-    else:
-        page_number = request.GET.get("page")
 
     # Convert QuerySet to list and remove duplicates
     albums = list(albums)

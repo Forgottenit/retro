@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from decimal import Decimal
+from django.core.validators import MinValueValidator
 
 
 EXPLICIT_CHOICES = (
@@ -102,7 +103,9 @@ class Album(models.Model):
         max_length=10, blank=True, null=True
     )  # Changed due to differing formats on spotify
     total_tracks = models.IntegerField(blank=True, null=True)
-    popularity = models.IntegerField(blank=True, null=True)
+    popularity = models.IntegerField(
+        blank=True, null=True, validators=[MinValueValidator(0)]
+    )
     album_id = models.CharField(
         max_length=100, unique=True, blank=False, null=False
     )
@@ -122,7 +125,10 @@ class Album(models.Model):
         Image, on_delete=models.CASCADE, null=True, blank=True
     )
     price = models.DecimalField(
-        max_digits=6, decimal_places=2, default=Decimal("25.00")
+        max_digits=6,
+        decimal_places=2,
+        default=Decimal("25.00"),
+        validators=[MinValueValidator(0)],
     )
 
     def __str__(self):

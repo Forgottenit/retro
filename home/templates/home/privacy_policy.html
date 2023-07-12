@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<h1>Privacy Policy</h1>
+{{ policy | safe }}
+{% endblock %}

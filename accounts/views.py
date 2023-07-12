@@ -21,8 +21,19 @@ def profile(request):
     form = CustomerProfileForm(instance=profile)
     orders = profile.orders.all()
 
+    # Get the wishlist albums
+    try:
+        wishlist = profile.wishlists.all()
+    except KeyError:
+        wishlist = None
+
     template = "accounts/profile.html"
-    context = {"form": form, "orders": orders, "on_profile_page": True}
+    context = {
+        "form": form,
+        "orders": orders,
+        "wishlist": wishlist,  # Pass the wishlist to the template
+        "on_profile_page": True,
+    }
 
     return render(request, template, context)
 

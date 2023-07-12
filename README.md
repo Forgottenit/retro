@@ -514,6 +514,7 @@ While regular software updates and patches are not a part of this project's scop
 <details><summary><b>BUGS/ERRORS:</b></summary>
 
 # https://codepen.io/corenominal/pen/rxOmMJ
+# Git rm -r --cached db.sqlite3
 
 
 ### Failed to build backports.zoneinfo

@@ -3,8 +3,7 @@
 
 html,
 body {
-    display: flex !important;
-    flex-direction: column !important;
+
     min-height: 100vh !important;
     margin: 0;
     padding: 0;
@@ -12,11 +11,23 @@ body {
     color: #ffffff;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+}
 
 
-/* Footer Styling */
+
 footer {
-    flex-shrink: 0 !important;
+    padding: 20px;
+    margin-top: auto;
+    background-color: #757083;
+    color: #ffffff;
 }
 
 

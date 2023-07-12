@@ -3,6 +3,7 @@
 {% load products_custom_filters %}
 
 
+
 {% block extra_css %}
 
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
@@ -11,41 +12,36 @@
 
 
 {% block content %}
-<!-- <a href="{% url 'fixtures:update_albums' %}" class="btn btn-primary">Update Albums</a>
-
-<form method="POST" action="{% url 'fixtures:update_albums' %}" class="my-4">
-    {% csrf_token %}
-    <div class="input-group">
-        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
-        <button type="submit" class="btn btn-primary">Update Albums</button>
+<!-- <div class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <hr>
+            <h2 class="logo-font mb-4">Product Management</h2>
+            <h5 class="text-light">Add a Product</h5>
+            <hr>
+        </div>
     </div>
-</form> -->
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <form method="POST" action="{% url 'products:load_albums' %}" class="form my-4"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="my-4">
+                    {{ form.as_p }}
+                    <p>LOAD MODELS : </p>
+                </div>
+                <div class="text-end">
+                    <a class="btn btn-danger rounded-0" href="{% url 'products:albums' %}">Cancel</a>
+                    <button class="btn btn-light rounded-0" type="submit">Add Product</button>
+                </div> -->
 
-<!-- <a href="{% url 'product_data:load_albums' %}" class="btn btn-primary">Update Albums</a> -->
-
-<form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
-    {% csrf_token %}
-    <p>LOAD MODELS : </p>
-    <div class="input-group">
-
-        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name...">
-        <button type="submit" class="btn btn-primary"> LOAD Albums </button>
+<!-- <button type="submit" class="btn btn-primary"> LOAD Albums </button> -->
+<!-- </form>
+        </div>
     </div>
-</form>
-
-<!-- <form method="POST" action="{% url 'product_data:load_albums' %}" class="my-4">
-    {% csrf_token %}
-    <input type="text" name="query" placeholder="Search for an artist or an album...">
-    <select name="search_type">
-        <option value="artist">Artist</option>
-        <option value="album">Album</option>
-    </select>
-    <button type="submit">Search</button>
-</form> -->
-
-
-{% if search_term %}
-<h4>You searched for "{{ search_term }}".</h4>
+</div> -->
+{% if search_term %} <h4>You searched for "{{ search_term }}".</h4>
 {% endif %}
 {% if genre %}
 <h4>You searched for "{{ genre }}".</h4>
@@ -66,21 +62,25 @@
                     <option value="reset " disabled {% if current_sorting == 'None_None' %}selected{% endif %}>Sort
                         by...
                     </option>
-                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to
+                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low
+                        to
                         high)</option>
-                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high
+                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price
+                        (high
                         to low)</option>
                     <option value="popularity_asc" {% if current_sorting == 'popularity_asc' %}selected{% endif %}>
                         Rating (low to high)</option>
                     <option value="popularity_desc" {% if current_sorting == 'popularity_desc' %}selected{% endif %}>
                         Rating (high to low)</option>
-                    <option value="album_name_asc" {% if current_sorting == 'album_name_asc' %}selected{% endif %}>Album
+                    <option value="album_name_asc" {% if current_sorting == 'album_name_asc' %}selected{% endif %}>
+                        Album
                         (A-Z)</option>
                     <option value="album_name_desc" {% if current_sorting == 'album_name_desc' %}selected{% endif %}>
                         Album (Z-A)</option>
                     <option value="artists_asc" {% if current_sorting == 'artists_asc' %}selected{% endif %}>Artist
                         (A-Z)</option>
-                    <option value="artists_desc" {% if current_sorting == 'artists_desc' %}selected{% endif %}>Artist
+                    <option value="artists_desc" {% if current_sorting == 'artists_desc' %}selected{% endif %}>
+                        Artist
                         (Z-A)</option>
                 </select>
             </div>

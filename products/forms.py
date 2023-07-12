@@ -30,3 +30,13 @@ class ProductForm(forms.ModelForm):
             field.widget.attrs["class"] = "border-black rounded-0"
         if "album_name" in self.fields:
             self.fields["album_name"].widget.attrs["readonly"] = True
+
+
+class LoadAlbumsForm(forms.Form):
+    SEARCH_FIELDS = [("artist", "Artist"), ("album", "Album")]
+
+    search_field = forms.ChoiceField(choices=SEARCH_FIELDS)
+    query = forms.CharField(
+        label="Query",
+        widget=forms.TextInput(attrs={"placeholder": "Enter search term..."}),
+    )

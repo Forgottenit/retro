@@ -10,18 +10,18 @@ from products.models import Genre, Artist, Track, Album, ExternalUrl, Image
 from .spotify_api import get_album_ids, get_album_details
 
 
-def load_models(artist_name):
+def load_models(query, search_field="artist"):
     """
     Function to load and store data fetched from Spotify into Django models.
 
     Parameters:
-    - artist_name (str): The name of the artist to fetch data for.
+    - query (str): The name of the artist to fetch data for.
 
     Returns:
     - None
     """
 
-    album_ids = get_album_ids(artist_name)
+    album_ids = get_album_ids(query, search_field="artist")
     album_data = get_album_details(album_ids)
 
     for album_dict in album_data:

@@ -20,8 +20,10 @@
             {% for item in cart_items %}
             <div class="row">
                 <div class="col-3 my-1">
-                    {% if item.product.image %}
-                    <img class="w-100" src="{{ item.album.image.url }}" alt="{{ item.album.album_name }}">
+                    {% if album.image %}
+                    <a href="{% url 'products:album_details' album.album_id %}?={{album.album_name}}">
+                        <img class="card-img-top" src="{{ album.image.url }}" alt="Album Image">
+                    </a>
                     {% else %}
                     <img class="card-img-top" src="{{ MEDIA_URL }}default_image/default.png" alt="Default Image">
                     {% endif %}

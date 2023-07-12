@@ -37,9 +37,12 @@
             <p class="text-light">Wishlist</p>
             <div class="wishlist">
                 <ul>
-                    {% for album in wishlist %}
+                    {% for wishlist_item in wishlists %}
                     <li>
-                        {{ album.title }} by {{ album.artist }}
+                        {{ wishlist_item.album.album_name }} by
+                        {% for artist in wishlist_item.album.artists.all %}
+                        {{ artist.artist_name }} {# This line is changed. #}
+                        {% endfor %}
                     </li>
                     {% empty %}
                     <li>Your wishlist is empty.</li>

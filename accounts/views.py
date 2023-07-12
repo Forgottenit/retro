@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Customer
+from .models import Customer, Wishlist
 from .forms import CustomerProfileForm
-
+from products.models import Album
 from checkout.models import Order
 
 
@@ -23,19 +23,37 @@ def profile(request):
 
     # Get the wishlist albums
     try:
-        wishlist = profile.wishlists.all()
+        wishlists = profile.wishlists.all()
     except KeyError:
-        wishlist = None
+        wishlists = None
 
     template = "accounts/profile.html"
     context = {
         "form": form,
         "orders": orders,
-        "wishlist": wishlist,  # Pass the wishlist to the template
+        "wishlists": wishlists,  # Pass the wishlist to the template
         "on_profile_page": True,
     }
 
     return render(request, template, context)
+
+
+@login_required
+def add_to_wishlist(request, item_id):
+    """Add an item to the wishlist"""
+    album = get_object_or_404(Album, album_id=item_id)
+    wishlist_item, created = Wishlist.objects.get_or_create(
+        customer=request.user.customer, album=album
+    )
+
+    if created:
+        messages.success(request, f"Added {album.album_name} to your wishlist")
+    else:
+        messages.info(
+            request, f"{album.album_name} is already in your wishlist"
+        )
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 @login_required

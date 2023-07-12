@@ -191,7 +191,7 @@ WSGI_APPLICATION = "retro.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if os.environ.get("DEBUG") == "True":
+if os.environ.get("DEVELOPMENT") == "1" or os.environ.get("DEBUG") == "1":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",

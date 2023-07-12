@@ -511,7 +511,22 @@ While regular software updates and patches are not a part of this project's scop
 # Testing
 
 
-<details><summary><b>BUGS:</b></summary>
+<details><summary><b>BUGS/ERRORS:</b></summary>
+
+# https://codepen.io/corenominal/pen/rxOmMJ
+
+
+### Failed to build backports.zoneinfo
+* Problem: Apparent version incompatibility between Python 3.11 and backports.zoneinfo
+* Issue: Can not deploy on Heroku
+* Fix: In requirements, change:
+ ```python 
+ backports.zoneinfo==0.2.1
+ ``` 
+ to 
+```python 
+ backports.zoneinfo;python_version<"3.9"
+``` 
 
 ###  ALLOWED_HOSTS = ["forgottenit-retro.herokuapp.com", "localhost", ".gitpod.io"]
 * Problem: Page not rendering ("DisallowedHost"), I needed to add the site ('8000-forgottenit-retro-s9wz1pwll0t.ws-eu100.gitpod.io') to allowed hosts.

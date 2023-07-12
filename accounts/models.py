@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from products.models import Album
 from django_countries.fields import CountryField
 
 
@@ -45,6 +45,20 @@ class Customer(models.Model):
         Return the username.
         """
         return self.user.username
+
+
+class Wishlist(models.Model):
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name="wishlists"
+    )
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (
+            "customer",
+            "album",
+        )
 
 
 @receiver(post_save, sender=User)

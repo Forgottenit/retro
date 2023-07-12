@@ -19,6 +19,7 @@ from .forms import LoadAlbumsForm, ProductForm
 from product_data.load_models import load_models
 
 
+@login_required
 def load_albums(request):
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")

@@ -32,6 +32,23 @@
                 <button class="btn btn-primary rounded-0 text-uppercase float-end">Update Information</button>
             </form>
         </div>
+
+        <div class="col-12 col-lg-6">
+            <p class="text-light">Wishlist</p>
+            <div class="wishlist">
+                <ul>
+                    {% for album in wishlist %}
+                    <li>
+                        {{ album.title }} by {{ album.artist }}
+                    </li>
+                    {% empty %}
+                    <li>Your wishlist is empty.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
         <div class="col-12 col-lg-6">
             <p class="text-light">Order History</p>
             <div class="order-history table-responsive">

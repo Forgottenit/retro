@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
 {% endblock %}
 
 {% block page_header %}
@@ -45,9 +45,15 @@
                         {% for artist in wishlist_item.album.artists.all %}
                         {{ artist.artist_name }}{% if not forloop.last %},{% endif %}
                         {% endfor %}
-                        <a href="{% url 'cart:add_to_cart' item_id=wishlist_item.album.album_id %}">Add to Cart</a>
-                        <a href="{% url 'cart:add_to_cart' item_id=wishlist_item.album.album_id %}">Remove from
-                            Wishlist</a>
+                        <form class="form mt-4" action="{% url 'cart:add_to_cart' wishlist_item.album.album_id %}"
+                            method="POST">
+                            {% csrf_token %}
+                            <input class="form-control qty_input form-control-qty" type="number" name="quantity"
+                                value="1" min="1" max="99">
+                            <input type="submit" value="Add to Cart" class="btn btn-secondary">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </form>
+
                     </li>
                     {% empty %}
                     <li>Your wishlist is empty.</li>

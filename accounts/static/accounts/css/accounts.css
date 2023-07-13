@@ -20,3 +20,14 @@
 #id_default_country option:first-child {
     color: #aab7c4;
 }
+
+.form-control-qty {
+    background-color: #202041;
+    border: 1px solid #fbe689;
+    color: #f39237;
+    padding: 10px;
+    font-weight: bold;
+    max-width: 100px;
+    height: 38px;
+
+}

@@ -514,6 +514,7 @@ While regular software updates and patches are not a part of this project's scop
 <details><summary><b>BUGS/ERRORS:</b></summary>
 
 # https://codepen.io/corenominal/pen/rxOmMJ
+CHANGED DJANGO KEY ALSO IN HEROKU, DELETED ALL USERS, CREATED NEW SUPERUSERS, ALL KEYS WERE STORED IN ENV.PY WHICH WAS IN GITIGNORE
 # Git rm -r --cached db.sqlite3
 
 

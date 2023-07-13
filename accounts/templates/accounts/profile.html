@@ -41,7 +41,7 @@
                     <li>
                         {{ wishlist_item.album.album_name }} by
                         {% for artist in wishlist_item.album.artists.all %}
-                        {{ artist.artist_name }} {# This line is changed. #}
+                        {{ artist.artist_name }}
                         {% endfor %}
                     </li>
                     {% empty %}

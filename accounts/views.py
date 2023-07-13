@@ -48,11 +48,14 @@ def like_album(request, album_id):
 
     # if it was already liked, unlike it
     if not created:
-        like.liked = not like.liked
+        if like.liked:
+            like.delete()
+        else:
+            like.liked = True
+            like.save()
     else:
         like.liked = True
-
-    like.save()
+        like.save()
 
     return redirect(request.META.get("HTTP_REFERER", "/"))
 

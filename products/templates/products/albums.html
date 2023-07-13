@@ -266,8 +266,10 @@
                                     <p>Would you like to add this album to your wishlist?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
-                                        thanks</button>
+                                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
+                                        thanks</button> -->
+                                    <a href="{% url 'products:albums'  %}" class="btn btn-secondary">No,
+                                        thanks</a>
                                     <a href="{% url 'accounts:add_to_wishlist' album.album_id %}"
                                         class="btn btn-primary">Yes,
                                         add to my wishlist</a>
@@ -459,11 +461,20 @@
     $(document).ready(function () {
         $('.likeAlbum').on('click', function (e) {
             e.preventDefault();
+            const $this = $(this);
+            const isLiked = $this.find('.filled-heart').length > 0;
+
             $.ajax({
                 url: $(this).attr('href'),
                 method: 'GET',
                 success: function (response) {
-                    $('#wishlistModal').modal('show');
+                    console.log(isLiked)
+                    if (!isLiked) {
+                        $('#wishlistModal').modal('show');
+                    } else {
+                        location.reload(); // refresh 
+                    }
+
                 }
             });
         });

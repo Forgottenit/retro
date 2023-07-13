@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
 from .models import Album, Genre, Artist
+from accounts.models import Like
 from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
@@ -147,6 +148,19 @@ def album_model_view(request):
     current_sorting = f"{sort}_{direction}"
     current_sorting_display = sort_display_map.get(current_sorting, "")
 
+    if request.user.is_authenticated:
+        is_customer = hasattr(request.user, "customer")
+        if is_customer:
+            likes = Like.objects.filter(user=request.user.customer, liked=True)
+            liked_albums = [like.album.album_id for like in likes]
+        else:
+            likes = None
+            liked_albums = None
+    else:
+        is_customer = False
+        likes = None
+        liked_albums = None
+
     context = {
         "albums": albums,
         "search_term": search_query,
@@ -155,6 +169,8 @@ def album_model_view(request):
         "params": params_str,
         "current_sorting": current_sorting,
         "current_sorting_display": current_sorting_display,
+        "liked_albums": liked_albums,
+        "is_customer": is_customer,
     }
 
     return render(

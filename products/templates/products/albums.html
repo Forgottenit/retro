@@ -218,7 +218,23 @@
                             <p class="card-title fw-bolder d-inline-block text-truncate" style="max-width: 200px;">
                                 {{ album.album_name }}</h>
 
+
+
                                 <h5 class="card-price fw-bolder">€{{ album.price }}</h5>
+
+
+                                <!-- LIKES -->
+                                {% if user.is_authenticated and is_customer %}
+                                <a href="{% url 'accounts:like_album' album.album_id %}" id="likeAlbum">
+                                    {% if album.album_id in liked_albums %}
+                                    <i class="fas fa-heart filled-heart"></i>
+                                    {% else %}
+                                    <i class="far fa-heart"></i>
+                                    {% endif %}
+                                </a>
+                                {% endif %}
+
+                                <!-- EDIT DELETE FOR SUPERUSER -->
                                 {% if request.user.is_superuser %}
                                 <p class="ml-3">
                                     <a href="{% url 'products:edit_product' album.album_id %}">Edit</a> |
@@ -231,6 +247,30 @@
                                     {% endfor %}
                                 </p>
                                 {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- MODAL -->
+                    <div class="modal" tabindex="-1" id="wishlistModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add to Wishlist</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Would you like to add this album to your wishlist?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
+                                        thanks</button>
+                                    <a href="{% url 'accounts:add_to_wishlist' album.album_id %}"
+                                        class="btn btn-primary">Yes,
+                                        add to my wishlist</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -409,6 +449,21 @@
             currentUrl.searchParams.set("direction", direction);
             currentUrl.searchParams.set("page", "1");
             window.location.assign(currentUrl.href);
+        });
+    });
+</script>
+<!-- MODAL -->
+<script>
+    $(document).ready(function () {
+        $('#likeAlbum').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('href'),
+                method: 'GET',
+                success: function (response) {
+                    $('#wishlistModal').modal('show');
+                }
+            });
         });
     });
 </script>

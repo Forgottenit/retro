@@ -47,6 +47,18 @@ class Customer(models.Model):
         return self.user.username
 
 
+class Like(models.Model):
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    liked = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (
+            "user",
+            "album",
+        )
+
+
 class Wishlist(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name="wishlists"

@@ -10,5 +10,6 @@ urlpatterns = [
         views.order_history,
         name="order_history",
     ),
+    path("like_album/<str:album_id>/", views.like_album, name="like_album"),
     path("add/<str:item_id>/", views.add_to_wishlist, name="add_to_wishlist"),
 ]

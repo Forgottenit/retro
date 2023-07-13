@@ -224,8 +224,9 @@
 
 
                                 <!-- LIKES -->
+
                                 {% if user.is_authenticated and is_customer %}
-                                <a href="{% url 'accounts:like_album' album.album_id %}" id="likeAlbum">
+                                <a href="{% url 'accounts:like_album' album.album_id %}" class="likeAlbum">
                                     {% if album.album_id in liked_albums %}
                                     <i class="fas fa-heart filled-heart"></i>
                                     {% else %}
@@ -233,6 +234,7 @@
                                     {% endif %}
                                 </a>
                                 {% endif %}
+
 
                                 <!-- EDIT DELETE FOR SUPERUSER -->
                                 {% if request.user.is_superuser %}
@@ -455,7 +457,7 @@
 <!-- MODAL -->
 <script>
     $(document).ready(function () {
-        $('#likeAlbum').on('click', function (e) {
+        $('.likeAlbum').on('click', function (e) {
             e.preventDefault();
             $.ajax({
                 url: $(this).attr('href'),

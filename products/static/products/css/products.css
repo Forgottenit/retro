@@ -12,35 +12,37 @@ body {
 }
 
 .image-container {
-    position: relative !important;
+    position: relative;
 }
 
 .image-overlay {
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    background: rgba(4, 4, 4, 0.5) !important;
-    /* Black background with opacity */
-    color: #f1f1f1 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    transition: opacity .3s, visibility .3s !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(4, 4, 4, 0.5);
+    color: #f1f1f1;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s, visibility .3s;
+    pointer-events: none;
 }
 
-.image-container:hover .overlay {
-    visibility: visible !important;
-    opacity: 1 !important;
+.image-container:hover .image-overlay {
+    visibility: visible;
+    opacity: 1;
 }
 
 .plus-box {
-    font-size: 30px !important;
-    background: #f30303 !important;
-    color: #000 !important;
-    padding: 10px !important;
-    border-radius: 50% !important;
-
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    background: #fbe689;
+    color: #000000;
+    padding: 7px;
+    border-radius: 5px;
 }
 
 .spotify_link {

@@ -20,7 +20,7 @@
             {% for item in cart_items %}
             <div class="row">
                 <div class="col-3 my-1">
-                    {% if album.image %}
+                    {% if item.album.image %}
                     <a href="{% url 'products:album_details' item.album.album_id %}?={{item.album.album_name}}">
                         <img class="card-img-top" src="{{ item.album.image.url }}" alt="Album Image">
                     </a>

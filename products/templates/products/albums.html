@@ -237,20 +237,23 @@
                                 {% endif %}
 
 
-                                <!-- EDIT DELETE FOR SUPERUSER -->
-                                {% if request.user.is_superuser %}
-                                <p class="ml-3">
-                                    <a href="{% url 'products:edit_product' album.album_id %}">Edit</a> |
-                                    <a class="text-danger"
-                                        href="{% url 'products:delete_product' album.album_id %}">Delete</a> |
-                                    {% for artist in album.artists.all %}
-                                    <a class="text-danger"
-                                        href="{% url 'products:delete_artist' artist.artist_id %}">Delete
-                                        Artist: {{ artist.artist_name }}</a>
-                                    {% endfor %}
-                                </p>
-                                {% endif %}
+
                         </div>
+                        <!-- EDIT DELETE FOR SUPERUSER -->
+                        {% if request.user.is_superuser %}
+                        <p class="ml-3">
+                            <a class="btn btn-warning" href="{% url 'products:edit_product' album.album_id %}">Edit</a>
+                            |
+                            <a class="btn btn-danger confirmationModalTrigger"
+                                data-message="Are you sure you want to delete this album?"
+                                data-url="{% url 'products:delete_product' album.album_id %}">Delete</a>
+                            {% for artist in album.artists.all %}
+                            <a class="btn btn-danger confirmationModalTrigger"
+                                data-message="Are you sure you want to delete ALL albums by this artist?"
+                                data-url="{% url 'products:delete_artist' artist.artist_id %}">DELETE ARTIST</a>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
                     </div>
 
                     <!-- MODAL -->
@@ -273,6 +276,29 @@
                                         thanks</a>
                                     <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
                                         add to my wishlist</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DELETE MODAL -->
+                    <div class="modal" tabindex="-1" id="confirmationModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content text-dark">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-uppercase text-decoration-underline"
+                                        id="confirmationModalTitle">
+                                        Confirmation</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="confirmationModalBody">
+                                    <!-- Message  -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
+                                        thanks</button>
+                                    <a href="#" class="btn btn-primary" id="confirmationModalYesButton">Yes</a>
                                 </div>
                             </div>
                         </div>
@@ -456,7 +482,28 @@
         });
     });
 </script>
-<!-- MODAL -->
+<!-- Delete MODAL -->
+<script>
+    $(document).ready(function () {
+        $(".confirmationModalTrigger").click(function (e) {
+            e.preventDefault();
+
+            // Get message and URL from data-
+            var message = $(this).data("message");
+            var url = $(this).data("url");
+
+            // Set message 
+            $("#confirmationModalBody").text(message);
+
+            // Set the URL of 'Yes' button 
+            $("#confirmationModalYesButton").attr("href", url);
+
+            // Show modal
+            $("#confirmationModal").modal("show");
+        });
+    });
+</script>
+
 
 <script>
     $(document).ready(function () {

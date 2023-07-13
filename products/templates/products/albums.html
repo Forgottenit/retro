@@ -226,9 +226,10 @@
                                 <!-- LIKES -->
 
                                 {% if user.is_authenticated and is_customer %}
-                                <a href="{% url 'accounts:like_album' album.album_id %}" class="likeAlbum">
+                                <a href="{% url 'accounts:like_album' album.album_id %}" class="likeAlbum"
+                                    data-album-id="{{ album.album_id }}">
                                     {% if album.album_id in liked_albums %}
-                                    <i class="fas fa-heart filled-heart"></i>
+                                    <i class=" fas fa-heart filled-heart"></i>
                                     {% else %}
                                     <i class="far fa-heart"></i>
                                     {% endif %}
@@ -270,8 +271,7 @@
                                         thanks</button> -->
                                     <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
                                         thanks</a>
-                                    <a href="{% url 'accounts:add_to_wishlist' album.album_id %}"
-                                        class="btn btn-primary">Yes,
+                                    <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
                                         add to my wishlist</a>
                                 </div>
                             </div>
@@ -481,14 +481,21 @@
             e.preventDefault();
             const $this = $(this);
             const isLiked = $this.find('.filled-heart').length > 0;
+            const albumId = $this.data('album-id');
+            console.log(albumId)
+            const addToWishlistUrl = `{% url 'accounts:add_to_wishlist' album_id='placeholder' %}`
+                .replace('placeholder', albumId);
 
             $.ajax({
                 url: $(this).attr('href'),
                 method: 'GET',
                 success: function (response) {
                     console.log(isLiked)
+                    console.log(albumId)
                     if (!isLiked) {
                         $('#wishlistModal').modal('show');
+                        $('#wishlistModal .add-to-wishlist-btn').attr('href',
+                            addToWishlistUrl);
                     } else {
                         location.reload(); // refresh 
                     }

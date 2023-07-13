@@ -8,7 +8,39 @@ body {
 
 .main {
     flex: 1 0 auto !important;
-    min-height: calc(100vh - <768px>);
+
+}
+
+.image-container {
+    position: relative !important;
+}
+
+.image-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(4, 4, 4, 0.5) !important;
+    /* Black background with opacity */
+    color: #f1f1f1 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transition: opacity .3s, visibility .3s !important;
+}
+
+.image-container:hover .overlay {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.plus-box {
+    font-size: 30px !important;
+    background: #f30303 !important;
+    color: #000 !important;
+    padding: 10px !important;
+    border-radius: 50% !important;
+
 }
 
 .spotify_link {

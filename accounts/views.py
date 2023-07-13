@@ -50,12 +50,17 @@ def like_album(request, album_id):
     if not created:
         if like.liked:
             like.delete()
+            album.popularity -= 1
         else:
             like.liked = True
             like.save()
+            album.popularity += 1
     else:
         like.liked = True
         like.save()
+        album.popularity += 1
+
+    album.save()
 
     return redirect(request.META.get("HTTP_REFERER", "/"))
 

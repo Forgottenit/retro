@@ -31,3 +31,16 @@
     height: 38px;
 
 }
+
+/* WISHLIST ITEMS  */
+.wishlist-item {
+    border: 2px solid #bababa;
+
+    background-color: #19175b;
+
+    padding: 10px;
+    margin-bottom: 10px;
+
+    border-radius: 5px;
+
+}

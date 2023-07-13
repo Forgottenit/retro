@@ -34,42 +34,48 @@
         </div>
 
         <div class="col-12 col-lg-6">
-            <p class="text-light">Wishlist</p>
+            <h4 class="text-light">Wishlist</h4>
             <div class="wishlist">
                 <ul>
                     {% for wishlist_item in wishlists %}
                     <li>
-                        <a href="{% url 'products:album_details' album_id=wishlist_item.album.album_id %}"
-                            class="text-info">{{ wishlist_item.album.album_name }}</a>
-                        by
-                        {% for artist in wishlist_item.album.artists.all %}
-                        <span class="text-white">{{ artist.artist_name }}</span>{% if not forloop.last %},{% endif %}
-                        <img src="{{ wishlist_item.album.image.url }}" alt="{{ wishlist_item.album.album_name }}"
-                            style="width: 50px; height: auto;" class="ms-3" />
+                        <div class="wishlist-item">
+                            <a href="{% url 'products:album_details' album_id=wishlist_item.album.album_id %}"
+                                class="text-info">{{ wishlist_item.album.album_name }}</a>
+                            by
+                            {% for artist in wishlist_item.album.artists.all %}
+                            <span class="text-white">{{ artist.artist_name }}</span>
+                            {% if not forloop.last %},{% endif %}
+                            <img src="{{ wishlist_item.album.image.url }}" alt="{{ wishlist_item.album.album_name }}"
+                                style="width: 50px; height: auto;" class="ms-3" />
+                            {% endfor %}
+                            <div class="d-flex justify-content-between">
+                                <!-- DELETE FROM WISHLIST -->
+                                <form class="form mt-3 mb-2"
+                                    action="{% url 'accounts:remove_from_wishlist' wishlist_item.album.album_id %}"
+                                    method="POST">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Remove" class="btn btn-secondary">
+                                </form>
 
-                        {% endfor %}
-                        <form class="form mt-4" action="{% url 'cart:add_to_cart' wishlist_item.album.album_id %}"
-                            method="POST">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-2">
-                                    <input class="form-control qty_input form-control-qty" type="number" name="quantity"
-                                        value="1" min="1" max="99">
-                                </div>
-                                <div class="col-1">
-                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
-                                </div>
-                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <!-- ADD TO CART -->
+                                <form class="form mt-3 mb-3"
+                                    action="{% url 'cart:add_to_cart' wishlist_item.album.album_id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input class="form-control qty_input form-control-qty" type="number"
+                                                name="quantity" value="1" min="1" max="99">
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="submit" value="Add to Cart" class="btn btn-primary">
+                                        </div>
+                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                    </div>
+                                </form>
                             </div>
 
-                        </form>
-                        <form class="form mt-3 mb-2"
-                            action="{% url 'accounts:remove_from_wishlist' wishlist_item.album.album_id %}"
-                            method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="Remove" class="btn btn-secondary">
-                        </form>
-
+                        </div>
                     </li>
                     {% empty %}
                     <li>Your wishlist is empty.</li>

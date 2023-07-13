@@ -34,6 +34,7 @@
             <div class="col-9">
                 <p class="my-0"><strong>{{ item.album.album_name }}</strong></p>
                 <p class="my-0 small">Qty: {{ item.quantity }}</p>
+                <p class="my-0 small">Price: €{{ item.album.price }}</p>
             </div>
 
             {% endfor %}
@@ -52,12 +53,14 @@
                 Spend <strong>${{ free_delivery_delta }}</strong> more to get free next day delivery!
             </p>
             {% endif %}
+            {% if product_count > 0 %}
             <a href="{% url 'cart:view_cart' %}" class="btn btn-custom rounded-0">
                 <span class="text-uppercase">Go To Secure Checkout</span>
                 <span class="icon">
                     <i class="fas fa-lock"></i>
                 </span>
             </a>
+            {% endif %}
         </div>
     </div>
     {% endif %}

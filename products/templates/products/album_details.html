@@ -109,25 +109,28 @@
                                         </span>
                                     </button>
                                 </div>
-                                <a href="{% url 'accounts:add_to_wishlist' album.album_id %}" class="btn btn-primary">
-                                    <span class="icon">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </span>
-                                    <span>Add to Wishlist</span>
-                                </a>
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 mt-5">
+                    <div class="col-12 mt-5">
+                        <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 ">
                             <span class="icon">
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </span>
                             <span class="text-uppercase">Keep Shopping </span>
                         </a>
-                        <input type="submit" class="btn btn-secondary rounded-0 text-uppercase mt-5"
-                            value="Add to Cart ">
+                        <input type="submit" class="btn btn-secondary rounded-0 text-uppercase " value="Add to Cart ">
+
+                        <a href="{% url 'accounts:add_to_wishlist' album.album_id %}"
+                            class="btn wishlist-btn ms-2  rounded-pill">
+                            <span class="icon">
+                                <i class="fa-solid fa-heart"></i>
+                            </span>
+                            <span>Add to Wishlist</span>
+                        </a>
+
                     </div>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </div>

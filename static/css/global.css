@@ -49,6 +49,26 @@ footer {
     color: #141529;
 }
 
+.wishlist-btn {
+    background-color: #fbaee9;
+    border-color: #f39237;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: rgb(223, 14, 14);
+    font-weight: 500;
+}
+
+.wishlist-btn:hover,
+.wishlist-btn:active,
+.wishlist-btn:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #fcd7fc !important;
+    border-color: #f87ddf !important;
+    color: rgb(243, 23, 23);
+    font-weight: 600;
+}
+
 .btn-primary {
     background-color: #f39237;
     border-color: #f39237;

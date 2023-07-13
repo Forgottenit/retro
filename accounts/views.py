@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Customer, Wishlist
+from .models import Customer, Wishlist, Like
 from .forms import CustomerProfileForm
 from products.models import Album
 from checkout.models import Order
+from django.http import JsonResponse
 
 
 @login_required
@@ -36,6 +37,24 @@ def profile(request):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def like_album(request, album_id):
+    album = get_object_or_404(Album, album_id=album_id)
+    like, created = Like.objects.get_or_create(
+        user=request.user.customer, album=album
+    )
+
+    # if it was already liked, unlike it
+    if not created:
+        like.liked = not like.liked
+    else:
+        like.liked = True
+
+    like.save()
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 @login_required

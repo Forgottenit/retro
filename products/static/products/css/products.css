@@ -180,6 +180,12 @@ ul {
     color: #050505 !important;
 }
 
+/* LIKES */
+.filled-heart {
+    color: #f433ab;
+}
+
+
 /* Pagination */
 
 .floating-pagination-results {

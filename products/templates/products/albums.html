@@ -268,7 +268,7 @@
                                 <div class="modal-footer">
                                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
                                         thanks</button> -->
-                                    <a href="{% url 'products:albums'  %}" class="btn btn-secondary">No,
+                                    <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
                                         thanks</a>
                                     <a href="{% url 'accounts:add_to_wishlist' album.album_id %}"
                                         class="btn btn-primary">Yes,
@@ -457,6 +457,24 @@
     });
 </script>
 <!-- MODAL -->
+
+<script>
+    $(document).ready(function () {
+        $('.reload').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('href'),
+                method: 'GET',
+                success: function (response) {
+                    location.reload(); // Reload 
+                }
+            });
+        })
+    })
+</script>
+
+
+
 <script>
     $(document).ready(function () {
         $('.likeAlbum').on('click', function (e) {

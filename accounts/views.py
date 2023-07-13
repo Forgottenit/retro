@@ -50,7 +50,7 @@ def like_album(request, album_id):
     if not created:
         if like.liked:
             like.delete()
-            album.popularity -= 1
+            album.popularity = max(0, album.popularity - 1)
         else:
             like.liked = True
             like.save()
@@ -66,9 +66,9 @@ def like_album(request, album_id):
 
 
 @login_required
-def add_to_wishlist(request, item_id):
+def add_to_wishlist(request, album_id):
     """Add an item to the wishlist"""
-    album = get_object_or_404(Album, album_id=item_id)
+    album = get_object_or_404(Album, album_id=album_id)
     wishlist_item, created = Wishlist.objects.get_or_create(
         customer=request.user.customer, album=album
     )

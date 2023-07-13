@@ -19,7 +19,7 @@ body {
 
 .main {
     flex: 1;
-    min-height: 70vh;
+    min-height: 60vh;
 }
 
 
@@ -93,6 +93,7 @@ footer {
     right: 15px;
     z-index: 99999999999;
     color: #ffffff;
+    max-height: 20vh;
 }
 
 .me-auto {
@@ -148,6 +149,7 @@ footer {
     background-color: #141529;
     color: #ffffff;
 }
+
 
 /*  custom button style */
 .btn-custom {

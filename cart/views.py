@@ -17,15 +17,20 @@ def view_cart(request):
 
 def add_to_cart(request, item_id):
     """Add a quantity to cart"""
-
-    quantity_str = request.POST.get("quantity")
-    if not quantity_str:
-        messages.error(request, "Quantity cannot be empty.")
-        return redirect(request.META.get("HTTP_REFERER", "/"))
-
     product = get_object_or_404(Album, album_id=item_id)
 
-    quantity = int(request.POST.get("quantity"))
+    quantity_str = request.POST.get("quantity")
+    if quantity_str:
+        quantity = int(request.POST.get("quantity"))
+    else:
+        quantity = 1
+
+    # if not quantity_str:
+    #     messages.error(request, "Quantity cannot be empty.")
+    #     return redirect(request.META.get("HTTP_REFERER", "/"))
+
+    # quantity = int(request.POST.get("quantity"))
+
     redirect_url = request.POST.get("redirect_url")
     cart = request.session.get("cart", {})
 
@@ -40,6 +45,11 @@ def add_to_cart(request, item_id):
         messages.success(request, f"Added {product.album_name} to your cart")
 
     request.session["cart"] = cart
+
+    redirect_url = request.POST.get("redirect_url")
+    if not redirect_url:
+        return redirect(request.path)  # If redirect_url is None or empty
+        # redirect_url = "cart:view_cart"
 
     return redirect(redirect_url)
 

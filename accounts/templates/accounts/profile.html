@@ -39,10 +39,15 @@
                 <ul>
                     {% for wishlist_item in wishlists %}
                     <li>
-                        {{ wishlist_item.album.album_name }} by
+                        <a
+                            href="{% url 'products:album_details' album_id=wishlist_item.album.album_id %}">{{ wishlist_item.album.album_name }}</a>
+                        by
                         {% for artist in wishlist_item.album.artists.all %}
-                        {{ artist.artist_name }}
+                        {{ artist.artist_name }}{% if not forloop.last %},{% endif %}
                         {% endfor %}
+                        <a href="{% url 'cart:add_to_cart' item_id=wishlist_item.album.album_id %}">Add to Cart</a>
+                        <a href="{% url 'cart:add_to_cart' item_id=wishlist_item.album.album_id %}">Remove from
+                            Wishlist</a>
                     </li>
                     {% empty %}
                     <li>Your wishlist is empty.</li>

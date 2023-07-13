@@ -12,4 +12,9 @@ urlpatterns = [
     ),
     path("like_album/<str:album_id>/", views.like_album, name="like_album"),
     path("add/<str:album_id>/", views.add_to_wishlist, name="add_to_wishlist"),
+    path(
+        "remove/<str:album_id>/",
+        views.remove_from_wishlist,
+        name="remove_from_wishlist",
+    ),
 ]

@@ -84,6 +84,25 @@ def add_to_wishlist(request, album_id):
 
 
 @login_required
+def remove_from_wishlist(request, album_id):
+    """Remove an item from the wishlist"""
+    album = get_object_or_404(Album, album_id=album_id)
+    wishlist_item = get_object_or_404(
+        Wishlist, customer=request.user.customer, album=album
+    )
+
+    if wishlist_item:
+        wishlist_item.delete()
+        messages.success(
+            request, f"Removed {album.album_name} from your wishlist"
+        )
+    else:
+        messages.info(request, f"{album.album_name} is not in your wishlist")
+
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+@login_required
 def order_history(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 

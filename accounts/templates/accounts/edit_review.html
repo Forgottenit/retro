@@ -9,12 +9,12 @@
 
 {% block content %}
 
-<h1>Add Review</h1>
+<h1>Edit Review</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Add Review</button>
+    <button type="submit" class="btn btn-secondary me-3">Edit Review</button>
 </form>
 {% endblock %}
 

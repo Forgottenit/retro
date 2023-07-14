@@ -69,17 +69,21 @@ def like_album(request, album_id):
 @login_required
 def add_to_wishlist(request, album_id):
     """Add an item to the wishlist"""
-    album = get_object_or_404(Album, album_id=album_id)
-    wishlist_item, created = Wishlist.objects.get_or_create(
-        customer=request.user.customer, album=album
-    )
 
-    if created:
-        messages.success(request, f"Added {album.album_name} to your wishlist")
-    else:
-        messages.info(
-            request, f"{album.album_name} is already in your wishlist"
+    album = get_object_or_404(Album, album_id=album_id)
+    if request.user.is_authenticated and request.user.is_active:
+        wishlist_item, created = Wishlist.objects.get_or_create(
+            customer=request.user.customer, album=album
         )
+
+        if created:
+            messages.success(
+                request, f"Added {album.album_name} to your wishlist"
+            )
+        else:
+            messages.info(
+                request, f"{album.album_name} is already in your wishlist"
+            )
 
     return redirect(request.META.get("HTTP_REFERER", "/"))
 

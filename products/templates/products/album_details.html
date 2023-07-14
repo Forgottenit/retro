@@ -19,11 +19,12 @@
                                 data-bs-target="#collapseMain" aria-expanded="false" aria-controls="collapseMain">
                                 Reviews
                             </button>
-                            <a href="{% url 'accounts:add_review' album.album_id %}" class="btn btn-primary ms-5">Add
+                            <a href="{% url 'accounts:add_review' album.album_id %}"
+                                class="btn btn-primary ms-5 addReviewButton" data-albumId="{{ album.album_id }}">Add
                                 Review</a>
                         </div>
                     </h2>
-                    <div id="collapseMain" class="accordion-collapse collapse" aria-labelledby="headingMain"
+                    <div id=" collapseMain" class="accordion-collapse collapse" aria-labelledby="headingMain"
                         data-bs-parent="#mainAccordion">
                         <div class="accordion-body">
                             {% load ratings %}
@@ -118,7 +119,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
                             thanks</button>
-                        <a href="#" class="btn btn-primary" id="confirmationModalYesButton">Yes</a>
+                        <a href="#" class="btn btn-primary" id="confirmationModalYesButton">Lets Do It!</a>
                     </div>
                 </div>
             </div>
@@ -300,6 +301,39 @@
 
             // Show modal
             $("#confirmationModal").modal("show");
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".addReviewButton").click(function (e) {
+            e.preventDefault();
+
+
+            var albumId = this.dataset.albumid;
+
+            fetch('/accounts/album/' + albumId + '/add_review/')
+                .then(response => {
+                    console.log($(this).data("albumId"))
+                    if (response.status === 401) {
+                        // Get message and URL from data-
+                        var message = 'You need to Login/Sign up to access this page.';
+                        var url = '/accounts/login/';
+
+                        // Set message 
+                        $("#confirmationModalBody").text(message);
+
+                        // Set the URL of 'Yes' button 
+                        $("#confirmationModalYesButton").attr("href", url);
+
+                        // Show modal
+                        $("#confirmationModal").modal("show");
+                    } else {
+                        // Handle other responses
+                        window.location.href = '/accounts/album/' + albumId + '/add_review/';
+                    }
+                });
         });
     });
 </script>

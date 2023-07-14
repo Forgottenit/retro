@@ -6,6 +6,7 @@ from .forms import CustomerProfileForm, ReviewForm
 from products.models import Album
 from checkout.models import Order
 from django.http import HttpResponseForbidden
+from django.http import JsonResponse
 
 
 @login_required
@@ -123,12 +124,11 @@ def order_history(request, order_number):
     return render(request, template, context)
 
 
-@login_required
+# @login_required
 def add_review(request, album_id):
     if not request.user.is_authenticated:
-        messages.warning(
-            request, "You need to Login/Sign up to access this page."
-        )
+        return JsonResponse({"error": "Login required"}, status=401)
+
     album = get_object_or_404(Album, album_id=album_id)
 
     if request.method == "POST":

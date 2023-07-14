@@ -247,7 +247,7 @@
 
                         </div>
                         <!-- EDIT DELETE FOR SUPERUSER -->
-                        {% if request.user.is_superuser %}
+                        {% if request.user.is_authenticated and request.user.is_superuser %}
                         <p class="ml-3">
                             <a class="btn btn-warning mt-1"
                                 href="{% url 'products:edit_product' album.album_id %}">Edit</a>

@@ -125,6 +125,10 @@ def order_history(request, order_number):
 
 @login_required
 def add_review(request, album_id):
+    if not request.user.is_authenticated:
+        messages.warning(
+            request, "You need to Login/Sign up to access this page."
+        )
     album = get_object_or_404(Album, album_id=album_id)
 
     if request.method == "POST":
@@ -163,7 +167,7 @@ def edit_review(request, review_id):
         form = ReviewForm(instance=review)
 
     context = {"form": form, "album": review.album}
-    return render(request, "products/edit_review.html", context)
+    return render(request, "accounts/edit_review.html", context)
 
 
 @login_required

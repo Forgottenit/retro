@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
 
 app_name = "accounts"
@@ -16,5 +16,16 @@ urlpatterns = [
         "remove/<str:album_id>/",
         views.remove_from_wishlist,
         name="remove_from_wishlist",
+    ),
+    path(
+        "album/<str:album_id>/add_review/", views.add_review, name="add_review"
+    ),
+    path(
+        "review/<int:review_id>/edit/", views.edit_review, name="edit_review"
+    ),
+    path(
+        "review/<int:review_id>/delete/",
+        views.delete_review,
+        name="delete_review",
     ),
 ]

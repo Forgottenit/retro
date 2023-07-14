@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Add Review</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit">Add Review</button>
+</form>
+{% endblock %}
+
+
+
+{% block postloadjs %}
+
+{% endblock %}

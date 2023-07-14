@@ -1,5 +1,6 @@
 from django import forms
-from .models import Customer
+from .models import Customer, Review
+from ckeditor.widgets import CKEditorWidget
 
 
 class CustomerProfileForm(forms.ModelForm):
@@ -52,3 +53,11 @@ class CustomerProfileForm(forms.ModelForm):
             user.save()
             customer.save()
         return customer
+
+
+class ReviewForm(forms.ModelForm):
+    review_text = forms.CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = Review
+        fields = ["review_text"]

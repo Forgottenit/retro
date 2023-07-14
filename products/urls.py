@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 app_name = "products"
 
 urlpatterns = [
@@ -16,5 +17,5 @@ urlpatterns = [
         views.delete_artist,
         name="delete_artist",
     ),
-    path("<str:album_id>/", views.album_details, name="album_details"),
+    path("album/<str:album_id>/", views.album_details, name="album_details"),
 ]

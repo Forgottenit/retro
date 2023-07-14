@@ -107,6 +107,9 @@ INSTALLED_APPS = [
     "django_user_agents",
     "cart",
     "checkout",
+    "django_extensions",
+    "ckeditor",
+    "star_ratings",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

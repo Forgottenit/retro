@@ -4,6 +4,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from products.models import Album
 from django_countries.fields import CountryField
+from ckeditor.fields import RichTextField
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
 
 
 class Customer(models.Model):
@@ -70,6 +73,32 @@ class Wishlist(models.Model):
         unique_together = (
             "customer",
             "album",
+        )
+
+
+class Review(models.Model):
+    """
+    Model for review by customer.
+    """
+
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name="reviews"
+    )
+    album = models.ForeignKey(
+        Album, on_delete=models.CASCADE, related_name="reviews"
+    )
+    review_text = RichTextField(blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    ratings = GenericRelation(Rating, related_query_name="reviews")
+
+    def __str__(self):
+        """
+        Return version of review_text with elipses
+        """
+        return (
+            self.review_text[:75] + "..."
+            if len(self.review_text) > 75
+            else self.review_text
         )
 
 

@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from products.models import Album
 from django_countries.fields import CountryField
 from ckeditor.fields import RichTextField
-from django.contrib.contenttypes.fields import GenericRelation
+
 from star_ratings.models import Rating
 
 
@@ -89,7 +89,6 @@ class Review(models.Model):
     )
     review_text = RichTextField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    ratings = GenericRelation(Rating, related_query_name="reviews")
 
     def __str__(self):
         """

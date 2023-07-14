@@ -2,6 +2,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from decimal import Decimal
 from django.core.validators import MinValueValidator
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
 
 
 EXPLICIT_CHOICES = (
@@ -130,6 +132,7 @@ class Album(models.Model):
         default=Decimal("25.00"),
         validators=[MinValueValidator(0)],
     )
+    ratings = GenericRelation(Rating, related_query_name="reviews")
 
     def __str__(self):
         return f"{self.album_name}"

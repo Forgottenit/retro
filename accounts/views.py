@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Customer, Wishlist, Like
-from .forms import CustomerProfileForm
+from .models import Customer, Wishlist, Like, Review
+from .forms import CustomerProfileForm, ReviewForm
 from products.models import Album
 from checkout.models import Order
-from django.http import JsonResponse
+from django.http import HttpResponseForbidden
 
 
 @login_required
@@ -121,3 +121,56 @@ def order_history(request, order_number):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def add_review(request, album_id):
+    album = get_object_or_404(Album, album_id=album_id)
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.album = album
+            review.customer = request.user.customer
+            review.save()
+
+            return redirect("products:album_details", album_id=album.album_id)
+    else:
+        form = ReviewForm()
+
+    context = {"form": form, "album": album}
+    return render(request, "accounts/add_review.html", context)
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+
+    if request.user != review.customer.user:
+        return HttpResponseForbidden()
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+
+        if form.is_valid():
+            form.save()
+            return redirect(
+                "products:album_details", album_id=review.album.album_id
+            )
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {"form": form, "album": review.album}
+    return render(request, "products/edit_review.html", context)
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.user != review.customer.user:
+        return HttpResponseForbidden()
+    album_id = review.album.album_id
+    review.delete()
+    return redirect("products:album_details", album_id=album_id)

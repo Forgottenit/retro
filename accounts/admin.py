@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Customer, Wishlist, Like
+from .models import Customer, Wishlist, Like, Review
 
 
 class WishlistInline(admin.TabularInline):
@@ -26,6 +26,12 @@ class CustomerInline(admin.StackedInline):
 class CustomUserAdmin(UserAdmin):
     inlines = [CustomerInline]
 
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ("customer", "album", "review_text", "created_date")
+
+
+admin.site.register(Review, ReviewAdmin)
 
 admin.site.unregister(User)
 admin.site.register(

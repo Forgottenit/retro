@@ -32,4 +32,5 @@ urlpatterns = [
     # ),
     path("checkout/", include("checkout.urls", namespace="checkout")),
     path("accounts/", include("accounts.urls", namespace="accounts")),
+    path("ratings/", include("star_ratings.urls", namespace="ratings")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

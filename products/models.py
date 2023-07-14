@@ -132,7 +132,7 @@ class Album(models.Model):
         default=Decimal("25.00"),
         validators=[MinValueValidator(0)],
     )
-    ratings = GenericRelation(Rating, related_query_name="reviews")
+    ratings = GenericRelation(Rating, related_query_name="albums")
 
     def __str__(self):
         return f"{self.album_name}"

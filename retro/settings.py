@@ -211,7 +211,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 # DEBUG = True
 DEBUG = os.environ.get("DEVELOPMENT")
 
-
+# STAR_RATINGS_ANONYMOUS = True
 ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",
     "https://forgottenit-retro.herokuapp.com/*",

@@ -94,12 +94,19 @@ ul {
 
 /* REVIEWS */
 
+
+
 .review-accordion {
 
     background: #f433ab;
     font-size: 1rem;
     font-weight: 600;
     color: #f1f1f1;
+}
+
+.card-text {
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* SEARCH RESULTS CSS */

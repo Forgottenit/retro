@@ -54,6 +54,12 @@
                                                 data-bs-target="#collapseReview{{ review.id }}" aria-expanded="false"
                                                 aria-controls="collapseReview{{ review.id }}">
                                                 Review by {{ review.customer }}
+                                                {% if album.ratings.first %}
+                                                <span class="text-warning">
+                                                    Average Rating: {{ album.ratings.first.average }}<i
+                                                        class="fa-solid fa-star" style="color: #faf200;"></i>
+                                                </span>
+                                                {% endif %}
                                             </button>
                                         </h2>
                                         <div id="collapseReview{{ review.id }}" class="accordion-collapse collapse"
@@ -63,7 +69,7 @@
                                                 <p class="card-text">{{ review.review_text }}</p>
                                                 <div class="review-rating">
                                                     <h5>Rating</h5>
-                                                    <p>{% ratings review %}</p>
+                                                    <p>{% ratings album %}</p>
                                                 </div>
                                             </div>
                                             {% if request.user.is_authenticated and request.user == review.customer.user %}

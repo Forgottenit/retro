@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load get_stars_filters %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
@@ -29,48 +30,63 @@
                         <h2 class="accordion-header" id="headingMain">
                             <div class="d-flex justify-content-between">
                                 <button class="accordion-button collapsed review-accordion" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#collapseMain" aria-expanded="false"
-                                    aria-controls="collapseMain">
+                                    data-bs-toggle="collapse" data-bs-target="#collapseMain-{{ album.album_id }}"
+                                    aria-expanded="false" aria-controls="collapseMain-{{ album.album_id }}">
                                     Reviews
                                 </button>
 
                             </div>
                         </h2>
-                        <div id="collapseMain" class="accordion-collapse collapse" aria-labelledby="headingMain"
-                            data-bs-parent="#mainAccordion">
+
+
+                        <div id="collapseMain-{{ album.album_id }}" class="accordion-collapse collapse"
+                            aria-labelledby="headingMain" data-bs-parent="#mainAccordion">
+                            <!-- RATINGS -->
+                            <div class="p-2 ms-2">
+                                <!-- <p>Rating: {{ rating.average|floatformat }}</p> -->
+                                {% for rating in album.ratings.all %}
+                                <span>Avg:
+                                    {% with stars=rating.average|get_stars %}
+                                    {% for _ in stars.full_stars %}
+                                    <i class="bi bi-star-fill"></i>
+                                    {% endfor %}
+                                    {% if stars.is_half_star %}
+                                    <i class="bi bi-star-half"></i>
+                                    {% endif %}
+                                    {% endwith %}
+                                    <p>Total Votes: {{ rating.count }}</p>
+                                </span>
+
+                                {% empty %}
+                                <p>No ratings yet.</p>
+                                {% endfor %}
+                                {% load ratings %}
+                                {% ratings album %}
+                            </div>
                             <a href="{% url 'accounts:add_review' album.album_id %}"
                                 class="btn btn-primary mt-4 ms-1 addReviewButton"
                                 data-albumId="{{ album.album_id }}">Add
                                 Review</a>
                             <div class="accordion-body">
-                                {% load ratings %}
+                                <!-- {% load ratings %} -->
                                 {% if album.reviews.all %}
                                 {% for review in album.reviews.all %}
                                 <div class="accordion" id="reviewAccordion{{ review.id }}">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingReview{{ review.id }}">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse"
+                                            <button class="accordion-button collapsed review-accordion-button"
+                                                type="button" data-bs-toggle="collapse"
                                                 data-bs-target="#collapseReview{{ review.id }}" aria-expanded="false"
                                                 aria-controls="collapseReview{{ review.id }}">
                                                 Review by {{ review.customer }}
-                                                {% if album.ratings.first %}
-                                                <span class="text-warning">
-                                                    Average Rating: {{ album.ratings.first.average }}<i
-                                                        class="fa-solid fa-star" style="color: #faf200;"></i>
-                                                </span>
-                                                {% endif %}
+                                                <!-- {{ review.rating }} -->
                                             </button>
                                         </h2>
                                         <div id="collapseReview{{ review.id }}" class="accordion-collapse collapse"
                                             aria-labelledby="headingReview{{ review.id }}"
                                             data-bs-parent="#reviewAccordion{{ review.id }}">
                                             <div class="accordion-body">
-                                                <p class="card-text">{{ review.review_text }}</p>
-                                                <div class="review-rating">
-                                                    <h5>Rating</h5>
-                                                    <p>{% ratings album %}</p>
-                                                </div>
+                                                <p class="card-text text-wrap">{{ review.review_text }}</p>
                                             </div>
                                             {% if request.user.is_authenticated and request.user == review.customer.user %}
                                             <div class="accordion-footer">

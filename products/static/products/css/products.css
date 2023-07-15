@@ -344,3 +344,62 @@ ul {
 .modal-body {
     color: #000000;
 }
+
+/* EDIT DELTETE BUTTONS */
+.btn-edit {
+    background-color: #f39237;
+    border-color: #f39237;
+}
+
+.btn-delete-album {
+    background-color: #f94144;
+    border-color: #f94144;
+}
+
+.btn-delete-artist {
+    background-color: #7209b7;
+    border-color: #7209b7;
+}
+
+.btn-edit:hover,
+.btn-edit:active,
+.btn-edit:focus,
+.btn-delete-album:hover,
+.btn-delete-album:active,
+.btn-delete-album:focus,
+.btn-delete-artist:hover,
+.btn-delete-artist:active,
+.btn-delete-artist:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #000;
+}
+
+.btn-edit:hover,
+.btn-edit:active,
+.btn-edit:focus {
+    background-color: #fbe689 !important;
+    border-color: #fbe689 !important;
+}
+
+.btn-delete-album:hover,
+.btn-delete-album:active,
+.btn-delete-album:focus {
+    background-color: #f37272 !important;
+    border-color: #f37272 !important;
+}
+
+.btn-delete-artist:hover,
+.btn-delete-artist:active,
+.btn-delete-artist:focus {
+    background-color: #b689fb !important;
+    border-color: #b689fb !important;
+}
+
+.btn-edit,
+.btn-delete-album,
+.btn-delete-artist {
+    border-radius: 5px;
+    margin: 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}

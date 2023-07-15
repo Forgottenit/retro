@@ -102,6 +102,24 @@ footer {
     border-color: #17a2b8 !important;
 }
 
+.btn-third {
+    background-color: #33e1f4;
+    border-color: #33a4f4;
+    box-shadow: 0 8px 16px rgba(0.6, 0.9, 0.9, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-weight: 500;
+}
+
+.btn-third:hover,
+.btn-third:active,
+.btn-third:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #e8ef1b !important;
+    border-color: #e1db15 !important;
+    font-weight: 600;
+}
+
 /* Messages css */
 .delivery-spend {
     background-color: #f433ab;

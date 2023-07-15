@@ -20,6 +20,16 @@ from .models import Order, OrderLineItem
 
 @require_POST
 def cache_checkout_data(request):
+    """
+    Function to cache checkout data in preparation for payment.
+
+    Parameters:
+    - request: HTTP request
+
+    Returns:
+    - HttpResponse with status 200 if caching is successful
+    - HttpResponse with status 400 if there was an error
+    """
     try:
         pid = request.POST.get("client_secret").split("_secret")[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -42,6 +52,17 @@ def cache_checkout_data(request):
 
 
 def checkout(request):
+    """
+    Function to handle the checkout process.
+
+    Parameters:
+    - request: HTTP request
+
+    Returns:
+    - Rendered checkout page on GET request.
+    - Redirect to the checkout success page on successful POST request.
+    - Redirect to the cart page or album page depending on the condition.
+    """
     stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
@@ -50,7 +71,6 @@ def checkout(request):
 
         form_data = {
             "full_name": request.POST["full_name"],
-            # "last_name": request.POST["last_name"],
             "email": request.POST["email"],
             "phone_number": request.POST["phone_number"],
             "country": request.POST["country"],
@@ -81,8 +101,8 @@ def checkout(request):
                     messages.error(
                         request,
                         (
-                            "One of the products in your cart wasn't found in our database. "
-                            "Please call us for assistance!"
+                            "One of the products in your cart wasn't found "
+                            "in our database. Please call us for assistance!"
                         ),
                     )
                     order.delete()
@@ -90,7 +110,9 @@ def checkout(request):
 
             request.session["save_info"] = "save-info" in request.POST
             return redirect(
-                reverse("checkout:checkout_success", args=[order.order_number])
+                reverse(
+                    "checkout:checkout_success", args=[order.order_number]
+                )
             )
         else:
             messages.error(
@@ -115,7 +137,7 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        # Attempt to prefill the form with any info the user maintains in their profile
+        # Attempt to prefill the form with any info the user has in profile
         if request.user.is_authenticated:
             try:
                 profile = Customer.objects.get(user=request.user)
@@ -123,7 +145,6 @@ def checkout(request):
                 order_form = OrderForm(
                     initial={
                         "full_name": profile.user.get_full_name(),
-                        # "last_name": profile.default_last_name,
                         "email": profile.user.email,
                         "phone_number": profile.default_phone_number,
                         "country": profile.default_country,
@@ -158,7 +179,14 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """
-    Handle successful checkouts
+    Function to handle successful checkouts.
+
+    Parameters:
+    - request: HTTP request
+    - order_number: The number of the successful order
+
+    Returns:
+    - Rendered checkout success page.
     """
     save_info = request.session.get("save_info")
     order = get_object_or_404(Order, order_number=order_number)

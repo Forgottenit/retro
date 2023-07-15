@@ -12,7 +12,9 @@ from accounts.models import Customer
 
 
 class Order(models.Model):
-    order_number = models.CharField(max_length=32, null=False, editable=False)
+    order_number = models.CharField(
+        max_length=32, null=False, editable=False
+    )
     customer = models.ForeignKey(
         Customer,
         on_delete=models.SET_NULL,
@@ -22,15 +24,14 @@ class Order(models.Model):
     )
 
     full_name = models.CharField(max_length=50, null=False, blank=False)
-
-    # first_name = models.CharField(max_length=30, null=False, blank=False)
-    # last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
     country = CountryField(null=False, blank=False, blank_label="Country *")
     postcode = models.CharField(max_length=20, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
-    street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    street_address1 = models.CharField(
+        max_length=80, null=False, blank=False
+    )
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     county = models.CharField(max_length=80, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -67,7 +68,9 @@ class Order(models.Model):
         )
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = (
-                self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
+                self.order_total
+                * settings.STANDARD_DELIVERY_PERCENTAGE
+                / 100
             )
         else:
             self.delivery_cost = 0
@@ -100,7 +103,11 @@ class OrderLineItem(models.Model):
     )
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(
-        max_digits=6, decimal_places=2, null=False, blank=False, editable=False
+        max_digits=6,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        editable=False,
     )
 
     def save(self, *args, **kwargs):
@@ -112,4 +119,5 @@ class OrderLineItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Album ID {self.album.album_id} on order {self.order.order_number}"
+        return f"Album ID {self.album.album_id} "
+        f"on order {self.order.order_number}"

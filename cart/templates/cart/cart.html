@@ -96,10 +96,7 @@
                             <!-- SUBMIT FORM -->
                             <a class="update-link" role="button"><small>Update</small></a>
                             <a class="remove-item" id="remove_{{ item.item_id }}" role="button">Remove</a>
-                            <!-- <div class="update-remove-container">
-                                <a class="update-link " role="button">Update</a>
-                                <a class="remove-item " id="remove_{{ item.item_id }}" role="button">Remove</a>
-                            </div> -->
+
                         </td>
                         <td data-label="Subtotal" class="py-3">
                             <p class="my-0">€{{ item.album.price | calc_subtotal:item.quantity }}</p>

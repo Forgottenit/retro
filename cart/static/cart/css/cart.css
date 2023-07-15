@@ -43,7 +43,6 @@ body {
 
 .card-text {
     color: #ffffff;
-    /* Changed this color to white */
 }
 
 .btn-primary {
@@ -102,7 +101,6 @@ body {
 .table td,
 .table th {
     padding: 12px 15px;
-    /* padding: 0px !important; */
     border: 1px solid #ddd;
     text-align: left;
     font-size: 16px;

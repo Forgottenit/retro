@@ -9,19 +9,30 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
-from .models import Album, Genre, Artist
-from accounts.models import Like
-from urllib.parse import urlencode
 from django.db.models.functions import Lower
 from django_user_agents.utils import get_user_agent
-
-from .forms import LoadAlbumsForm, ProductForm
-
+from accounts.models import Like
 from product_data.load_models import load_models
+from .models import Album, Genre, Artist
+from urllib.parse import urlencode
+from .forms import LoadAlbumsForm, ProductForm
 
 
 @login_required
 def load_albums(request):
+    """
+    View function to load albums from Spotify and store them in the database.
+
+    Only accessible to superusers.
+
+    Returns:
+    - If the request method is GET:
+        - Rendered template with the form to load albums.
+    - If the request method is POST and the form is valid:
+        - Redirect to the albums view with a success message.
+    - If the request method is POST and the form is invalid:
+        - Redirect to the albums view with an error message.
+    """
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))
@@ -43,17 +54,21 @@ def load_albums(request):
         form = LoadAlbumsForm()
 
     albums = Album.objects.all().order_by("artists__artist_name")
-    # paginator = Paginator(albums, 21)
-    # page_number = request.GET.get("page")
-    # albums = paginator.get_page(page_number)
 
     return render(
-        request, "products/add_product.html", {"albums": albums, "form": form}
+        request,
+        "products/add_product.html",
+        {"albums": albums, "form": form},
     )
 
 
 def album_model_view(request):
-    """A view to show all albums, including search queries"""
+    """
+    View function to display all albums with search and sorting functionality.
+
+    Returns:
+    - Rendered template with the albums, search queries, and sorting options.
+    """
     albums = Album.objects.annotate(artist_count=Count("artists")).order_by(
         "artists__artist_name"
     )
@@ -82,7 +97,9 @@ def album_model_view(request):
             sort = sortkey
             if sortkey == "album_name":
                 sortkey = "lower_album_name"
-                albums = albums.annotate(lower_album_name=Lower("album_name"))
+                albums = albums.annotate(
+                    lower_album_name=Lower("album_name")
+                )
             elif sortkey == "artists":
                 sortkey = "lower_artists"
                 albums = albums.annotate(
@@ -104,7 +121,9 @@ def album_model_view(request):
         search_query = search_query.strip()
         if not search_query:
             messages.error(request, "You didn't enter any search criteria!")
-            return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+            return HttpResponseRedirect(
+                request.META.get("HTTP_REFERER", "/")
+            )
         else:
             albums = albums.filter(
                 Q(album_name__icontains=search_query)
@@ -127,7 +146,9 @@ def album_model_view(request):
         if x.album_id not in seen and not seen.add(x.album_id)
     ]
 
-    params = request.GET.copy()  # make a mutable copy of request.GET QueryDict
+    params = (
+        request.GET.copy()
+    )  # make a mutable copy of request.GET QueryDict
     page_number = params.pop("page", None)  # remove 'page' if it exists
     params_str = (
         params.urlencode()
@@ -151,7 +172,9 @@ def album_model_view(request):
     if request.user.is_authenticated:
         is_customer = hasattr(request.user, "customer")
         if is_customer:
-            likes = Like.objects.filter(user=request.user.customer, liked=True)
+            likes = Like.objects.filter(
+                user=request.user.customer, liked=True
+            )
             liked_albums = [like.album.album_id for like in likes]
         else:
             likes = None
@@ -181,7 +204,15 @@ def album_model_view(request):
 
 
 def album_details(request, album_id):
-    """A view to show one album and details"""
+    """
+    View function to display the details of a specific album.
+
+    Parameters:
+    - album_id (str): The ID of the album.
+
+    Returns:
+    - Rendered template with the album details.
+    """
     album = get_object_or_404(Album, album_id=album_id)
 
     context = {
@@ -193,7 +224,20 @@ def album_details(request, album_id):
 
 @login_required
 def add_product(request):
-    """Add a product to the store"""
+    """
+    View function to add a product to the store.
+
+    Only accessible to superusers.
+
+    Returns:
+    - If the request method is GET:
+        - Rendered template with the product form.
+    - If the request method is POST and the form is valid:
+        - Redirect to the album details page of the added product,
+           with a success message.
+    - If the request method is POST and the form is invalid:
+        - Rendered template with the product form and an error message.
+    """
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))
@@ -224,7 +268,23 @@ def add_product(request):
 
 @login_required
 def edit_product(request, album_id):
-    """Edit a product in the store"""
+    """
+    View function to edit a product in the store.
+
+    Only accessible to superusers.
+
+    Parameters:
+    - album_id (str): The ID of the album to edit.
+
+    Returns:
+    - If the request method is GET:
+        - Rendered template with the product form filled with existing data.
+    - If the request method is POST and the form is valid:
+        - Redirect to the album details page of the edited product,
+           with a success message.
+    - If the request method is POST and the form is invalid:
+        - Rendered template with the product form and an error message.
+    """
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))
@@ -258,7 +318,17 @@ def edit_product(request, album_id):
 
 @login_required
 def delete_product(request, album_id):
-    """Delete a product from the store"""
+    """
+    View function to delete a product from the store.
+
+    Only accessible to superusers.
+
+    Parameters:
+    - album_id (str): The ID of the album to delete.
+
+    Returns:
+    - Redirect to the albums view with a success message.
+    """
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))
@@ -271,7 +341,17 @@ def delete_product(request, album_id):
 
 @login_required
 def delete_artist(request, artist_id):
-    """Delete an artist and all their related objects from the store"""
+    """
+    View function to delete an artist and all related objects from the store.
+
+    Only accessible to superusers.
+
+    Parameters:
+    - artist_id (str): The ID of the artist to delete.
+
+    Returns:
+    - Redirect to the albums view with a success message.
+    """
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))

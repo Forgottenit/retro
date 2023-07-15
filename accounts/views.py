@@ -11,7 +11,15 @@ from django.http import JsonResponse
 
 @login_required
 def profile(request):
-    """Display the user's profile."""
+    """
+    Function to display and manage the user's profile page.
+
+    Parameters:
+    - request: HTTP request
+
+    Returns:
+    - Rendered template of the user profile page.
+    """
     profile = get_object_or_404(Customer, user=request.user)
 
     if request.method == "POST":
@@ -42,6 +50,16 @@ def profile(request):
 
 @login_required
 def like_album(request, album_id):
+    """
+    Function to manage liking of an album by a user.
+
+    Parameters:
+    - request: HTTP request
+    - album_id: ID of the album to be liked
+
+    Returns:
+    - Redirect to the previous page.
+    """
     album = get_object_or_404(Album, album_id=album_id)
     like, created = Like.objects.get_or_create(
         user=request.user.customer, album=album
@@ -68,7 +86,16 @@ def like_album(request, album_id):
 
 @login_required
 def add_to_wishlist(request, album_id):
-    """Add an item to the wishlist"""
+    """
+    Function to add an album to the user's wishlist.
+
+    Parameters:
+    - request: HTTP request
+    - album_id: ID of the album to be added to the wishlist
+
+    Returns:
+    - Redirect to the previous page.
+    """
 
     album = get_object_or_404(Album, album_id=album_id)
     if request.user.is_authenticated and request.user.is_active:
@@ -90,7 +117,16 @@ def add_to_wishlist(request, album_id):
 
 @login_required
 def remove_from_wishlist(request, album_id):
-    """Remove an item from the wishlist"""
+    """
+    Function to remove an album from the user's wishlist.
+
+    Parameters:
+    - request: HTTP request
+    - album_id: ID of the album to be removed from the wishlist
+
+    Returns:
+    - Redirect to the previous page.
+    """
     album = get_object_or_404(Album, album_id=album_id)
     wishlist_item = get_object_or_404(
         Wishlist, customer=request.user.customer, album=album
@@ -109,6 +145,16 @@ def remove_from_wishlist(request, album_id):
 
 @login_required
 def order_history(request, order_number):
+    """
+    Function to display a user's past order information.
+
+    Parameters:
+    - request: HTTP request
+    - order_number: Order number of the past order
+
+    Returns:
+    - Rendered template of the order confirmation page.
+    """
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.info(
@@ -130,6 +176,17 @@ def order_history(request, order_number):
 
 # @login_required
 def add_review(request, album_id):
+    """
+    Function to add a review for an album. Requires user authentication.
+
+    Parameters:
+    - request: HTTP request
+    - album_id: ID of the album to be reviewed
+
+    Returns:
+    - If POST: Redirect to album details page after review is saved.
+    - Else: Rendered template of the add review page.
+    """
     if not request.user.is_authenticated:
         return JsonResponse({"error": "Login required"}, status=401)
 
@@ -144,7 +201,9 @@ def add_review(request, album_id):
             review.customer = request.user.customer
             review.save()
 
-            return redirect("products:album_details", album_id=album.album_id)
+            return redirect(
+                "products:album_details", album_id=album.album_id
+            )
     else:
         form = ReviewForm()
 
@@ -154,6 +213,18 @@ def add_review(request, album_id):
 
 @login_required
 def edit_review(request, review_id):
+    """
+    Function to edit an existing review.
+        The user must be the author of the review.
+
+    Parameters:
+    - request: HTTP request
+    - review_id: ID of the review to be edited
+
+    Returns:
+    - If POST: Redirect to album details page after review is updated.
+    - Else: Rendered template of the edit review page.
+    """
     review = get_object_or_404(Review, pk=review_id)
 
     if request.user != review.customer.user:
@@ -176,8 +247,22 @@ def edit_review(request, review_id):
 
 @login_required
 def delete_review(request, review_id):
+    """
+    Function to delete an existing review.
+        The user must be the author of the review.
+
+    Parameters:
+    - request: HTTP request
+    - review_id: ID of the review to be deleted
+
+    Returns:
+    - Redirect to album details page after review is deleted.
+    """
     review = get_object_or_404(Review, pk=review_id)
-    if request.user != review.customer.user:
+    if (
+        not request.user.is_superuser
+        and request.user != review.customer.user
+    ):
         return HttpResponseForbidden()
     album_id = review.album.album_id
     review.delete()

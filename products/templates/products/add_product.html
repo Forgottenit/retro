@@ -35,8 +35,6 @@
                     <a class="btn btn-danger rounded-0" href="{% url 'products:albums' %}">Cancel</a>
                     <button class="btn btn-light rounded-0" type="submit">Add Product</button>
                 </div>
-
-                <!-- <button type="submit" class="btn btn-primary"> LOAD Albums </button> -->
             </form>
         </div>
     </div>
@@ -56,7 +54,7 @@
         $('#loading-overlay').fadeIn(100);
     }
 
-    // This will handle hiding the overlay
+    // Hide the overlay
     function hideOverlay() {
         $('#loading-overlay').fadeOut(100);
     }

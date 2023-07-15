@@ -6,8 +6,6 @@ from products.models import Album
 from django_countries.fields import CountryField
 from ckeditor.fields import RichTextField
 
-from star_ratings.models import Rating
-
 
 class Customer(models.Model):
     """
@@ -22,9 +20,7 @@ class Customer(models.Model):
     default_full_name = models.CharField(
         max_length=150, null=False, blank=False
     )
-    # default_last_name = models.CharField(
-    #     max_length=150, null=False, blank=False
-    # )
+
     default_phone_number = models.CharField(
         max_length=20, null=True, blank=True
     )
@@ -47,7 +43,7 @@ class Customer(models.Model):
         """
         Return the username.
         """
-        return self.user.username
+        return self.user.username if self.user.username else self.user.email
 
 
 class Like(models.Model):

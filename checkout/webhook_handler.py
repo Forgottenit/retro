@@ -36,7 +36,8 @@ class StripeWH_Handler:
         Handle a generic/unknown/unexpected webhook event
         """
         return HttpResponse(
-            content=f'Unhandled webhook received: {event["type"]}', status=200
+            content=f'Unhandled webhook received: {event["type"]}',
+            status=200,
         )
 
     def handle_payment_intent_succeeded(self, event):
@@ -68,7 +69,9 @@ class StripeWH_Handler:
             if save_info:
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
-                profile.default_postcode = shipping_details.address.postal_code
+                profile.default_postcode = (
+                    shipping_details.address.postal_code
+                )
                 profile.default_town_or_city = shipping_details.address.city
                 profile.default_street_address1 = (
                     shipping_details.address.line1
@@ -85,7 +88,6 @@ class StripeWH_Handler:
             try:
                 order = Order.objects.get(
                     full_name__iexact=shipping_details.name,
-                    # last_name__iexact=shipping_details.last_name,
                     email__iexact=billing_details.email,
                     phone_number__iexact=shipping_details.phone,
                     country__iexact=shipping_details.address.country,
@@ -106,7 +108,8 @@ class StripeWH_Handler:
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received: {event["type"]} | '
+                f"SUCCESS: Verified order already in database",
                 status=200,
             )
         else:
@@ -114,7 +117,6 @@ class StripeWH_Handler:
             try:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
-                    # last_name=shipping_details.last_name,
                     user_profile=profile,
                     email=billing_details.email,
                     phone_number=shipping_details.phone,
@@ -145,7 +147,8 @@ class StripeWH_Handler:
                 )
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'Webhook received: {event["type"]} | '
+            f"SUCCESS: Created order in webhook",
             status=200,
         )
 

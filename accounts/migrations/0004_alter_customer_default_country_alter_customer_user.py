@@ -24,7 +24,8 @@ class Migration(migrations.Migration):
             model_name="customer",
             name="user",
             field=models.OneToOneField(
-                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
             ),
         ),
     ]

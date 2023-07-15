@@ -1,6 +1,7 @@
 """
 Module: load_models.py
-This module handles loading and storing the data fetched from Spotify into Django models.
+This module handles loading and storing the data
+    fetched from Spotify into Django models.
 """
 import os
 import urllib.request
@@ -16,6 +17,7 @@ def load_models(query, search_field="artist"):
 
     Parameters:
     - query (str): The name of the artist to fetch data for.
+    - search_field (str): The field to search for the query (default: "artist")
 
     Returns:
     - None
@@ -42,7 +44,9 @@ def load_models(query, search_field="artist"):
             # Handle the ExternalUrl for the artist
             external_urls_artist_dict = artist_dict.get("external_urls", {})
             external_url_artist, _ = ExternalUrl.objects.get_or_create(
-                spotify=external_urls_artist_dict.get("spotify", "default_url")
+                spotify=external_urls_artist_dict.get(
+                    "spotify", "default_url"
+                )
             )
             artist.external_urls = external_url_artist
 
@@ -76,7 +80,9 @@ def load_models(query, search_field="artist"):
             # Handle the ExternalUrl for the track
             external_urls_track_dict = track_dict.get("external_urls", {})
             external_url_track, _ = ExternalUrl.objects.get_or_create(
-                spotify=external_urls_track_dict.get("spotify", "default_url")
+                spotify=external_urls_track_dict.get(
+                    "spotify", "default_url"
+                )
             )
             track.external_urls = external_url_track
             track.save()
@@ -154,13 +160,13 @@ def load_models(query, search_field="artist"):
 
 def format_duration(duration_ms):
     """
-    Function to convert duration into minutse and seconds.
+    Function to convert duration into minutes and seconds.
 
     Parameters:
-    duration_ms: The track duration (in milliseconds)
+    - duration_ms (int): The track duration in milliseconds
 
     Returns:
-    f string: a String of the duration in minutes and seconds
+    - A formatted string of the duration in minutes and seconds.
     """
     minutes = duration_ms // 60000
     seconds = (duration_ms // 1000) % 60

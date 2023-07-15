@@ -9,99 +9,12 @@ import requests
 from django.conf import settings
 
 
-# def spotify_request(url, headers, params=None):
-#     """
-#     Function to send a request to Spotify API and handle any errors.
-
-#     Parameters:
-#     url (str): URL of the Spotify API endpoint
-#     headers (dict): Request headers
-#     params (dict): Query parameters for the request
-
-#     Returns:
-#     dict: Response data from the Spotify API
-#     """
-#     # Main request handling loop
-#     while True:
-#         try:
-#             response = requests.get(
-#                 url, headers=headers, params=params, timeout=5
-#             )
-#             response.raise_for_status()
-
-#             data = response.json()
-#             if "error" in data:
-#                 error_status = (
-#                     data["error"]["status"]
-#                     if "status" in data["error"]
-#                     else None
-#                 )
-#                 error_message = (
-#                     data["error"]["message"] if error_status else None
-#                 )
-#                 error_description = (
-#                     data["error_description"]
-#                     if "error_description" in data
-#                     else None
-#                 )
-
-#                 if error_status:  # Regular error object
-#                     raise Exception(
-#                         "Spotify API error {}: {}".format(
-#                             error_status, error_message
-#                         )
-#                     )
-#                 else:  # Authentication error object
-#                     raise Exception(
-#                         "Spotify API error: {}, Description: {}".format(
-#                             data["error"], error_description
-#                         )
-#                     )
-#         except (requests.RequestException, json.JSONDecodeError):
-#             raise Exception(
-#                 "Request failed or response does not contain valid JSON."
-#             )
-#         except Exception as e:
-#             print("An error occurred: {}".format(e))
-
-#         # Handling rate limits
-#         if response.status_code == 429:
-#             delay = int(response.headers.get("Retry-After"))
-#             time.sleep(delay)
-#         elif response.status_code != 200:  # if not success
-#             raise Exception(
-#                 "Error {}: {}".format(response.status_code, response.text)
-#             )
-#         else:
-#             break
-
-#     data = response.json()
-
-#     while data.get("next"):
-#         url = data.get("next")
-#         while True:
-#             response = requests.get(url, headers=headers, timeout=5)
-#             if response.status_code == 429:
-#                 delay = int(response.headers.get("Retry-After"))
-#                 time.sleep(delay)
-#             elif response.status_code != 200:  # if not success
-#                 raise Exception(
-#                     "Error {}: {}".format(response.status_code, response.text)
-#                 )
-#             else:
-#                 break
-
-#         data["items"].extend(response.json()["items"])
-
-#     return data
-
-
 def get_auth_token():
     """
-    Function to get Spotify authentication token.
+    Function to get the Spotify authentication token.
 
     Returns:
-    str: Access token if successful, None otherwise
+    - str: Access token if successful, None otherwise.
     """
     access_token = getattr(settings, "SPOTIFY_ACCESS_TOKEN", None)
     token_expiry_time = getattr(settings, "SPOTIFY_TOKEN_EXPIRY_TIME", None)
@@ -110,8 +23,8 @@ def get_auth_token():
         return access_token
 
     # Encode as Base64 for security
-    message = "{}:{}".format(
-        settings.SPOTIFY_CLIENT_ID, settings.SPOTIFY_CLIENT_SECRET
+    message = (
+        f"{settings.SPOTIFY_CLIENT_ID}:{settings.SPOTIFY_CLIENT_SECRET}"
     )
     message_bytes = message.encode("ascii")
     base64_bytes = base64.b64encode(message_bytes)
@@ -152,18 +65,15 @@ def get_auth_token():
 
             if error_status:  # Regular error object
                 raise Exception(
-                    "Spotify API error {}: {}".format(
-                        error_status, error_message
-                    )
+                    f"Spotify API error {error_status}: {error_message}"
                 )
             else:  # Authentication error object
                 raise Exception(
-                    "Spotify API error: {}, Description: {}".format(
-                        response_data["error"], error_description
-                    )
+                    f"Spotify API error: {response_data['error']}, "
+                    f"Description: {error_description}"
                 )
     except (requests.RequestException, json.JSONDecodeError) as e:
-        print("Error retrieving Spotify access token: {}".format(e))
+        print(f"Error retrieving Spotify access token: {e}")
         return None
 
     access_token = response_data.get("access_token")
@@ -186,10 +96,10 @@ def get_artist_genres(artist_id):
     Function to get the genres of a specific artist by ID.
 
     Parameters:
-    artist_id (str): The Spotify ID of the artist
+    - artist_id (str): The Spotify ID of the artist.
 
     Returns:
-    list: List of genres if successful, empty list otherwise
+    - list: List of genres if successful, empty list otherwise.
     """
     if artist_id in artist_cache:
         return artist_cache[artist_id]
@@ -226,18 +136,15 @@ def get_artist_genres(artist_id):
 
             if error_status:  # Regular error object
                 raise Exception(
-                    "Spotify API error {}: {}".format(
-                        error_status, error_message
-                    )
+                    f"Spotify API error {error_status}: {error_message}"
                 )
             else:  # Authentication error object
                 raise Exception(
-                    "Spotify API error: {}, Description: {}".format(
-                        artist_data["error"], error_description
-                    )
+                    f"Spotify API error: {artist_data['error']}, "
+                    f"Description: {error_description}"
                 )
     except requests.RequestException as e:
-        print("Error retrieving genres for artist {}: {}".format(artist_id, e))
+        print("Error retrieving genres for artist {artist_id}: {e}")
         return []
 
     # Extracting genres from the artist data
@@ -255,10 +162,10 @@ def get_album_details(album_ids):
     Function to get the details of specific albums by their IDs.
 
     Parameters:
-    album_ids (list): The list of Spotify IDs of the albums
+    - album_ids (list): The list of Spotify IDs of the albums.
 
     Returns:
-    list: List of album details if successful, empty list otherwise
+    - list: List of album details if successful, empty list otherwise.
     """
     access_token = get_auth_token()
     headers = {
@@ -294,15 +201,12 @@ def get_album_details(album_ids):
 
                 if error_status:  # Regular error object
                     raise Exception(
-                        "Spotify API error {}: {}".format(
-                            error_status, error_message
-                        )
+                        f"Spotify API error {error_status}: {error_message}"
                     )
                 else:  # Authentication error object
                     raise Exception(
-                        "Spotify API error: {}, Description: {}".format(
-                            album_data["error"], error_description
-                        )
+                        f"Spotify API error: {album_data['error']}, "
+                        f"Description: {error_description}"
                     )
 
             explicit = any(
@@ -331,10 +235,12 @@ def search_albums(query, search_type="album", search_field="artist"):
     Function to search for albums on Spotify and retrieve their details.
 
     Parameters:
-    query (str): The search query to find albums on Spotify.
+    - query (str): The search query to find albums on Spotify.
+    - search_type (str): The type of search (default: "album").
+    - search_field (str): The field to search for the query (default: "artist")
 
     Returns:
-    list: A list of album details if successful, an empty list otherwise.
+    - list: A list of album details if successful, an empty list otherwise.
     """
 
     access_token = get_auth_token()
@@ -375,15 +281,12 @@ def search_albums(query, search_type="album", search_field="artist"):
 
             if error_status:  # Regular error object
                 raise Exception(
-                    "Spotify API error {}: {}".format(
-                        error_status, error_message
-                    )
+                    f"Spotify API error {error_status}: {error_message}"
                 )
             else:  # Authentication error object
                 raise Exception(
-                    "Spotify API error: {}, Description: {}".format(
-                        album_data["error"], error_description
-                    )
+                    f"Spotify API error: {album_data['error']}, "
+                    f"Description: {error_description}"
                 )
 
     except requests.RequestException as e:
@@ -398,11 +301,12 @@ def get_album_ids(query, search_field="artist"):
     Function to retrieve the Spotify IDs of albums based on a search query.
 
     Parameters:
-    query (str): The search query to find albums on Spotify.
+    - query (str): The search query to find albums on Spotify.
+    - search_field (str): The field to search for the query (default: "artist")
 
     Returns:
-    list: A list of Spotify IDs of albums if successful,
-    an empty list otherwise.
+    - list: A list of Spotify IDs of albums if successful,
+      an empty list otherwise.
     """
 
     albums = search_albums(query, search_field=search_field)

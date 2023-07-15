@@ -9,11 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-# colours 141529
-# 98d2eb
-# f433ab
-# fbe689
-# f39237
+
 from pathlib import Path
 
 import os
@@ -22,158 +18,6 @@ import dj_database_url
 if os.path.isfile("env.py"):
     import env
 
-    # CKEDITOR_CONFIGS = {
-    #     "default": {
-    #         "skin": "moono",
-    #         # "skin": "office2013",
-    #         "toolbar_Basic": [["Source", "-", "Bold", "Italic"]],
-    #         "toolbar_YourCustomToolbarConfig": [
-    #             {
-    #                 "name": "document",
-    #                 "items": [
-    #                     "Source",
-    #                     "-",
-    #                     "Save",
-    #                     "NewPage",
-    #                     "Preview",
-    #                     "Print",
-    #                     "-",
-    #                     "Templates",
-    #                 ],
-    #             },
-    #             {
-    #                 "name": "clipboard",
-    #                 "items": [
-    #                     "Cut",
-    #                     "Copy",
-    #                     "Paste",
-    #                     "PasteText",
-    #                     "PasteFromWord",
-    #                     "-",
-    #                     "Undo",
-    #                     "Redo",
-    #                 ],
-    #             },
-    #             {
-    #                 "name": "editing",
-    #                 "items": ["Find", "Replace", "-", "SelectAll"],
-    #             },
-    #             {
-    #                 "name": "forms",
-    #                 "items": [
-    #                     "Form",
-    #                     "Checkbox",
-    #                     "Radio",
-    #                     "TextField",
-    #                     "Textarea",
-    #                     "Select",
-    #                     "Button",
-    #                     "ImageButton",
-    #                     "HiddenField",
-    #                 ],
-    #             },
-    #             "/",
-    #             {
-    #                 "name": "basicstyles",
-    #                 "items": [
-    #                     "Bold",
-    #                     "Italic",
-    #                     "Underline",
-    #                     "Strike",
-    #                     "Subscript",
-    #                     "Superscript",
-    #                     "-",
-    #                     "RemoveFormat",
-    #                 ],
-    #             },
-    #             {
-    #                 "name": "paragraph",
-    #                 "items": [
-    #                     "NumberedList",
-    #                     "BulletedList",
-    #                     "-",
-    #                     "Outdent",
-    #                     "Indent",
-    #                     "-",
-    #                     "Blockquote",
-    #                     "CreateDiv",
-    #                     "-",
-    #                     "JustifyLeft",
-    #                     "JustifyCenter",
-    #                     "JustifyRight",
-    #                     "JustifyBlock",
-    #                     "-",
-    #                     "BidiLtr",
-    #                     "BidiRtl",
-    #                     "Language",
-    #                 ],
-    #             },
-    #             {"name": "links", "items": ["Link", "Unlink", "Anchor"]},
-    #             {
-    #                 "name": "insert",
-    #                 "items": [
-    #                     "Image",
-    #                     "Flash",
-    #                     "Table",
-    #                     "HorizontalRule",
-    #                     "Smiley",
-    #                     "SpecialChar",
-    #                     "PageBreak",
-    #                     "Iframe",
-    #                 ],
-    #             },
-    #             "/",
-    #             {
-    #                 "name": "styles",
-    #                 "items": ["Styles", "Format", "Font", "FontSize"],
-    #             },
-    #             {"name": "colors", "items": ["TextColor", "BGColor"]},
-    #             {"name": "tools", "items": ["Maximize", "ShowBlocks"]},
-    #             {"name": "about", "items": ["About"]},
-    #             "/",  # put this to force next toolbar on new line
-    #             {
-    #                 "name": "yourcustomtools",
-    #                 "items": [
-    #                     # put the name of your editor.ui.addButton here
-    #                     "Preview",
-    #                     "Maximize",
-    #                 ],
-    #             },
-    #         ],
-    #         "toolbar": "YourCustomToolbarConfig",  # put selected toolbar config here
-    #         "toolbarGroups": [
-    #             {
-    #                 "name": "document",
-    #                 "groups": ["mode", "document", "doctools"],
-    #             }
-    #         ],
-    #         "height": 291,
-    #         "width": "100%",
-    #         "filebrowserWindowHeight": 725,
-    #         "filebrowserWindowWidth": 940,
-    #         "toolbarCanCollapse": True,
-    #         "mathJaxLib": "//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML",
-    #         "tabSpaces": 4,
-    #         "extraPlugins": ",".join(
-    #             [
-    #                 "uploadimage",  # the upload image feature
-    #                 # your extra plugins here
-    #                 "div",
-    #                 "autolink",
-    #                 "autoembed",
-    #                 "embedsemantic",
-    #                 "autogrow",
-    #                 # 'devtools',
-    #                 "widget",
-    #                 "lineutils",
-    #                 "clipboard",
-    #                 "dialog",
-    #                 "dialogui",
-    #                 "elementspath",
-    #             ]
-    #         ),
-    #     }
-    # }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -188,7 +32,6 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
 
 # Spotify Secret Key
-
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", "")
 SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "")
 
@@ -200,7 +43,7 @@ SPOTIFY_TOKEN_EXPIRY_TIME = None
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET")
-DEFAULT_FROM_EMAIL = "forgottenit@example.com"
+DEFAULT_FROM_EMAIL = "forgottenitretro@gmail.com"
 
 STRIPE_CURRENCY = "eur"
 FREE_DELIVERY_THRESHOLD = 40
@@ -211,7 +54,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 # DEBUG = True
 DEBUG = os.environ.get("DEVELOPMENT")
 
-# STAR_RATINGS_ANONYMOUS = True
+
 ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",
     "https://forgottenit-retro.herokuapp.com/*",
@@ -253,7 +96,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.google",
     "home",
-    "fixtures",
     "accounts",
     "products",
     "product_data",
@@ -309,7 +151,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
-                "django.template.context_processors.request",  # required by allauth
+                "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.media",

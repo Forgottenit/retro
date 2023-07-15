@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db import models
+from django.utils.safestring import mark_safe
 from .models import (
     Album,
     Artist,
@@ -13,24 +14,13 @@ from .models import (
     Image,
     ExternalUrl,
 )
-from django.utils.safestring import mark_safe
-
-
-# class TrackInline(admin.TabularInline):
-#     model = Track
-#     extra = 1
-#     classes = ("collapse",)
 
 
 class ImageDisplayMixin:
     def get_image(self, obj):
         if obj.image:
             return mark_safe(
-                '<img src="{url}" width="{width}" height={height} />'.format(
-                    url=obj.image.url,
-                    width=50,
-                    height=50,
-                )
+                f'<img src="{obj.image.url}" width="50" height="50" />'
             )
         else:
             return "No Image"
@@ -73,11 +63,7 @@ class TrackAdmin(admin.ModelAdmin):
             image_data = obj.albums.image_data
             if image_data.url:
                 return mark_safe(
-                    '<img src="{url}" width="{width}" height="{height}" />'.format(
-                        url=image_data.url,
-                        width=50,
-                        height=50,
-                    )
+                    f'<img src="{obj.image.url}" width="50" height="50" />'
                 )
         return "No Image"
 
@@ -115,27 +101,9 @@ class ArtistAdmin(admin.ModelAdmin):
 
     get_albums.short_description = "Albums"
 
-    # def get_queryset(self, request):
-    #     queryset = super().get_queryset(request)
-    #     queryset = queryset.prefetch_related("albums")
-    #     return queryset
-
-    # def get_search_results(self, request, queryset, search_term):
-    #     queryset, use_distinct = super().get_search_results(
-    #         request, queryset, search_term
-    #     )
-    #     if search_term:
-    #         album_results = Album.objects.filter(name__icontains=search_term)
-    #         queryset = queryset | self.model.objects.filter(
-    #             albums__in=album_results
-    #         )
-    #     return queryset, use_distinct
-
 
 @admin.register(Album)
 class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    # inlines = [TrackInline, AlbumArtistInline]
-
     list_display = (
         "album_name",
         "display_artists",
@@ -170,18 +138,16 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
 
     def display_tracks(self, obj):
         print("Tracks:", obj.tracks.all())
-        return ", ".join([str(track.track_name) for track in obj.tracks.all()])
-
-    # def artist_name(self, obj):
-    #     return obj.artists.first().artist_name if obj.artists.exists() else ""
+        return ", ".join(
+            [str(track.track_name) for track in obj.tracks.all()]
+        )
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.annotate(
+        query_s = super().get_queryset(request)
+        return query_s.annotate(
             artist_name=models.F("artists__artist_name")
         ).order_by("artist_name")
 
-    # display_artists.short_description = "Artists"
     display_genres.short_description = "Genres"
     display_tracks.short_description = "Tracks"
 

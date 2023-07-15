@@ -15,13 +15,8 @@ class CustomerProfileForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
 
-        # user = self.instance.user
-        # if user:
-        #     self.fields["default_full_name"].initial = user.default_full_name
-
         placeholders = {
             "default_full_name": "Full Name",
-            # "default_last_name": "Last Name",
             "default_phone_number": "Phone Number",
             "default_postcode": "Postal Code",
             "default_town_or_city": "Town or City",
@@ -49,7 +44,6 @@ class CustomerProfileForm(forms.ModelForm):
         if commit:
             user = customer.user
             user.full_name = customer.default_full_name
-            # user.last_name = customer.default_last_name
             user.save()
             customer.save()
         return customer

@@ -138,6 +138,10 @@ class StripeWH_Handler:
                     )
                     order_line_item.save()
 
+                    # Increase the album's popularity:
+                    album.popularity += 2
+                    album.save()
+
             except Exception as e:
                 if order:
                     order.delete()

@@ -31,10 +31,60 @@
 
 }
 
+.profile-container {
+    border: 2px solid #bababa;
+    background-color: #22223c;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.empty-wishlist {
+    color: #fdc2fd;
+    /* Change color to red */
+    font-weight: bold;
+    /* Make the text bold */
+}
+
+.form-label {
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+}
+
+.accordion-body,
+.profile-dropdown-header {
+    background-color: #22223c !important;
+}
+
+/* Styling the accordion button symbol */
+.accordion-button::after {
+    /* This is the default Bootstrap styling for the accordion button symbol. You can modify as per your needs */
+    color: #f6f2f2;
+    /* Change color to red */
+    content: "\2212";
+
+    /* Change symbol to '+' when the accordion is closed */
+    float: right;
+    font-size: 1.5rem;
+    /* Increase size of symbol */
+    text-align: right;
+    transition: transform 0.6s ease;
+}
+
+/* Change symbol when the accordion is open */
+.accordion-button.collapsed::after {
+    content: "\002B";
+    /* Change symbol to '-' when the accordion is open */
+    color: #f0f99d;
+    /* Change color to green */
+}
+
 /* WISHLIST ITEMS  */
 .wishlist-item {
     border: 2px solid #bababa;
-
+    font-family: 'Arial', sans-serif;
     background-color: #22223c;
 
     padding: 10px;

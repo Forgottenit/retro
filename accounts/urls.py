@@ -33,4 +33,5 @@ urlpatterns = [
         views.delete_review,
         name="delete_review",
     ),
+    path("request-album/", views.request_album, name="request-album"),
 ]

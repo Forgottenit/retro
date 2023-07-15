@@ -108,6 +108,20 @@ def create_or_update_customer(sender, instance, created, **kwargs):
     instance.customer.save()
 
 
+class AlbumRequest(models.Model):
+    customer = models.ForeignKey(
+        "Customer",
+        on_delete=models.CASCADE,
+    )
+    artist_name = models.CharField(max_length=200)
+    album_title = models.CharField(max_length=200)
+    message = models.TextField(blank=True, null=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request: {self.album_title} by {self.artist_name}"
+
+
 class Staff(models.Model):
     """
     Model representing a staff user.

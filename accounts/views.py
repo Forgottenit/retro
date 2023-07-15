@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Customer, Wishlist, Like, Review
-from .forms import CustomerProfileForm, ReviewForm
+from .models import Customer, Wishlist, Like, Review, AlbumRequest
+from .forms import CustomerProfileForm, ReviewForm, AlbumRequestForm
 from products.models import Album
 from checkout.models import Order
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
+import logging
+from django.http import HttpResponse
 
 
 @login_required
@@ -23,29 +25,53 @@ def profile(request):
     profile = get_object_or_404(Customer, user=request.user)
 
     if request.method == "POST":
-        form = CustomerProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Profile updated successfully")
+        profile_form = CustomerProfileForm(request.POST, instance=profile)
+        album_request_form = AlbumRequestForm(request.POST)
 
-    form = CustomerProfileForm(instance=profile)
-    orders = profile.orders.all()
+        if profile_form.is_valid() and album_request_form.is_valid():
+            profile_form.save()
+            new_request = album_request_form.save(commit=False)
+            new_request.customer = profile
+            new_request.save()
 
-    # Get the wishlist albums
-    try:
-        wishlists = profile.wishlists.all()
-    except KeyError:
-        wishlists = None
+            messages.success(
+                request, "Profile and Album Request updated successfully"
+            )
+            return redirect("accounts:profile")
+        else:
+            logging.error(
+                f"Form validation failed: profile_form errors: {profile_form.errors}, album_request_form errors: {album_request_form.errors}"
+            )
+            return HttpResponse("Form validation failed.", status=400)
 
-    template = "accounts/profile.html"
-    context = {
-        "form": form,
-        "orders": orders,
-        "wishlists": wishlists,  # Pass the wishlist to the template
-        "on_profile_page": True,
-    }
+    elif request.method == "GET":
+        profile_form = CustomerProfileForm(instance=profile)
+        album_request_form = AlbumRequestForm()
 
-    return render(request, template, context)
+        orders = profile.orders.all()
+
+        # Get the wishlist albums
+        try:
+            wishlists = profile.wishlists.all()
+        except KeyError:
+            wishlists = None
+
+        template = "accounts/profile.html"
+        context = {
+            "profile_form": profile_form,
+            "album_request_form": album_request_form,
+            "orders": orders,
+            "wishlists": wishlists,  # Pass the wishlist to the template
+            "on_profile_page": True,
+        }
+
+        return render(request, template, context)
+
+    else:
+        logging.error(
+            f"Unexpected request.method {request.method} in profile view"
+        )
+        return HttpResponse("Unexpected error occurred.", status=500)
 
 
 @login_required
@@ -267,3 +293,16 @@ def delete_review(request, review_id):
     album_id = review.album.album_id
     review.delete()
     return redirect("products:album_details", album_id=album_id)
+
+
+def request_album(request):
+    if request.method == "POST":
+        form = AlbumRequestForm(request.POST)
+        if form.is_valid():
+            new_request = form.save(commit=False)
+            new_request.customer = request.user.customer
+            new_request.save()
+            return redirect("profile")
+    else:
+        form = AlbumRequestForm(instance=request.user.customer)
+    return render(request, "profile.html", {"form": form})

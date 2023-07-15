@@ -1,5 +1,5 @@
 from django import forms
-from .models import Customer, Review
+from .models import Customer, Review, AlbumRequest
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -55,3 +55,24 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["review_text"]
+
+
+class AlbumRequestForm(forms.ModelForm):
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 4, "cols": 15}), required=False
+    )
+    artist_name = forms.CharField(required=False)
+    album_title = forms.CharField(required=False)
+
+    class Meta:
+        model = AlbumRequest
+        fields = ["artist_name", "album_title", "message"]
+
+    def __init__(self, *args, **kwargs):
+        super(AlbumRequestForm, self).__init__(*args, **kwargs)
+        customer = kwargs.get("instance")
+        if customer:
+            self.fields["artist_name"].initial = customer.default_full_name
+            self.fields[
+                "album_title"
+            ].initial = customer.default_phone_number

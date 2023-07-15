@@ -513,6 +513,12 @@ While regular software updates and patches are not a part of this project's scop
 
 <details><summary><b>BUGS/ERRORS:</b></summary>
 
+### Commited Development Database to GitHub
+
+During the development process, the development databse was accidentally commited to GitHub, this was due to db.sqlite3 being in the GitIgnore, as opposed to *.sqlite3. As the project was still in the development process, and all keys had been stored in env.py, which was in the gitignore, the risk of personal or sensitive data being available was not as high as it could have been. But still a possibly large issue. To rectify this, the following steps were taken. 
+
+- 
+
 # https://codepen.io/corenominal/pen/rxOmMJ
 # https://djecrety.ir/
 CHANGED DJANGO KEY ALSO IN HEROKU, DELETED ALL USERS, CREATED NEW SUPERUSERS, ALL KEYS WERE STORED IN ENV.PY WHICH WAS IN GITIGNORE

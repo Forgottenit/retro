@@ -333,9 +333,14 @@ ul {
     height: 100%;
 }
 
-.accordion-button {
+.review-accordion-button {
     background-color: #f433ab;
     font-family: 'Roboto', sans-serif !important;
     color: #f1f1f1;
     font-weight: 700;
+}
+
+.modal-header,
+.modal-body {
+    color: #000000;
 }

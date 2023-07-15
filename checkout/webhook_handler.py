@@ -28,7 +28,7 @@ class StripeWH_Handler:
             "checkout/confirmation_emails/confirmation_email_body.txt",
             {"order": order, "contact_email": settings.DEFAULT_FROM_EMAIL},
         )
-
+        print("FIRST EMAIL SENDER SENDING ")
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [cust_email])
 
     def handle_event(self, event):
@@ -137,10 +137,11 @@ class StripeWH_Handler:
                         quantity=item_data,
                     )
                     order_line_item.save()
-
+                    print("About to increment popularity")
                     # Increase the album's popularity:
                     album.popularity += 2
                     album.save()
+                    print("Popularity incremented")
 
             except Exception as e:
                 if order:
@@ -150,6 +151,11 @@ class StripeWH_Handler:
                     status=500,
                 )
         self._send_confirmation_email(order)
+        print("About to increment popularity2")
+        # Increase the album's popularity:
+        album.popularity += 2
+        album.save()
+        print("Popularity incremented2")
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | '
             f"SUCCESS: Created order in webhook",

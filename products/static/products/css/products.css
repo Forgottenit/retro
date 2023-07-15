@@ -294,13 +294,13 @@ ul {
 .input-group-prepend .btn,
 .input-group-append .btn {
     height: 100%;
-    /* Ensures button fills container */
+
     border: none;
-    /* Remove any default borders */
+
     background-color: #f39237;
-    /* Your button color */
+
     color: #fff;
-    /* Button text color */
+
     transition: background-color 0.3s ease;
 }
 

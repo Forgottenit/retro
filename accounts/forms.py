@@ -3,20 +3,36 @@ from .models import Customer, Review, AlbumRequest
 from ckeditor.widgets import CKEditorWidget
 
 
+from django import forms
+from .models import Customer
+
+
+from django import forms
+from .models import Customer
+
+
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
         exclude = ("user",)
+        fields = (
+            "default_first_name",
+            "default_last_name",
+            "default_phone_number",
+            "default_postcode",
+            "default_town_or_city",
+            "default_street_address1",
+            "default_street_address2",
+            "default_county",
+            "default_country",
+        )
 
     def __init__(self, *args, **kwargs):
-        """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
-        """
         super().__init__(*args, **kwargs)
 
         placeholders = {
-            "default_full_name": "Full Name",
+            "default_first_name": "First Name",
+            "default_last_name": "Last Name",
             "default_phone_number": "Phone Number",
             "default_postcode": "Postal Code",
             "default_town_or_city": "Town or City",
@@ -43,9 +59,31 @@ class CustomerProfileForm(forms.ModelForm):
         customer = super().save(commit=False)
         if commit:
             user = customer.user
-            user.full_name = customer.default_full_name
+
+            # Update first name and last name
+            user.first_name = self.cleaned_data["default_first_name"]
+            user.last_name = self.cleaned_data["default_last_name"]
+
+            # Update address fields
+            customer.default_phone_number = self.cleaned_data[
+                "default_phone_number"
+            ]
+            customer.default_postcode = self.cleaned_data["default_postcode"]
+            customer.default_town_or_city = self.cleaned_data[
+                "default_town_or_city"
+            ]
+            customer.default_street_address1 = self.cleaned_data[
+                "default_street_address1"
+            ]
+            customer.default_street_address2 = self.cleaned_data[
+                "default_street_address2"
+            ]
+            customer.default_county = self.cleaned_data["default_county"]
+            customer.default_country = self.cleaned_data["default_country"]
+
             user.save()
             customer.save()
+
         return customer
 
 

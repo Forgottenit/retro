@@ -48,6 +48,11 @@ class StripeWH_Handler:
         pid = intent.id
         cart = intent.metadata.cart
         save_info = intent.metadata.save_info
+        print("About to increment popularity")
+        # Increase the album's popularity:
+        album.popularity += 2
+        album.save()
+        print("Popularity incremented")
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
@@ -137,11 +142,6 @@ class StripeWH_Handler:
                         quantity=item_data,
                     )
                     order_line_item.save()
-                    print("About to increment popularity")
-                    # Increase the album's popularity:
-                    album.popularity += 2
-                    album.save()
-                    print("Popularity incremented")
 
             except Exception as e:
                 if order:
@@ -151,11 +151,6 @@ class StripeWH_Handler:
                     status=500,
                 )
         self._send_confirmation_email(order)
-        print("About to increment popularity2")
-        # Increase the album's popularity:
-        album.popularity += 2
-        album.save()
-        print("Popularity incremented2")
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | '
             f"SUCCESS: Created order in webhook",

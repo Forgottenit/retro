@@ -16,7 +16,7 @@ def delete_album_image(sender, instance, **kwargs):
         )
         full_path = os.path.join(settings.MEDIA_ROOT, image_path)
         # Check if the file exists before trying to remove it
-        if full_path:
+        if os.path.exists(full_path):
             os.remove(full_path)
         else:
             print(f"No file found at: {full_path}")

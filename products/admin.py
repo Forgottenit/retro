@@ -107,6 +107,7 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
     list_display = (
         "album_name",
         "display_artists",
+        "main_artist",
         "artist_id",
         "album_id",
         "release_date",

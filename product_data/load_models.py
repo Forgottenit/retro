@@ -10,6 +10,8 @@ from django.core.files import File
 from products.models import Genre, Artist, Track, Album, ExternalUrl, Image
 from .spotify_api import get_album_ids, get_album_details
 
+processed_album_ids = set()
+
 
 def load_models(query, search_field="artist"):
     """
@@ -27,6 +29,17 @@ def load_models(query, search_field="artist"):
     album_data = get_album_details(album_ids)
 
     for album_dict in album_data:
+        album_id = album_dict["id"]
+
+        # Check if the album with the given ID already exists
+        try:
+            album = Album.objects.get(album_id=album_id)
+            # If album exists, skip processing
+            continue
+        except Album.DoesNotExist:
+            # Create a new album instance
+            album = Album(album_id=album_id)
+
         artist_objs = []
         for artist_dict in album_dict.get("artists", []):
             artist, _ = Artist.objects.get_or_create(
@@ -112,11 +125,10 @@ def load_models(query, search_field="artist"):
             artist_id=album_dict.get("artists", [{}])[0].get(
                 "id", "default_artist_id"
             ),  # Retrieve artist_id
-            album_id=album_dict.get("id", "default_id"),
+            album_id=album_dict["id"],
             album_type=album_dict.get("album_type", "default_type"),
             label=album_dict.get("label", "default_label"),
             copyrights=first_copyright_text,
-            # copyrights=album_dict.get("copyrights", "default_copyright"),
             explicit=album_dict.get("explicit", False),
             spotify_url=album_dict.get("external_urls", {}).get(
                 "spotify", "default_url"
@@ -151,6 +163,9 @@ def load_models(query, search_field="artist"):
                 url=image_url, height=image_height, width=image_width
             )
             album.image_data = image_model
+
+        if artist_objs:
+            album.main_artist = artist_objs[0]
 
         album.save()
 

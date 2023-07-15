@@ -101,9 +101,9 @@ def album_model_view(request):
                     lower_album_name=Lower("album_name")
                 )
             elif sortkey == "artists":
-                sortkey = "lower_artists"
+                sortkey = "lower_main_artist_name"
                 albums = albums.annotate(
-                    lower_artists=Lower("artists__artist_name")
+                    lower_main_artist_name=Lower("main_artist__artist_name")
                 )
 
             if "direction" in request.GET:

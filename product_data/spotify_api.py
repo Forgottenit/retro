@@ -220,7 +220,6 @@ def get_album_details(album_ids):
                 if artist_id:
                     artist_genres = get_artist_genres(artist_id)
                     artist["genres"] = artist_genres
-                    print("Genres TEST: ", artist["genres"])
 
             albums_data.append(album_data)
         except requests.RequestException as e:

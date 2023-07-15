@@ -2,7 +2,6 @@
 {% load static %}
 {% load products_custom_filters %}
 {% load get_stars_filters %}
-{% load django_filters %}
 
 
 
@@ -89,18 +88,16 @@
 
     <!-- ALBUM DISPLAY -->
     <div class="container">
-
-        {% regroup albums by artists.all as albums_by_artist %}
+        {% regroup albums by artists.all.first as albums_by_artist %}
 
         {% for artist_group in albums_by_artist %}
-        <script>
-            console.log("Artist Group: ", "{{ artists }}");
-            console.log("Albums: ", "{{ artist_group.list|length }}", "{{ artist_group.list }}");
-        </script>
 
-        <h1 class="mt-4 mb-3">{{ artist_group.grouper|list }}</h1>
+
+        <h1 class="mt-4 mb-3">{{ artist_group.grouper.artist_name }}</h1>
+
+
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 d-flex align-items-stretch">
-
             {% for album in artist_group.list %}
 
             <div class="col" id="albums-div">

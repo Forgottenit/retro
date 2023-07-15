@@ -78,9 +78,23 @@ class Image(models.Model):
 
 class Album(models.Model):
     artists = models.ManyToManyField(Artist, related_name="albums")
+    # main_artist = models.ForeignKey(
+    #     Artist,
+    #     related_name="main_albums",
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    # )
     artist_id = models.CharField(max_length=100, blank=True, null=True)
     album_name = models.CharField(
         max_length=100, blank=True, null=True, db_index=True
+    )
+    main_artist = models.ForeignKey(
+        Artist,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="main_albums",
     )
     release_date = models.CharField(
         max_length=10, blank=True, null=True
@@ -90,7 +104,7 @@ class Album(models.Model):
         blank=True, null=True, validators=[MinValueValidator(0)]
     )
     album_id = models.CharField(
-        max_length=100, unique=True, blank=False, null=False
+        max_length=200, unique=True, blank=False, null=False
     )
     album_type = models.CharField(max_length=100, blank=True, null=True)
     label = models.CharField(max_length=100, blank=True, null=True)

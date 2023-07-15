@@ -10,9 +10,6 @@ def subtract(value, arg):
 
 @register.simple_tag
 def get_page_range(current_page, total_pages):
-    print(f"current_page: {current_page}, type: {type(current_page)}")
-    print(f"total_pages: {total_pages}, type: {type(total_pages)}")
-
     if total_pages <= 3:
         return range(1, total_pages + 1)
     else:

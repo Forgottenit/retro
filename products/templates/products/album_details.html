@@ -339,7 +339,7 @@
 
             fetch('/accounts/album/' + albumId + '/add_review/')
                 .then(response => {
-                    console.log($(this).data("albumId"))
+
                     if (response.status === 401) {
                         // Get message and URL from data-
                         var message = 'You need to Login/Sign up to access this page.';

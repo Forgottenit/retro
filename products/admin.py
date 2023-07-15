@@ -137,7 +137,6 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
         return ", ".join([str(genre) for genre in obj.genres.all()])
 
     def display_tracks(self, obj):
-        print("Tracks:", obj.tracks.all())
         return ", ".join(
             [str(track.track_name) for track in obj.tracks.all()]
         )

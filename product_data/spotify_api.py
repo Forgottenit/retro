@@ -262,7 +262,6 @@ def search_albums(query, search_type="album", search_field="artist"):
         )
         response.raise_for_status()
         album_data = response.json().get("albums", {}).get("items", [])
-        print(album_data)  # Print the album data
 
         if "error" in album_data:
             error_status = (

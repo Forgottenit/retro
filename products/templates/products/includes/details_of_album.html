@@ -1,0 +1,111 @@
+{%load static%}
+<!-- DETAILS -->
+<div class="details_of_album">
+    <div class="col col-lg-12">
+
+        <button class="btn btn-primary mt-auto col-lg-12 d-flex justify-content-center" type="button"
+            data-bs-toggle="collapse" data-bs-target="#album-details-{{ album.album_id }}" aria-expanded="false"
+            aria-controls="album-details-{{ album.album_id }}" d>Details</button>
+
+
+
+        {% include "products/includes/reviews_ratings.html" %}
+    </div>
+
+    <div class="collapse" id="album-details-{{ album.album_id }}">
+        <div class="mt-2 p-2 border-top">
+            {% if album.spotify_url %}
+            <div class="album_listing">
+                <p class="album_name">
+                    <strong class="me-5">Album: {{ album.album_name }} </strong>
+                </p>
+                <p>
+                    <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer" class="spotify_link">
+                        <span class="spotify_link_text">Spotify</span>
+                        <i class="fab fa-spotify spotify_icon"></i>
+                    </a>
+                </p>
+            </div>
+            {% endif %}
+
+            <div>
+                {% if album.artists.all.count > 1 %}
+                <p class="d-flex justify-content-between">
+                    <strong class="text-decoration-underline">Artists: </strong>
+                    {% for artist in album.artists.all %}
+                    {% if artist.spotify_url %}
+                    <p class="d-flex justify-content-between"><strong class="me-3">
+                            {{ artist.artist_name }}
+                        </strong>
+                        <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                            class="spotify_link">
+                            <span class="spotify_link_text">Spotify</span>
+                            <i class="fab fa-spotify" class="spotify_icon"></i>
+                        </a>
+                    </p>
+                    {% if not forloop.last %} {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </p>
+                {% else %}
+                {% for artist in album.artists.all %}
+                {% if artist.spotify_url %}
+                <p class="d-flex justify-content-between"><strong class="me-3">Artist:
+                        {{ artist.artist_name }}
+                    </strong>
+                    <a href="{{ artist.spotify_url }}" target="_blank" rel="noopener noreferrer" class="spotify_link">
+                        <span class="spotify_link_text">Spotify</span>
+                        <i class="fab fa-spotify" class="spotify_icon"></i>
+                    </a>
+                </p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div>
+                <p><strong>Release Date:</strong> {{ album.release_date }}</p>
+                <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>
+                <p><strong>Total Tracks:</strong> {{ album.total_tracks }}</p>
+                <p><strong>Popularity:</strong> {{ album.popularity }}</p>
+                <p><strong>Album ID:</strong> {{ album.album_id }}</p>
+                <p><strong>Album Type:</strong> {{ album.album_type|capfirst }}</p>
+                <p><strong>Label:</strong> {{ album.label }}</p>
+                <p><strong>Price:</strong> €{{ album.price }}</p>
+
+                {% if album.genres.all %}
+                <p><strong>Genres:</strong>
+                    {% for genre in album.genres.all %}
+                    {{ genre.name|capfirst }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+            <!-- ALBUM TRACKS -->
+            <div>
+                {% if album.tracks.all %}
+                <p><strong>Tracks:</strong></p>
+                <ul>
+                    {% for track in album.tracks.all %}
+                    <li class="track_listing">
+                        <div class="me-auto track_name">
+                            <span class="me-2">{{ track.track_number }}</span>
+                            <span>{{ track.track_name }}</span>
+                        </div>
+                        {% if track.spotify_url %}
+                        <div>
+                            <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                class="spotify_link">
+                                <span class="spotify_link_text">Spotify</span>
+                                <i class="fab fa-spotify spotify_icon"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

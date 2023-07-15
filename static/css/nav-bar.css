@@ -12,6 +12,7 @@
     font-size: 32px;
     margin-bottom: 0;
     background: #facc00;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
@@ -22,9 +23,10 @@
     font-weight: bold;
     font-size: 32px;
     margin-bottom: 0;
-    /* Fallback color: in Global css
-    /* color: #fbe689; */
+    /* Fallback color: in Global css */
+    color: #fbe689;
     background: linear-gradient(to right, #f39237, #f433ab, #89f0fb);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

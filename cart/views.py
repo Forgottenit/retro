@@ -10,13 +10,30 @@ from products.models import Album
 
 
 def view_cart(request):
-    """Returns Cart page"""
+    """
+    Function to display the shopping cart page.
+
+    Parameters:
+    - request: HTTP request
+
+    Returns:
+    - Rendered shopping cart page.
+    """
 
     return render(request, "cart/cart.html")
 
 
 def add_to_cart(request, item_id):
-    """Add a quantity to cart"""
+    """
+    Function to add a specified quantity of an album to the shopping cart.
+
+    Parameters:
+    - request: HTTP request
+    - item_id: ID of the album to be added
+
+    Returns:
+    - Redirect to the previous page or specified redirect_url
+    """
 
     quantity_str = request.POST.get("quantity")
     if not quantity_str:
@@ -45,7 +62,16 @@ def add_to_cart(request, item_id):
 
 
 def edit_cart(request, item_id):
-    """Adjust the quantity of the specified product to the specified amount"""
+    """
+    Function to update the quantity of an album in the shopping cart.
+
+    Parameters:
+    - request: HTTP request
+    - item_id: ID of the album to be updated
+
+    Returns:
+    - Redirect to the view cart page.
+    """
 
     product = get_object_or_404(Album, album_id=item_id)
 
@@ -81,7 +107,17 @@ def edit_cart(request, item_id):
 
 
 def delete_from_cart(request, item_id):
-    """Remove the item from the shopping cart"""
+    """
+    Function to remove an album from the shopping cart.
+
+    Parameters:
+    - request: HTTP request
+    - item_id: ID of the album to be removed
+
+    Returns:
+    - HTTP response with status 200 if item is successfully removed.
+    - HTTP response with status 500 if there was an unexpected issue.
+    """
     product = get_object_or_404(Album, album_id=item_id)
 
     try:

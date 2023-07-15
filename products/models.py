@@ -1,16 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from decimal import Decimal
-from django.core.validators import MinValueValidator
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
-
-
-EXPLICIT_CHOICES = (
-    ("E", "Explicit"),
-    ("C", "Clean"),
-    ("U", "Unknown"),
-)
 
 
 class ExternalUrl(models.Model):
@@ -24,10 +16,7 @@ class Artist(models.Model):
     artist_id = models.CharField(
         max_length=100, unique=True, blank=True, null=True
     )
-    # albums = models.ManyToManyField("Album", through="AlbumArtist")
-
     genres = models.ManyToManyField("Genre")
-
     spotify_url = models.URLField(blank=True, null=True)
     uri = models.CharField(max_length=200, blank=True, null=True)
     type = models.CharField(max_length=50, blank=True, null=True)
@@ -40,19 +29,18 @@ class Artist(models.Model):
         return self.artist_name
 
     def delete(self, *args, **kwargs):
-        # If this artist has an associated ExternalUrl
         if self.external_urls:
             external_url = self.external_urls
-            self.external_urls = None  # nullify the relationship
-            self.save()  # save the artist to update the foreign key
-            external_url.delete()  # then delete the ExternalUrl
-        super().delete(*args, **kwargs)  # Call the "real" delete() method.
+            self.external_urls = None
+            self.save()
+            external_url.delete()
+        super().delete(*args, **kwargs)
 
 
 class Track(models.Model):
     albums = models.ForeignKey(
         "Album",
-        related_name="tracks",  # updated related_name
+        related_name="tracks",
         null=True,
         on_delete=models.CASCADE,
     )
@@ -72,14 +60,7 @@ class Track(models.Model):
     def __str__(self):
         return self.track_name
 
-        # def delete(self, *args, **kwargs):
-        #     # If this track has an associated ExternalUrl
-        #     if self.external_urls:
-        #         external_url = self.external_urls
-        #         self.external_urls = None  # nullify the relationship
-        #         self.save()  # save the track to update the foreign key
-        #         external_url.delete()  # then delete the ExternalUrl
-        super().delete(*args, **kwargs)  # Call the "real" delete() method.
+        super().delete(*args, **kwargs)
 
 
 class Genre(models.Model):
@@ -115,14 +96,13 @@ class Album(models.Model):
     label = models.CharField(max_length=100, blank=True, null=True)
     copyrights = models.CharField(max_length=500, blank=True, null=True)
     explicit = models.BooleanField(null=True)
-    # explicit = models.CharField(
-    #     max_length=1, choices=EXPLICIT_CHOICES, blank=True, null=True
-    # )
     genres = models.ManyToManyField(
         Genre, related_name="albums", db_index=True
     )
     spotify_url = models.URLField(blank=True, null=True)
-    image = models.ImageField(upload_to="album_images", blank=True, null=True)
+    image = models.ImageField(
+        upload_to="album_images", blank=True, null=True
+    )
     image_data = models.ForeignKey(
         Image, on_delete=models.CASCADE, null=True, blank=True
     )
@@ -138,19 +118,16 @@ class Album(models.Model):
         return f"{self.album_name}"
 
     def delete(self, *args, **kwargs):
-        # Get all artists associated with the album
         artists = self.artists.all()
-
-        # Call the "real" delete() method
         if self.image_data:
             image_data = self.image_data
-            self.image_data = None  # nullify the relationship
-            self.save()  # save the album to update the foreign key
+            self.image_data = None
+            self.save()
             image_data.delete()
 
-        for artist in artists:  # Check each artist
-            if artist.albums.count() == 0:  # If the artist has no other albums
-                artist.delete()  # Delete the artist
+        for artist in artists:
+            if artist.albums.count() == 0:
+                artist.delete()
 
         super().delete(*args, **kwargs)
 
@@ -220,4 +197,6 @@ class TShirtVariant(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.tshirt} - Size: {self.size} - Quantity: {self.quantity}"
+        return (
+            f"{self.tshirt} - Size: {self.size} - Quantity: {self.quantity}"
+        )

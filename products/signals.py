@@ -1,9 +1,9 @@
+import os
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from products.models import Album, Artist, Track
-import os
-import cloudinary.uploader
 from django.conf import settings
+import cloudinary.uploader
+from products.models import Album, Artist, Track
 
 
 @receiver(pre_delete, sender=Album)
@@ -31,31 +31,27 @@ def delete_album_image(sender, instance, **kwargs):
 
 @receiver(pre_delete, sender=Artist)
 def delete_related_albums(sender, instance, **kwargs):
-    # Get all albums associated with this artist
     albums_to_delete = instance.albums.all()
     for album in albums_to_delete:
-        # Need to remove the artist from the album before deleting to prevent recursion
         album.artists.remove(instance)
-        # Check if this album has other artists associated, if not, delete it
+
         if album.artists.count() == 0:
             album.delete()
 
 
 @receiver(pre_delete, sender=Track)
 def pre_delete_track(sender, instance, **kwargs):
-    # If this track has an associated ExternalUrl
     if instance.external_urls:
         external_url = instance.external_urls
-        instance.external_urls = None  # nullify the relationship
-        instance.save()  # save the track to update the foreign key
-        external_url.delete()  # then delete the ExternalUrl
+        instance.external_urls = None
+        instance.save()
+        external_url.delete()
 
 
 @receiver(pre_delete, sender=Artist)
 def pre_delete_artist(sender, instance, **kwargs):
-    # If this track has an associated ExternalUrl
     if instance.external_urls:
         external_url = instance.external_urls
-        instance.external_urls = None  # nullify the relationship
-        instance.save()  # save the track to update the foreign key
-        external_url.delete()  # then delete the ExternalUrl
+        instance.external_urls = None
+        instance.save()
+        external_url.delete()

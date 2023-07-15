@@ -57,7 +57,7 @@
 
             <div class="d-flex justify-content-between flex-wrap">
                 <!-- Genre Selector -->
-                <div class=" sort-select-wrapper my-auto mr-md-2">
+                <div class=" sort-select-wrapper my-auto me-md-2">
                     <form method="GET" action="{% url 'products:albums' %}">
                         <select id="genre-selector"
                             class="custom-select custom-select-sm rounded-0 border{% if current_sorting != 'None_None' %} border-info{% else %} border-black{% endif %}"
@@ -109,12 +109,6 @@
             </div>
 
         </div>
-    </div>
-
-    <div class="row mt-1 mb-2">
-
-
-
     </div>
 
     <!-- PAGINATION -->
@@ -226,10 +220,7 @@
                             <p class="card-title fw-bolder d-inline-block text-truncate" style="max-width: 200px;">
                                 {{ album.album_name }}</h>
 
-
-
                                 <h5 class="card-price fw-bolder">€{{ album.price }}</h5>
-
 
                                 <!-- LIKES -->
 
@@ -244,12 +235,10 @@
                                 </a>
                                 {% endif %}
 
-
-
                         </div>
                         <!-- EDIT DELETE FOR SUPERUSER -->
                         {% if request.user.is_authenticated and request.user.is_superuser %}
-                        <p class="ml-3">
+                        <p class="ms-3">
                             <a class="btn btn-warning mt-1"
                                 href="{% url 'products:edit_product' album.album_id %}">Edit</a>
                             |
@@ -394,7 +383,7 @@
                                                     <p>{% ratings review %}</p> -->
                                                             </div>
                                                         </div>
-                                                        {% if request.user.is_authenticated and request.user == review.customer.user %}
+                                                        {% if request.user.is_superuser or request.user.is_authenticated and request.user == review.customer.user %}
                                                         <div class="accordion-footer">
                                                             <div class="d-flex justify-content-end">
 
@@ -601,8 +590,8 @@
             e.preventDefault();
 
             // Get message and URL from data-
-            var message = $(this).data("message");
-            var url = $(this).data("url");
+            let message = $(this).data("message");
+            let url = $(this).data("url");
 
             // Set message 
             $("#confirmationModalBody").text(message);
@@ -641,7 +630,7 @@
             const $this = $(this);
             const isLiked = $this.find('.filled-heart').length > 0;
             const albumId = $this.data('album-id');
-            console.log(albumId)
+
             const addToWishlistUrl = `{% url 'accounts:add_to_wishlist' album_id='placeholder' %}`
                 .replace('placeholder', albumId);
 
@@ -649,8 +638,7 @@
                 url: $(this).attr('href'),
                 method: 'GET',
                 success: function (response) {
-                    console.log(isLiked)
-                    console.log(albumId)
+
                     if (!isLiked) {
                         $('#wishlistModal').modal('show');
                         $('#wishlistModal .add-to-wishlist-btn').attr('href',
@@ -671,15 +659,15 @@
             e.preventDefault();
 
 
-            var albumId = this.dataset.albumid;
+            let albumId = this.dataset.albumid;
 
             fetch('/accounts/album/' + albumId + '/add_review/')
                 .then(response => {
-                    console.log($(this).data("albumId"))
+
                     if (response.status === 401) {
                         // Get message and URL from data-
-                        var message = 'You need to Login/Sign up to access this page.';
-                        var url = '/accounts/login/';
+                        let message = 'You need to Login/Sign up to access this page.';
+                        let url = '/accounts/login/';
 
                         // Set message 
                         $("#confirmationModalBody").text(message);

@@ -9,8 +9,6 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = (
             "full_name",
-            # "first_name",
-            # "last_name",
             "email",
             "phone_number",
             "street_address1",
@@ -31,8 +29,6 @@ class OrderForm(forms.ModelForm):
 
         placeholders = {
             "full_name": "Full Name",
-            # "first_name": "First Name",
-            # "last_name": "Last Name",
             "email": "Email Address",
             "phone_number": "Phone Number",
             "postcode": "Postal Code",
@@ -42,7 +38,6 @@ class OrderForm(forms.ModelForm):
             "county": "County, State, Locality",
         }
 
-        # self.fields["first_name"].widget.attrs["autofocus"] = True
         self.fields["full_name"].widget.attrs["autofocus"] = True
         for field in self.fields:
             if field != "country":

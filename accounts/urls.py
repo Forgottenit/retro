@@ -12,14 +12,18 @@ urlpatterns = [
         name="order_history",
     ),
     path("like_album/<str:album_id>/", views.like_album, name="like_album"),
-    path("add/<str:album_id>/", views.add_to_wishlist, name="add_to_wishlist"),
+    path(
+        "add/<str:album_id>/", views.add_to_wishlist, name="add_to_wishlist"
+    ),
     path(
         "remove/<str:album_id>/",
         views.remove_from_wishlist,
         name="remove_from_wishlist",
     ),
     path(
-        "album/<str:album_id>/add_review/", views.add_review, name="add_review"
+        "album/<str:album_id>/add_review/",
+        views.add_review,
+        name="add_review",
     ),
     path(
         "review/<int:review_id>/edit/", views.edit_review, name="edit_review"

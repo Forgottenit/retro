@@ -105,6 +105,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "ckeditor",
     "star_ratings",
+    "django_filters",
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

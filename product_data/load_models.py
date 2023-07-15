@@ -122,9 +122,6 @@ def load_models(query, search_field="artist"):
                 "spotify", "default_url"
             ),
         )
-        print("Genre Objects: ", genre_objs)
-        print("Artist Objects: ", artist_objs)
-        print("Track Objects: ", track_objs)
 
         # Add genres, artists, and tracks to the album
         album.genres.set(list(genre_objs))

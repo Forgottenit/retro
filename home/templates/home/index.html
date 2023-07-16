@@ -30,8 +30,10 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %} " data-bs-interval="4000">
                 <img src="{{ album.image.url }}" class="d-block w-100" alt="Album Cover">
                 <div class="carousel-caption">
-                    <h5 class="card-title">{{ album.album_name }} -
-                        {{ album.main_artist}}</h5>
+                    <div class="card-title">
+                        <p>{{ album.album_name }}<br>-<small>{{ album.main_artist}}</small></p>
+                        <p></p>
+                    </div>
 
                     <a href="{% url 'products:album_details' album.album_id %}" class="btn btn-primary">View
                         Album</a>

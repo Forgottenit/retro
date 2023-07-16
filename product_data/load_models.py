@@ -48,22 +48,12 @@ def load_models(query, search_field="artist"):
                 spotify_url=artist_dict.get("external_urls", {}).get(
                     "spotify", "default_url"
                 ),
-                # uri=artist_dict.get("uri", "default_uri"),
                 type=artist_dict.get("type", "default_type"),
                 href=artist_dict.get("href", "default_href"),
             )
 
             artist_objs.append(artist)
-            # Handle the ExternalUrl for the artist
-            # external_urls_artist_dict = artist_dict.get("external_urls", {})
-            # external_url_artist, _ = ExternalUrl.objects.get_or_create(
-            #     spotify=external_urls_artist_dict.get(
-            #         "spotify", "default_url"
-            #     )
-            # )
-            # artist.external_urls = external_url_artist
 
-            # Process the genres for the artist
             genre_objs = set()
             for genre_name in artist_dict.get("genres", []):
                 genre, _ = Genre.objects.get_or_create(name=genre_name)
@@ -90,14 +80,6 @@ def load_models(query, search_field="artist"):
                 href=track_dict.get("href", "default_href"),
             )
 
-            # Handle the ExternalUrl for the track
-            # external_urls_track_dict = track_dict.get("external_urls", {})
-            # external_url_track, _ = ExternalUrl.objects.get_or_create(
-            #     spotify=external_urls_track_dict.get(
-            #         "spotify", "default_url"
-            #     )
-            # )
-            # track.external_urls = external_url_track
             track.save()
 
             for artist in artist_objs:
@@ -157,12 +139,6 @@ def load_models(query, search_field="artist"):
 
             with open(image_filepath, "rb") as img_file:
                 album.image.save(image_filename, File(img_file), save=False)
-
-            # Save the image data in the Image model
-            # image_model, _ = Image.objects.get_or_create(
-            #     url=image_url, height=image_height, width=image_width
-            # )
-            # album.image_data = image_model
 
         if artist_objs:
             album.main_artist = artist_objs[0]

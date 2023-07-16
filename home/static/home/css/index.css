@@ -9,14 +9,30 @@
 
 
 .carousel-caption {
-    background-color: #fbe689;
+    background-color: rgba(255, 1, 162, 0.4);
     padding: 16px;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    /* center horizontally */
+    transform: translateX(-50%);
 }
 
 .carousel-caption h5 {
-    color: #141529;
+    color: #000000;
+    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.carousel-caption p {
-    color: #141529;
+
+.custom-carousel {
+    width: 80%;
+    height: 40%;
+    /* adjust as needed */
+    height: auto;
+    /* maintain aspect ratio */
+    margin-left: auto;
+    /* center the image horizontally */
+    margin-right: auto;
+    /* center the image horizontally */
 }

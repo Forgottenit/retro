@@ -1,3 +1,8 @@
+"""
+Module to Handle Webhooks, updated Customer Profile, if user
+clicks save data, and updates album popularity on successful checkout
+https://codeinstitute.net/ie
+"""
 import json
 import time
 
@@ -12,7 +17,14 @@ from .models import Order, OrderLineItem
 
 
 class StripeWH_Handler:
-    """Handle Stripe webhooks"""
+    """
+    Handle Stripe webhooks:
+    If requested, updated Customer profile,
+    Updates Album popularity on success,
+    Reattempts requests and sends confirmation
+    emails
+
+    """
 
     def __init__(self, request):
         self.request = request

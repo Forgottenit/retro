@@ -1,3 +1,7 @@
+"""
+Checkout App forms for Orders
+"""
+
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -5,6 +9,10 @@ from .models import Order
 
 
 class OrderForm(forms.ModelForm):
+    """
+    Class setting Form Fields and placeholders for Orders
+    """
+
     class Meta:
         model = Order
         fields = (

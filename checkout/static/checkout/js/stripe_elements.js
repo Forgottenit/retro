@@ -2,6 +2,8 @@
     Core logic/payment flow for this comes from here:
     https://stripe.com/docs/payments/accept-a-payment
 
+    Also, Code Institute https://codeinstitute.net/ie
+
     CSS from here: 
     https://stripe.com/docs/stripe-js
 */

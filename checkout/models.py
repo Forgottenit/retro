@@ -1,3 +1,8 @@
+"""
+Checkout models for Orders, and Order Line Items, which
+is a One to Many relationship
+"""
+
 import uuid
 
 from django.db import models
@@ -12,6 +17,11 @@ from accounts.models import Customer
 
 
 class Order(models.Model):
+    """
+    Class Model for Orders which has a one to
+    many relationship with Order Line Items
+    """
+
     order_number = models.CharField(
         max_length=32, null=False, editable=False
     )
@@ -91,6 +101,11 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
+    """
+    Class Model for OrderLine Item which has a many to
+    one relationship with Order Model
+    """
+
     order = models.ForeignKey(
         Order,
         null=False,

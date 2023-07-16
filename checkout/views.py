@@ -1,3 +1,7 @@
+"""
+Checkout Views, includes: Cache_checkout_data, Checkout and Checkout
+Success
+"""
 import json
 from django.shortcuts import (
     render,
@@ -27,8 +31,8 @@ def cache_checkout_data(request):
     - request: HTTP request
 
     Returns:
-    - HttpResponse with status 200 if caching is successful
-    - HttpResponse with status 400 if there was an error
+    - HttpResponse with status 200 if cache success
+    - HttpResponse with status 400 if error
     """
     try:
         pid = request.POST.get("client_secret").split("_secret")[0]
@@ -61,7 +65,7 @@ def checkout(request):
     Returns:
     - Rendered checkout page on GET request.
     - Redirect to the checkout success page on successful POST request.
-    - Redirect to the cart page or album page depending on the condition.
+    - Redirect to the cart page if error and checkout page if success
     """
     stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -186,7 +190,7 @@ def checkout_success(request, order_number):
     - order_number: The number of the successful order
 
     Returns:
-    - Rendered checkout success page.
+    - Render checkout success page.
     """
     save_info = request.session.get("save_info")
     order = get_object_or_404(Order, order_number=order_number)

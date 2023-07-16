@@ -1,13 +1,25 @@
+"""
+CHECKOUT APP ADMIN for Orders
+"""
+
 from django.contrib import admin
 from .models import Order, OrderLineItem
 
 
 class OrderLineItemAdminInline(admin.TabularInline):
+    """
+    Inline for Order Admin setting Fields
+    """
+
     model = OrderLineItem
     readonly_fields = ("lineitem_total",)
 
 
 class OrderAdmin(admin.ModelAdmin):
+    """
+    Admin for Orders in Checkout App
+    """
+
     inlines = (OrderLineItemAdminInline,)
 
     readonly_fields = (

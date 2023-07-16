@@ -58,8 +58,16 @@
     background-color: #22223c !important;
 }
 
+.request-heading {
+    /* background-color: rgb(143, 203, 243) !important; */
+    background: linear-gradient(to right, rgb(33, 222, 255), #fd02f5) !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+
+}
+
 /* Styling the accordion button symbol */
-.accordion-button::after {
+.button-heading::after {
 
     color: #f6f2f2;
 
@@ -74,7 +82,7 @@
 }
 
 /* Change symbol when the accordion is open */
-.accordion-button.collapsed::after {
+.button-heading.collapsed::after {
     content: "\002B";
     /* Change symbol to '-' when the accordion is open */
     color: #f0f99d;

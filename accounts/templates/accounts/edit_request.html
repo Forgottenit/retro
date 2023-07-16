@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="mt-5">
+        <h2 class="mb-4 text-light logo-font">Editing Your Retro Request!</h2>
+        <div>
+            <div class="text-light">
+                <p>Tweaking your album request? No worries! Update the artist and album details,
+                    and we'll notify our resident music wizard about the changes. Hang tight while we get this
+                    fixed!</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ album_request_form|crispy }}
+
+                    <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">Cancel</a>
+                    <button class="btn btn-primary" type="submit" value="form">Update Request</button>
+                    <input type="hidden" name="form_type" value="album_request_form" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

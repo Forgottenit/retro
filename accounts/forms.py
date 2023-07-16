@@ -100,13 +100,14 @@ class ReviewForm(forms.ModelForm):
 
 
 class AlbumRequestForm(forms.ModelForm):
+    request_title = forms.CharField(required=True)
     message = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 4, "cols": 15}), required=False
     )
-    request_title = forms.CharField(required=True)
+
     artist_name = forms.CharField(required=False)
     album_title = forms.CharField(required=False)
 
     class Meta:
         model = AlbumRequest
-        fields = ["artist_name", "album_title", "message"]
+        fields = ["request_title", "artist_name", "album_title", "message"]

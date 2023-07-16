@@ -24,9 +24,9 @@
                 <div class="accordion" id="profileAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingDeliveryInfo">
-                            <button class="accordion-button collapsed profile-dropdown-header" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseDeliveryInfo" aria-expanded="false"
-                                aria-controls="collapseDeliveryInfo">
+                            <button class="accordion-button button-heading collapsed profile-dropdown-header"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseDeliveryInfo"
+                                aria-expanded="false" aria-controls="collapseDeliveryInfo">
                                 <p class="text-light logo-font">Default Delivery Information</p>
                             </button>
                         </h2>
@@ -54,9 +54,9 @@
                 <div class="accordion" id="profileAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button collapsed profile-dropdown-header" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false"
-                                aria-controls="collapseOne">
+                            <button class="accordion-button button-heading collapsed profile-dropdown-header"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                aria-expanded="false" aria-controls="collapseOne">
                                 <p class="text-light logo-font">Order History</p>
                             </button>
                         </h2>
@@ -110,9 +110,9 @@
                 <div class="accordion" id="wishlistAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingWishlist">
-                            <button class="accordion-button collapsed profile-dropdown-header" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseWishlist" aria-expanded="false"
-                                aria-controls="collapseWishlist">
+                            <button class="accordion-button button-heading collapsed profile-dropdown-header"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseWishlist"
+                                aria-expanded="false" aria-controls="collapseWishlist">
                                 <h4 class="text-light logo-font">Wishlist</h4>
                             </button>
                         </h2>
@@ -177,58 +177,62 @@
                 <div class="accordion" id="retroAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed profile-dropdown-header" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                aria-controls="collapseTwo">
+                            <button class="accordion-button button-heading collapsed profile-dropdown-header"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                aria-expanded="false" aria-controls="collapseTwo">
                                 <p class="logo-font mb-4 text-light">The Retro Request Hotline!</p>
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#retroAccordion">
                             <div class="accordion-body">
-                                <p class="text-light">Whoopsie daisy! Couldn't find the album of your dreams? Not to
+                                <p class="text-light">Whoopsie daisy! Couldn't find the album of your dreams or just
+                                    want to tell us how much you <i class="fas fa-heart"></i> us ? ? Not to
                                     worry,
-                                    just plug in the artist and album details, and we'll summon our resident music
+                                    just plug in the details, and we'll summon our resident music
                                     wizard to
-                                    track it down. Hang tight and we'll notify you when we hit the jackpot!</p>
+                                    track it down. Hang tight and we'll Track it down!</p>
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ album_request_form|crispy }}
+
+                                    <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">Cancel</a>
                                     <button class="btn btn-primary" type="submit" value="album_request_form">Rock
                                         On!</button>
-                                    <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">Back to Profile</a>
                                     <input type="hidden" name="form_type" value="album_request_form" />
                                 </form>
                             </div>
                         </div>
-                    </div>
+                        {% for album_request in album_requests %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                <button class="accordion-button request-heading collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}"
+                                    aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                    {{ album_request.request_title }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                                aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#retroAccordion">
+                                <div class="accordion-body">
+                                    <p class="text-light">Artist: {{ album_request.artist_name }}</p>
+                                    <p class="text-light">Album: {{ album_request.album_title }}</p>
+                                    <p class="text-light">Message: {{ album_request.message }}</p>
+                                    <form method="POST" action="{% url 'accounts:delete-request' album_request.id %}"
+                                        class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete Request" class="btn btn-danger">
+                                    </form>
+                                    <a href="{% url 'accounts:edit-request' album_request.id %}"
+                                        class="btn btn-secondary">Edit Request</a>
 
-                    {% for album_request in album_requests %}
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
-                                aria-controls="collapse{{ forloop.counter }}">
-                                {{ album_request.album_title }} by {{ album_request.artist_name }}
-                            </button>
-                        </h2>
-                        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
-                            aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#retroAccordion">
-                            <div class="accordion-body">
-                                <p class="text-light">{{ album_request.artist_name }}</p>
-                                <p class="text-light">{{ album_request.album_title }}</p>
-                                <p class="text-light">{{ album_request.message }}</p>
-                                <a href="{% url 'accounts:edit-request' album_request.id %}"
-                                    class="btn btn-secondary">Edit Request</a>
-                                <form method="POST" action="{% url 'accounts:delete-request' album_request.id %}"
-                                    class="d-inline">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Delete Request" class="btn btn-danger">
-                                </form>
+                                </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
+
+
                 </div>
             </div>
         </div>

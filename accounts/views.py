@@ -329,7 +329,9 @@ def edit_album_request(request, id):
             return redirect("accounts:profile")
     else:
         form = AlbumRequestForm(instance=album_request)
-    return render(request, "edit_request.html", {"form": form})
+    return render(
+        request, "accounts/edit_request.html", {"album_request_form": form}
+    )
 
 
 @login_required

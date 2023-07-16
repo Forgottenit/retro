@@ -1,3 +1,8 @@
+"""
+Module for Accounts with views for login, likes, wishlist, 
+order history, and Album requests 
+"""
+
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -55,7 +60,7 @@ def profile(request):
 
         orders = profile.orders.all()
 
-        # Get the wishlist albums
+        # get wishlist albums
         try:
             wishlists = profile.wishlists.all()
         except KeyError:
@@ -66,18 +71,12 @@ def profile(request):
             "profile_form": profile_form,
             "album_request_form": album_request_form,
             "orders": orders,
-            "wishlists": wishlists,  # Pass the wishlist to the template
+            "wishlists": wishlists,
             "on_profile_page": True,
             "album_requests": album_requests,
         }
 
         return render(request, template, context)
-
-    else:
-        logging.error(
-            f"Unexpected request.method {request.method} in profile view"
-        )
-        return HttpResponse("Unexpected error occurred.", status=500)
 
 
 @login_required
@@ -182,10 +181,10 @@ def order_history(request, order_number):
 
     Parameters:
     - request: HTTP request
-    - order_number: Order number of the past order
+    - order_number: Order number of old orders
 
     Returns:
-    - Rendered template of the order confirmation page.
+    - Rendered template of checkout success page
     """
     order = get_object_or_404(Order, order_number=order_number)
 
@@ -209,7 +208,7 @@ def order_history(request, order_number):
 @login_required
 def add_review(request, album_id):
     """
-    Function to add a review for an album. Requires user authentication.
+    Function to add a review for an album.
 
     Parameters:
     - request: HTTP request
@@ -217,7 +216,7 @@ def add_review(request, album_id):
 
     Returns:
     - If POST: Redirect to album details page after review is saved.
-    - Else: Rendered template of the add review page.
+    - Else: Render the template of the add review page.
     """
     if not request.user.is_authenticated:
         return JsonResponse({"error": "Login required"}, status=401)
@@ -247,7 +246,7 @@ def add_review(request, album_id):
 def edit_review(request, review_id):
     """
     Function to edit an existing review.
-        The user must be the author of the review.
+    User must be the author of the review.
 
     Parameters:
     - request: HTTP request
@@ -255,7 +254,7 @@ def edit_review(request, review_id):
 
     Returns:
     - If POST: Redirect to album details page after review is updated.
-    - Else: Rendered template of the edit review page.
+    - Else: Render the template of edit review page.
     """
     review = get_object_or_404(Review, pk=review_id)
 
@@ -281,14 +280,14 @@ def edit_review(request, review_id):
 def delete_review(request, review_id):
     """
     Function to delete an existing review.
-        The user must be the author of the review.
+    User must be the author of the review.
 
     Parameters:
     - request: HTTP request
     - review_id: ID of the review to be deleted
 
     Returns:
-    - Redirect to album details page after review is deleted.
+    - Redirect to album details page after review deleted.
     """
     review = get_object_or_404(Review, pk=review_id)
     if (

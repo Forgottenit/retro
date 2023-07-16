@@ -1,6 +1,5 @@
 """
-This module defines the Django admin interface for the User and Customer models
-and related inline models - Wishlist, Like, and Review.
+Admin for User, Customer, Wishlist, Like, and Review.
 
 """
 
@@ -12,7 +11,7 @@ from .models import Customer, Wishlist, Like, Review
 
 class WishlistInline(admin.TabularInline):
     """
-    Defines an inline admin interface for Wishlist model.
+    Inline for Wishlist model.
     """
 
     model = Wishlist
@@ -21,7 +20,7 @@ class WishlistInline(admin.TabularInline):
 
 class LikeInline(admin.TabularInline):
     """
-    Defines an inline admin interface for Like model.
+    Inline for Like model.
     """
 
     model = Like
@@ -30,8 +29,7 @@ class LikeInline(admin.TabularInline):
 
 class CustomerAdmin(admin.ModelAdmin):
     """
-    Custom admin interface for Customer model,
-    including inline interfaces for Wishlist and Like models.
+    Admin for Customer model
     """
 
     inlines = [WishlistInline, LikeInline]
@@ -39,7 +37,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class CustomerInline(admin.StackedInline):
     """
-    Defines an inline admin interface for Customer model.
+    Inline for Customer model.
     """
 
     model = Customer
@@ -48,8 +46,7 @@ class CustomerInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin):
     """
-    Custom admin interface for User model,
-    including inline interface for Customer model.
+    Custom Admin for User model
     """
 
     inlines = [CustomerInline]
@@ -57,8 +54,7 @@ class CustomUserAdmin(UserAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     """
-    Custom admin interface for Review model,
-    specifying some fields to display.
+    Admin for Review model,
     """
 
     list_display = ("customer", "album", "review_text", "created_date")

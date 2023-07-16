@@ -1,9 +1,18 @@
+"""
+Module for Customer, Reviews and Request Forms
+
+"""
+
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from .models import Customer, Review, AlbumRequest
 
 
 class CustomerProfileForm(forms.ModelForm):
+    """
+    Form for Customer Profile
+    """
+
     class Meta:
         model = Customer
         exclude = ("user",)
@@ -87,14 +96,26 @@ class CustomerProfileForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+    """
+    Form for Reviews
+    """
+
     review_text = forms.CharField(widget=CKEditorWidget())
 
     class Meta:
+        """
+        Sets Meta data and Fields
+        """
+
         model = Review
         fields = ["review_text"]
 
 
 class AlbumRequestForm(forms.ModelForm):
+    """
+    Form for Album Requests
+    """
+
     request_title = forms.CharField(required=True)
     message = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 4, "cols": 15}), required=False
@@ -104,5 +125,9 @@ class AlbumRequestForm(forms.ModelForm):
     album_title = forms.CharField(required=False)
 
     class Meta:
+        """
+        Sets Meta data and Fields
+        """
+
         model = AlbumRequest
         fields = ["request_title", "artist_name", "album_title", "message"]

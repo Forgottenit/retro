@@ -1,9 +1,7 @@
 """
-This module defines models for the customer management application.
+This module defines models Customer,Wishlist, Likes, Reviews
+and Album Requests
 
-It includes models for representing a Customer, their Wishlist, Likes, and Reviews.
-There is also an AlbumRequest model for handling album requests from customers.
-Additionally, models for Staff members and their roles are included.
 """
 
 from django.db import models
@@ -17,9 +15,7 @@ from products.models import Album
 
 class Customer(models.Model):
     """
-    Model representing a customer user for maintaining default
-    delivery information and order history. It has a One-to-One
-    relationship with Django's built-in User model.
+    Model for Customer
     """
 
     user = models.OneToOneField(
@@ -66,8 +62,7 @@ class Customer(models.Model):
 
 class Like(models.Model):
     """
-    Model representing the albums liked by a customer.
-    It has a Many-to-One relationship with the Customer and Album models.
+    Model for Album "Likes"
     """
 
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -83,8 +78,7 @@ class Like(models.Model):
 
 class Wishlist(models.Model):
     """
-    Model representing a customer's wishlist.
-    It has a Many-to-One relationship with the Customer and Album models.
+    Model for Customer Wishlist
     """
 
     customer = models.ForeignKey(
@@ -95,10 +89,9 @@ class Wishlist(models.Model):
 
     class Meta:
         """
-        Meta class for setting the model's metadata.
-        It sets the `unique_together` constraint on the 'customer'
-        and 'album' fields, ensuring that a user cannot have multiple likes
-        or multiple albums in the wishlist for the same album.
+        Meta class setting uniqueness of wishlist between
+        customer and albums, i.e. Customer can only have
+        one of album in wihlist
         """
 
         unique_together = (
@@ -110,7 +103,6 @@ class Wishlist(models.Model):
 class Review(models.Model):
     """
     Model for reviews by customers.
-    It has a Many-to-One relationship with the Customer and Album models.
     """
 
     customer = models.ForeignKey(
@@ -124,7 +116,8 @@ class Review(models.Model):
 
     def __str__(self):
         """
-        Return version of review_text with elipses
+        Return version of review text with elipses if
+        over 75 characters
         """
         if self.review_text is not None:
             review_text_str = str(self.review_text)
@@ -142,17 +135,15 @@ def create_or_update_customer(sender, instance, created, **kwargs):
     """
     Create or update the Customer profile whenever a User instance is saved.
     """
-    _ = sender
     if created:
         Customer.objects.create(user=instance)
-    # Existing users: just save the profile
+    # for existing users, just save the profile
     instance.customer.save()
 
 
 class AlbumRequest(models.Model):
     """
     Model representing album requests by customers.
-    It has a Many-to-One relationship with the Customer model.
     """
 
     customer = models.ForeignKey(

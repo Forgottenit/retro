@@ -29,7 +29,7 @@ class ProductForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "border-black rounded-0"
         if "album_name" in self.fields:
-            self.fields["album_name"].widget.attrs["readonly"] = True
+            self.fields["album_name"].widget.attrs["readonly"] = False
 
 
 class LoadAlbumsForm(forms.Form):
@@ -38,5 +38,7 @@ class LoadAlbumsForm(forms.Form):
     search_field = forms.ChoiceField(choices=SEARCH_FIELDS)
     query = forms.CharField(
         label="Query",
-        widget=forms.TextInput(attrs={"placeholder": "Enter search term..."}),
+        widget=forms.TextInput(
+            attrs={"placeholder": "Enter search term..."}
+        ),
     )

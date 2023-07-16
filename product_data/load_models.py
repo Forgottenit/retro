@@ -7,7 +7,7 @@ import os
 import urllib.request
 from django.conf import settings
 from django.core.files import File
-from products.models import Genre, Artist, Track, Album, ExternalUrl, Image
+from products.models import Genre, Artist, Track, Album, Image
 from .spotify_api import get_album_ids, get_album_details
 
 processed_album_ids = set()
@@ -25,7 +25,7 @@ def load_models(query, search_field="artist"):
     - None
     """
 
-    album_ids = get_album_ids(query, search_field="artist")
+    album_ids = get_album_ids(query, search_field=search_field)
     album_data = get_album_details(album_ids)
 
     for album_dict in album_data:
@@ -40,28 +40,28 @@ def load_models(query, search_field="artist"):
             # Create a new album instance
             album = Album(album_id=album_id)
 
-        artist_objs = []
         for artist_dict in album_dict.get("artists", []):
+            artist_objs = []
             artist, _ = Artist.objects.get_or_create(
                 artist_name=artist_dict["name"],
                 artist_id=artist_dict.get("id", "default_id"),
                 spotify_url=artist_dict.get("external_urls", {}).get(
                     "spotify", "default_url"
                 ),
-                uri=artist_dict.get("uri", "default_uri"),
+                # uri=artist_dict.get("uri", "default_uri"),
                 type=artist_dict.get("type", "default_type"),
                 href=artist_dict.get("href", "default_href"),
             )
 
             artist_objs.append(artist)
             # Handle the ExternalUrl for the artist
-            external_urls_artist_dict = artist_dict.get("external_urls", {})
-            external_url_artist, _ = ExternalUrl.objects.get_or_create(
-                spotify=external_urls_artist_dict.get(
-                    "spotify", "default_url"
-                )
-            )
-            artist.external_urls = external_url_artist
+            # external_urls_artist_dict = artist_dict.get("external_urls", {})
+            # external_url_artist, _ = ExternalUrl.objects.get_or_create(
+            #     spotify=external_urls_artist_dict.get(
+            #         "spotify", "default_url"
+            #     )
+            # )
+            # artist.external_urls = external_url_artist
 
             # Process the genres for the artist
             genre_objs = set()
@@ -85,19 +85,19 @@ def load_models(query, search_field="artist"):
                 spotify_url=track_dict.get("external_urls", {}).get(
                     "spotify", "default_url"
                 ),
-                uri=track_dict.get("uri", "default_uri"),
+                # uri=track_dict.get("uri", "default_uri"),
                 type=track_dict.get("type", "default_type"),
                 href=track_dict.get("href", "default_href"),
             )
 
             # Handle the ExternalUrl for the track
-            external_urls_track_dict = track_dict.get("external_urls", {})
-            external_url_track, _ = ExternalUrl.objects.get_or_create(
-                spotify=external_urls_track_dict.get(
-                    "spotify", "default_url"
-                )
-            )
-            track.external_urls = external_url_track
+            # external_urls_track_dict = track_dict.get("external_urls", {})
+            # external_url_track, _ = ExternalUrl.objects.get_or_create(
+            #     spotify=external_urls_track_dict.get(
+            #         "spotify", "default_url"
+            #     )
+            # )
+            # track.external_urls = external_url_track
             track.save()
 
             for artist in artist_objs:

@@ -103,8 +103,9 @@ class AlbumRequestForm(forms.ModelForm):
     message = forms.CharField(
         widget=forms.Textarea(attrs={"rows": 4, "cols": 15}), required=False
     )
-    artist_name = forms.CharField(required=True)
-    album_title = forms.CharField(required=True)
+    request_title = forms.CharField(required=True)
+    artist_name = forms.CharField(required=False)
+    album_title = forms.CharField(required=False)
 
     class Meta:
         model = AlbumRequest

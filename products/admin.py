@@ -12,7 +12,7 @@ from .models import (
     TShirtVariant,
     TShirtSize,
     Image,
-    ExternalUrl,
+    # ExternalUrl,
 )
 
 
@@ -37,10 +37,11 @@ class TrackAdmin(admin.ModelAdmin):
         "track_number",
         "duration",
         "explicit",
-        "display_album_image",
+        # "external_urls",
+        "spotify_url",
     )
     list_filter = ("track_name",)
-    search_fields = ("track_name", "album__album_id")
+    search_fields = ("track_name", "albums__album_id")
     autocomplete_fields = ("albums",)
     ordering = ("track_name",)
 
@@ -58,17 +59,6 @@ class TrackAdmin(admin.ModelAdmin):
         )
         return queryset, use_distinct
 
-    def display_album_image(self, obj):
-        if obj.albums and obj.albums.image_data:
-            image_data = obj.albums.image_data
-            if image_data.url:
-                return mark_safe(
-                    f'<img src="{obj.image.url}" width="50" height="50" />'
-                )
-        return "No Image"
-
-    display_album_image.short_description = "Album Image"
-
 
 # class AlbumArtistInline(admin.TabularInline):
 #     model = AlbumArtist
@@ -84,6 +74,7 @@ class ArtistAdmin(admin.ModelAdmin):
         "get_albums",
         "spotify_url",
         "type",
+        # "external_urls",
     )
     ordering = ("artist_name",)
     list_filter = ("artist_name",)
@@ -124,6 +115,7 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
     )
     search_fields = (
         "album_id",
+        "main_artist",
         "label",
         "album_name",
         "artist_id",
@@ -226,6 +218,6 @@ class ImageAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(ExternalUrl)
-class ExternalUrlAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(ExternalUrl)
+# class ExternalUrlAdmin(admin.ModelAdmin):
+#     pass

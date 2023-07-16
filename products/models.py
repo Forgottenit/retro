@@ -5,8 +5,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
 
 
-class ExternalUrl(models.Model):
-    spotify = models.URLField(blank=True, null=True)
+# class ExternalUrl(models.Model):
+#     spotify = models.URLField(blank=True, null=True)
 
 
 class Artist(models.Model):
@@ -18,23 +18,29 @@ class Artist(models.Model):
     )
     genres = models.ManyToManyField("Genre")
     spotify_url = models.URLField(blank=True, null=True)
-    uri = models.CharField(max_length=200, blank=True, null=True)
+    # uri = models.CharField(max_length=200, blank=True, null=True)
     type = models.CharField(max_length=50, blank=True, null=True)
     href = models.URLField(blank=True, null=True)
-    external_urls = models.OneToOneField(
-        ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
-    )
+    # external_urls = models.OneToOneField(
+    #     ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
+    # )
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated URLs
+        # if self.external_urls:
+        #     self.external_urls.delete()
+
+        # Delete the associated tracks
+        tracks_to_delete = list(self.tracks.all())
+        for track in tracks_to_delete:
+            track.artists.remove(self)
+            if track.artists.count() == 0:
+                track.delete()
+
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.artist_name
-
-    def delete(self, *args, **kwargs):
-        if self.external_urls:
-            external_url = self.external_urls
-            self.external_urls = None
-            self.save()
-            external_url.delete()
-        super().delete(*args, **kwargs)
 
 
 class Track(models.Model):
@@ -49,18 +55,19 @@ class Track(models.Model):
     duration = models.CharField(max_length=10, blank=True, null=True)
     explicit = models.BooleanField(null=True)
     spotify_url = models.URLField(blank=True, null=True)
-    uri = models.CharField(max_length=200, blank=True, null=True)
+    # uri = models.CharField(max_length=200, blank=True, null=True)
     type = models.CharField(max_length=50, blank=True, null=True)
     href = models.URLField(blank=True, null=True)
-    external_urls = models.OneToOneField(
-        ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
-    )
+    # external_urls = models.OneToOneField(
+    #     ExternalUrl, on_delete=models.CASCADE, null=True, blank=True
+    # )
     artists = models.ManyToManyField(Artist, related_name="tracks")
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.track_name
-
-        super().delete(*args, **kwargs)
 
 
 class Genre(models.Model):
@@ -78,13 +85,6 @@ class Image(models.Model):
 
 class Album(models.Model):
     artists = models.ManyToManyField(Artist, related_name="albums")
-    # main_artist = models.ForeignKey(
-    #     Artist,
-    #     related_name="main_albums",
-    #     on_delete=models.CASCADE,
-    #     blank=True,
-    #     null=True,
-    # )
     artist_id = models.CharField(max_length=100, blank=True, null=True)
     album_name = models.CharField(
         max_length=100, blank=True, null=True, db_index=True
@@ -128,22 +128,26 @@ class Album(models.Model):
     )
     ratings = GenericRelation(Rating, related_query_name="albums")
 
-    def __str__(self):
-        return f"{self.album_name}"
-
     def delete(self, *args, **kwargs):
         artists = self.artists.all()
-        if self.image_data:
-            image_data = self.image_data
-            self.image_data = None
-            self.save()
-            image_data.delete()
 
+        # Delete the associated tracks
+        tracks_to_delete = list(self.tracks.all())
+        for track in tracks_to_delete:
+            track.artists.remove(*artists)
+            if track.artists.count() == 0:
+                track.delete()
+
+        # Delete the album
+        super().delete(*args, **kwargs)
+
+        # Delete artists with no remaining albums
         for artist in artists:
             if artist.albums.count() == 0:
                 artist.delete()
 
-        super().delete(*args, **kwargs)
+    def __str__(self):
+        return f"{self.album_name}"
 
 
 class Product(models.Model):

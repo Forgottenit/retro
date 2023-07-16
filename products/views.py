@@ -16,10 +16,11 @@ from product_data.load_models import load_models
 from .models import Album, Genre, Artist
 from urllib.parse import urlencode
 from .forms import LoadAlbumsForm, ProductForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
-def load_albums(request):
+def load_albums(request, search_field="artist"):
     """
     View function to load albums from Spotify and store them in the database.
 
@@ -356,8 +357,14 @@ def delete_artist(request, artist_id):
         messages.error(request, "Sorry, only store owners can do that.")
         return redirect(reverse("home"))
 
-    artist = get_object_or_404(Artist, artist_id=artist_id)
-    artist.delete()
+    try:
+        artist = Artist.objects.get(artist_id=artist_id)
+        artist.delete()
+        messages.success(request, "Artist and related objects deleted!")
+    except ObjectDoesNotExist:
+        messages.error(
+            request, "The artist you are trying to delete does not exist."
+        )
+        return redirect(reverse("products:albums"))
 
-    messages.success(request, "Artist and related objects deleted!")
     return redirect(reverse("products:albums"))

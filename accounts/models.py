@@ -119,6 +119,7 @@ class AlbumRequest(models.Model):
         "Customer",
         on_delete=models.CASCADE,
     )
+    request_title = models.CharField(max_length=200, blank=False, null=False)
     artist_name = models.CharField(max_length=200)
     album_title = models.CharField(max_length=200)
     message = models.TextField(blank=True, null=True)

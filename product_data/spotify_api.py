@@ -229,7 +229,7 @@ def get_album_details(album_ids):
     return albums_data
 
 
-def search_albums(query, search_type="album", search_field="artist"):
+def search_albums(query, search_type="album", search_field="album"):
     """
     Function to search for albums on Spotify and retrieve their details.
 

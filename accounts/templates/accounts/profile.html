@@ -202,6 +202,33 @@
                             </div>
                         </div>
                     </div>
+
+                    {% for album_request in album_requests %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
+                                aria-controls="collapse{{ forloop.counter }}">
+                                {{ album_request.album_title }} by {{ album_request.artist_name }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                            aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#retroAccordion">
+                            <div class="accordion-body">
+                                <p class="text-light">{{ album_request.artist_name }}</p>
+                                <p class="text-light">{{ album_request.album_title }}</p>
+                                <p class="text-light">{{ album_request.message }}</p>
+                                <a href="{% url 'accounts:edit-request' album_request.id %}"
+                                    class="btn btn-secondary">Edit Request</a>
+                                <form method="POST" action="{% url 'accounts:delete-request' album_request.id %}"
+                                    class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Delete Request" class="btn btn-danger">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

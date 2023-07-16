@@ -313,7 +313,39 @@ def request_album(request):
             new_request = form.save(commit=False)
             new_request.customer = request.user.customer
             new_request.save()
-            return redirect("profile")
+            return redirect("accounts:profile")
     else:
         form = AlbumRequestForm(instance=request.user.customer)
     return render(request, "profile.html", {"form": form})
+
+
+@login_required
+def edit_album_request(request, id):
+    album_request = get_object_or_404(AlbumRequest, id=id)
+    if request.method == "POST":
+        form = AlbumRequestForm(request.POST, instance=album_request)
+        if form.is_valid():
+            form.save()
+            return redirect("accounts:profile")
+    else:
+        form = AlbumRequestForm(instance=album_request)
+    return render(request, "edit_request.html", {"form": form})
+
+
+@login_required
+def delete_album_request(request, id):
+    album_request = get_object_or_404(AlbumRequest, id=id)
+
+    # Check if the current user is the one who made the request
+    if album_request.customer.user != request.user:
+        return HttpResponseForbidden()
+
+    # If the method is POST, then delete the object
+    if request.method == "POST":
+        album_request.delete()
+        messages.success(request, "Album Request deleted successfully")
+        return redirect("accounts:profile")
+
+    return render(
+        request, "delete_confirm.html", {"album_request": album_request}
+    )

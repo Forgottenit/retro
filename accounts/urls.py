@@ -34,4 +34,14 @@ urlpatterns = [
         name="delete_review",
     ),
     path("request-album/", views.request_album, name="request-album"),
+    path(
+        "edit-request/<int:id>/edit",
+        views.edit_album_request,
+        name="edit-request",
+    ),
+    path(
+        "delete-request/<int:id>/delete",
+        views.delete_album_request,
+        name="delete-request",
+    ),
 ]

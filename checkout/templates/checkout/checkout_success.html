@@ -65,9 +65,12 @@
                         <p class=" mb-2 text-black ">
                             {{ item.album.album_name }}
                         </p>
+                        <p class=" mb-2 text-black ">
+                            <small>by</small> {{ item.album.main_artist }}
+                        </p>
                     </div>
                     <div class="col-12 col-md-8 text-md-end">
-                        <p class="small mb-0">{{ item.quantity }} @ €{{ item.album.price }} each</p>
+                        <p class="small fw-bold mb-0">{{ item.quantity }} @ €{{ item.album.price }} each</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -80,10 +83,10 @@
 
                 <div class="row">
                     <div class="col-12 col-md-4">
-                        <p class="mb-0 text-black ">Full Name:</p>
+                        <p class="mb-0 text-black ">Full Name: {{ order.full_name }}</p>
                     </div>
                     <div class="col-12 col-md-8 text-md-end">
-                        <p class="mb-0">{{ order.first_name }} {{order.last_name}}</p>
+                        <!-- <p class="mb-0">{{ order.first_name }} {{order.last_name}}</p> -->
                     </div>
                 </div>
 
@@ -185,7 +188,7 @@
                         <p class="mb-2 text-black fw-bold text-decoration-underline">Grand Total</p>
                     </div>
                     <div class="col-12 col-md-8 text-md-end">
-                        <p class="mb-0 text-decoration-underline">€{{ order.grand_total }}</p>
+                        <p class="mb-0 text-decoration-underline fw-bold">€{{ order.grand_total }}</p>
                     </div>
                 </div>
             </div>

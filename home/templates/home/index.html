@@ -27,11 +27,12 @@
     <div id="carouselExampleFade" class="carousel slide carousel-fade custom-carousel" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for album in top_albums %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %} " data-bs-interval="3000">
+            <div class="carousel-item {% if forloop.first %}active{% endif %} " data-bs-interval="4000">
                 <img src="{{ album.image.url }}" class="d-block w-100" alt="Album Cover">
                 <div class="carousel-caption">
-                    <h5 class="card-title">{{ album.album_name }}</h5>
-                    <p class="card-text">{{ album.description }}</p>
+                    <h5 class="card-title">{{ album.album_name }} -
+                        {{ album.main_artist}}</h5>
+
                     <a href="{% url 'products:album_details' album.album_id %}" class="btn btn-primary">View
                         Album</a>
                 </div>

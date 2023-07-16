@@ -207,10 +207,13 @@ def checkout_success(request, order_number):
                 "default_street_address1": order.street_address1,
                 "default_street_address2": order.street_address2,
                 "default_county": order.county,
+                "default_first_name": request.user.first_name or "Unknown",
+                "default_last_name": request.user.last_name or "Unknown",
             }
             customer_profile_form = CustomerProfileForm(
                 profile_data, instance=profile
             )
+            print(customer_profile_form.errors)
             if customer_profile_form.is_valid():
                 customer_profile_form.save()
 

@@ -28,7 +28,7 @@ class StripeWH_Handler:
             "checkout/confirmation_emails/confirmation_email_body.txt",
             {"order": order, "contact_email": settings.DEFAULT_FROM_EMAIL},
         )
-        print("FIRST EMAIL SENDER SENDING ")
+
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [cust_email])
 
     def handle_event(self, event):
@@ -48,14 +48,15 @@ class StripeWH_Handler:
         pid = intent.id
         cart = intent.metadata.cart
         save_info = intent.metadata.save_info
-        print("About to increment popularity")
-        # Increase the album's popularity:
-        album.popularity += 2
-        album.save()
-        print("Popularity incremented")
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
+
+        # increase the popularity of the albums in the cart
+        for item_id, quantity in json.loads(cart).items():
+            album = Album.objects.get(album_id=item_id)
+            album.popularity += 2 * quantity
+            album.save()
 
         billing_details = stripe_charge.billing_details  # updated
         shipping_details = intent.shipping
@@ -136,6 +137,8 @@ class StripeWH_Handler:
                 )
                 for item_id, item_data in json.loads(cart).items():
                     album = Album.objects.get(album_id=item_id)
+                    album.popularity += 2
+                    album.save()
                     order_line_item = OrderLineItem(
                         order=order,
                         album=album,

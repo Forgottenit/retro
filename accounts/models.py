@@ -23,9 +23,9 @@ class Customer(models.Model):
     default_last_name = models.CharField(
         max_length=150, null=True, blank=True
     )
-    default_full_name = models.CharField(
-        max_length=150, null=False, blank=False
-    )
+    # default_full_name = models.CharField(
+    #     max_length=150, null=False, blank=False
+    # )
 
     default_phone_number = models.CharField(
         max_length=20, null=True, blank=True
@@ -44,6 +44,10 @@ class Customer(models.Model):
     default_country = CountryField(
         blank_label="Country", null=True, blank=True
     )
+
+    @property
+    def default_full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
     def __str__(self):
         """

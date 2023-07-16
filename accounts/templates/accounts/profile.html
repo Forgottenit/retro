@@ -37,8 +37,10 @@
                                     id="profile-update-form">
                                     {% csrf_token %}
                                     {{ profile_form|crispy }}
-                                    <button class="btn btn-primary rounded-0 text-uppercase float-end">Update
+                                    <button class="btn btn-primary rounded-0 text-uppercase float-end "
+                                        value="profile_form">Update
                                         Information</button>
+                                    <input type="hidden" name="form_type" value="profile_form" />
                                 </form>
                             </div>
                         </div>
@@ -46,7 +48,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- ORDER HISTORY -->
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8 mt-4">
                 <div class="accordion" id="profileAccordion">
@@ -103,6 +105,7 @@
                 </div>
             </div>
 
+            <!-- WISHLIST -->
             <div class="col-12 col-lg-8 mt-4">
                 <div class="accordion" id="wishlistAccordion">
                     <div class="accordion-item">
@@ -169,6 +172,7 @@
                 </div>
             </div>
 
+            <!-- REQUESTS -->
             <div class="col-12 col-lg-8 mt-4">
                 <div class="accordion" id="retroAccordion">
                     <div class="accordion-item">
@@ -190,8 +194,10 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ album_request_form|crispy }}
-                                    <button class="btn btn-primary" type="submit">Rock On!</button>
+                                    <button class="btn btn-primary" type="submit" value="album_request_form">Rock
+                                        On!</button>
                                     <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">Back to Profile</a>
+                                    <input type="hidden" name="form_type" value="album_request_form" />
                                 </form>
                             </div>
                         </div>
@@ -201,7 +207,9 @@
         </div>
     </div>
 </div>
-</div>
+
+
+
 {% endblock %}
 
 {% block postloadjs %}

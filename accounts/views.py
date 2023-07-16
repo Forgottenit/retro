@@ -9,6 +9,9 @@ from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 import logging
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.views.generic.list import ListView
 
 
 @login_required
@@ -23,26 +26,32 @@ def profile(request):
     - Rendered template of the user profile page.
     """
     profile = get_object_or_404(Customer, user=request.user)
+    album_requests = AlbumRequest.objects.filter(customer=profile)
 
     if request.method == "POST":
-        profile_form = CustomerProfileForm(request.POST, instance=profile)
-        album_request_form = AlbumRequestForm(request.POST)
+        form_type = request.POST.get("form_type")
 
-        if profile_form.is_valid() and album_request_form.is_valid():
-            profile_form.save()
-            new_request = album_request_form.save(commit=False)
-            new_request.customer = profile
-            new_request.save()
+        if form_type == "profile_form":
+            form = CustomerProfileForm(request.POST, instance=profile)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Profile updated successfully")
+                return redirect("accounts:profile")
+        elif form_type == "album_request_form":
+            form = AlbumRequestForm(request.POST)
+            if form.is_valid():
+                new_request = form.save(commit=False)
+                new_request.customer = profile
+                new_request.save()
+                messages.success(
+                    request, "Album Request updated successfully"
+                )
+                return redirect("accounts:profile")
 
-            messages.success(
-                request, "Profile and Album Request updated successfully"
-            )
-            return redirect("accounts:profile")
-        else:
-            logging.error(
-                f"Form validation failed: profile_form errors: {profile_form.errors}, album_request_form errors: {album_request_form.errors}"
-            )
-            return HttpResponse("Form validation failed.", status=400)
+        messages.error(
+            request, "There was an error with the form. Please try again."
+        )
+        return redirect("accounts:profile")
 
     elif request.method == "GET":
         profile_form = CustomerProfileForm(instance=profile)
@@ -63,6 +72,7 @@ def profile(request):
             "orders": orders,
             "wishlists": wishlists,  # Pass the wishlist to the template
             "on_profile_page": True,
+            "album_requests": album_requests,
         }
 
         return render(request, template, context)
@@ -295,6 +305,7 @@ def delete_review(request, review_id):
     return redirect("products:album_details", album_id=album_id)
 
 
+@login_required
 def request_album(request):
     if request.method == "POST":
         form = AlbumRequestForm(request.POST)

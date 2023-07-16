@@ -61,8 +61,12 @@ class CustomerProfileForm(forms.ModelForm):
             user = customer.user
 
             # Update first name and last name
-            user.first_name = self.cleaned_data["default_first_name"]
-            user.last_name = self.cleaned_data["default_last_name"]
+            user.first_name = self.cleaned_data.get(
+                "default_first_name", "Unknown"
+            )
+            user.last_name = self.cleaned_data.get(
+                "default_last_name", "Unknown"
+            )
 
             # Update address fields
             customer.default_phone_number = self.cleaned_data[

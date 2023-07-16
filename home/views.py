@@ -1,7 +1,9 @@
+"""
+Module for index and Privacy policy views
+"""
+
 from django.shortcuts import render
 from products.models import Album
-
-# Create your views here.
 
 
 def index(request):
@@ -28,7 +30,7 @@ def privacy_policy(request):
     - request: HTTP request
 
     Returns:
-    - Rendered privacy policy page.
+    - Rendered privacy policy page, text from privacy_policy.txt.
     """
     with open(
         "home/templates/home/privacy_policy/privacy_policy.txt",

@@ -1,3 +1,6 @@
+"""
+Module to Set URLS for Home app
+"""
 from django.urls import path
 from . import views
 

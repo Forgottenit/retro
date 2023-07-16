@@ -1,4 +1,4 @@
-/* Body Styling */
+/* Body an Carousel Styling */
 
 .sales-section,
 .delivery-section,
@@ -14,7 +14,6 @@
     width: 50%;
     position: absolute;
     left: 50%;
-    /* center horizontally */
     transform: translateX(-50%);
 }
 
@@ -28,11 +27,7 @@
 .custom-carousel {
     width: 80%;
     height: 40%;
-    /* adjust as needed */
     height: auto;
-    /* maintain aspect ratio */
     margin-left: auto;
-    /* center the image horizontally */
     margin-right: auto;
-    /* center the image horizontally */
 }

@@ -1,14 +1,6 @@
 from django import forms
-from .models import Customer, Review, AlbumRequest
 from ckeditor.widgets import CKEditorWidget
-
-
-from django import forms
-from .models import Customer
-
-
-from django import forms
-from .models import Customer
+from .models import Customer, Review, AlbumRequest
 
 
 class CustomerProfileForm(forms.ModelForm):
@@ -66,9 +58,6 @@ class CustomerProfileForm(forms.ModelForm):
             )
             default_last_name = self.cleaned_data.get(
                 "default_last_name", "Unknown"
-            )
-            print(
-                f"Updating user: {user.username} with first_name: {default_first_name} and last_name: {default_last_name}"
             )
 
             user.first_name = default_first_name

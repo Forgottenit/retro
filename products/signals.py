@@ -3,7 +3,7 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.conf import settings
 import cloudinary.uploader
-from products.models import Album, Track
+from products.models import Album
 
 
 @receiver(post_delete, sender=Album)

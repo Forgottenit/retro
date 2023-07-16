@@ -1,0 +1,30 @@
+{% load static %}
+<!-- USER PROFILE INFO -->
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8 mt-4">
+        <div class="accordion" id="profileAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingDeliveryInfo">
+                    <button class="accordion-button button-heading collapsed profile-dropdown-header" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseDeliveryInfo" aria-expanded="false"
+                        aria-controls="collapseDeliveryInfo">
+                        <p class="text-light logo-font">Default Delivery Information</p>
+                    </button>
+                </h2>
+                <div id="collapseDeliveryInfo" class="accordion-collapse collapse" aria-labelledby="headingDeliveryInfo"
+                    data-bs-parent="#profileAccordion">
+                    <div class="accordion-body">
+                        <form class="mt-3" action="{% url 'accounts:profile' %}" method="POST" id="profile-update-form">
+                            {% csrf_token %}
+                            {{ profile_form|crispy }}
+                            <button class="btn btn-primary rounded-0 text-uppercase float-end "
+                                value="profile_form">Update
+                                Information</button>
+                            <input type="hidden" name="form_type" value="profile_form" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

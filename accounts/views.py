@@ -1,17 +1,13 @@
+import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Customer, Wishlist, Like, Review, AlbumRequest
-from .forms import CustomerProfileForm, ReviewForm, AlbumRequestForm
+from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
+
 from products.models import Album
 from checkout.models import Order
-from django.http import HttpResponseForbidden
-from django.http import JsonResponse
-import logging
-from django.http import HttpResponse
-from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from django.views.generic.list import ListView
+from .models import Customer, Wishlist, Like, Review, AlbumRequest
+from .forms import CustomerProfileForm, ReviewForm, AlbumRequestForm
 
 
 @login_required
@@ -210,7 +206,7 @@ def order_history(request, order_number):
     return render(request, template, context)
 
 
-# @login_required
+@login_required
 def add_review(request, album_id):
     """
     Function to add a review for an album. Requires user authentication.
@@ -307,6 +303,14 @@ def delete_review(request, review_id):
 
 @login_required
 def request_album(request):
+    """
+    A view for authenticated users to request an album.
+
+    If the method is POST, the submitted form is validated, and if valid, a new
+    AlbumRequest is created and the user is redirected to their profile page.
+
+    If the method is not POST, a new form is rendered on the profile.html page.
+    """
     if request.method == "POST":
         form = AlbumRequestForm(request.POST)
         if form.is_valid():
@@ -321,6 +325,15 @@ def request_album(request):
 
 @login_required
 def edit_album_request(request, id):
+    """
+    A view for authenticated users to edit a previously made album request.
+
+    If the method is POST, the submitted form is validated and if valid,
+    the changes are saved, and the user is redirected to their profile page.
+
+    If the method is not POST, an edit form is rendered on the
+    accounts/edit_request.html page.
+    """
     album_request = get_object_or_404(AlbumRequest, id=id)
     if request.method == "POST":
         form = AlbumRequestForm(request.POST, instance=album_request)
@@ -336,6 +349,18 @@ def edit_album_request(request, id):
 
 @login_required
 def delete_album_request(request, id):
+    """
+    A view for authenticated users to delete a previously made album request.
+
+    If the user who made the request is not the current user,
+    an HTTP 403 Forbidden response is returned.
+
+    If the method is POST, the AlbumRequest is deleted,
+    a success message is added, and the user is redirected to
+    their profile page.
+
+    If the method is not POST, a delete confirmation page is rendered.
+    """
     album_request = get_object_or_404(AlbumRequest, id=id)
 
     # Check if the current user is the one who made the request

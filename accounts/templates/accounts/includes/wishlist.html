@@ -1,0 +1,66 @@
+{% load static %}
+<!-- WISHLIST -->
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8 mt-4 justify-content-center">
+        <div class="accordion" id="wishlistAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingWishlist">
+                    <button class="accordion-button button-heading collapsed profile-dropdown-header" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseWishlist" aria-expanded="false"
+                        aria-controls="collapseWishlist">
+                        <h4 class="text-light logo-font">Wishlist</h4>
+                    </button>
+                </h2>
+                <div id="collapseWishlist" class="accordion-collapse collapse" aria-labelledby="headingWishlist"
+                    data-bs-parent="#wishlistAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            {% for wishlist_item in wishlists %}
+                            <li>
+                                <div class="">
+                                    <a href="{% url 'products:album_details' album_id=wishlist_item.album.album_id %}"
+                                        class="text-info">{{ wishlist_item.album.album_name }}</a>
+                                    by
+                                    {% for artist in wishlist_item.album.artists.all %}
+                                    <span class="text-white">{{ artist.artist_name }}</span>
+                                    {% if not forloop.last %},{% endif %}
+                                    <img src="{{ wishlist_item.album.image.url }}"
+                                        alt="{{ wishlist_item.album.album_name }}" style="width: 50px; height: auto;"
+                                        class="ms-3" />
+                                    {% endfor %}
+                                    <div class="d-flex justify-content-between">
+                                        <form class="form mt-3 mb-2"
+                                            action="{% url 'accounts:remove_from_wishlist' wishlist_item.album.album_id %}"
+                                            method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Remove" class="btn btn-secondary">
+                                        </form>
+
+                                        <form class="form mt-3 mb-3"
+                                            action="{% url 'cart:add_to_cart' wishlist_item.album.album_id %}"
+                                            method="POST">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <input class="form-control qty_input form-control-qty" type="number"
+                                                        name="quantity" value="1" min="1" max="99">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
+                                                </div>
+                                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="empty-wishlist">Your wishlist is empty.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

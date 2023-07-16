@@ -1,16 +1,25 @@
+"""
+This module defines models for the customer management application.
+
+It includes models for representing a Customer, their Wishlist, Likes, and Reviews.
+There is also an AlbumRequest model for handling album requests from customers.
+Additionally, models for Staff members and their roles are included.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from products.models import Album
 from django_countries.fields import CountryField
 from ckeditor.fields import RichTextField
+from products.models import Album
 
 
 class Customer(models.Model):
     """
     Model representing a customer user for maintaining default
-    delivery information and order history
+    delivery information and order history. It has a One-to-One
+    relationship with Django's built-in User model.
     """
 
     user = models.OneToOneField(
@@ -23,10 +32,6 @@ class Customer(models.Model):
     default_last_name = models.CharField(
         max_length=150, null=True, blank=True
     )
-    # default_full_name = models.CharField(
-    #     max_length=150, null=False, blank=False
-    # )
-
     default_phone_number = models.CharField(
         max_length=20, null=True, blank=True
     )
@@ -47,6 +52,9 @@ class Customer(models.Model):
 
     @property
     def default_full_name(self):
+        """
+        Return the default fullname.
+        """
         return f"{self.user.first_name} {self.user.last_name}"
 
     def __str__(self):
@@ -57,6 +65,11 @@ class Customer(models.Model):
 
 
 class Like(models.Model):
+    """
+    Model representing the albums liked by a customer.
+    It has a Many-to-One relationship with the Customer and Album models.
+    """
+
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     liked = models.BooleanField(default=False)
@@ -69,6 +82,11 @@ class Like(models.Model):
 
 
 class Wishlist(models.Model):
+    """
+    Model representing a customer's wishlist.
+    It has a Many-to-One relationship with the Customer and Album models.
+    """
+
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name="wishlists"
     )
@@ -76,6 +94,13 @@ class Wishlist(models.Model):
     added_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """
+        Meta class for setting the model's metadata.
+        It sets the `unique_together` constraint on the 'customer'
+        and 'album' fields, ensuring that a user cannot have multiple likes
+        or multiple albums in the wishlist for the same album.
+        """
+
         unique_together = (
             "customer",
             "album",
@@ -84,7 +109,8 @@ class Wishlist(models.Model):
 
 class Review(models.Model):
     """
-    Model for review by customer.
+    Model for reviews by customers.
+    It has a Many-to-One relationship with the Customer and Album models.
     """
 
     customer = models.ForeignKey(
@@ -100,18 +126,23 @@ class Review(models.Model):
         """
         Return version of review_text with elipses
         """
-        return (
-            self.review_text[:75] + "..."
-            if len(self.review_text) > 75
-            else self.review_text
-        )
+        if self.review_text is not None:
+            review_text_str = str(self.review_text)
+            return (
+                review_text_str[:75] + "..."
+                if len(review_text_str) > 75
+                else review_text_str
+            )
+        else:
+            return "Review text is None"
 
 
 @receiver(post_save, sender=User)
 def create_or_update_customer(sender, instance, created, **kwargs):
     """
-    Create or update the user profile
+    Create or update the Customer profile whenever a User instance is saved.
     """
+    _ = sender
     if created:
         Customer.objects.create(user=instance)
     # Existing users: just save the profile
@@ -119,6 +150,11 @@ def create_or_update_customer(sender, instance, created, **kwargs):
 
 
 class AlbumRequest(models.Model):
+    """
+    Model representing album requests by customers.
+    It has a Many-to-One relationship with the Customer model.
+    """
+
     customer = models.ForeignKey(
         "Customer",
         on_delete=models.CASCADE,
@@ -131,35 +167,3 @@ class AlbumRequest(models.Model):
 
     def __str__(self):
         return f"Request: {self.album_title} by {self.artist_name}"
-
-
-class Staff(models.Model):
-    """
-    Model representing a staff user.
-    """
-
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="staff"
-    )
-    role = models.ForeignKey("Role", on_delete=models.CASCADE)
-    hire_date = models.DateField()
-
-    def __str__(self):
-        """
-        Return the username.
-        """
-        return str(self.user)
-
-
-class Role(models.Model):
-    """
-    Model representing a role for staff members.
-    """
-
-    role_name = models.CharField(max_length=255)
-
-    def __str__(self):
-        """
-        Return role.
-        """
-        return str(self.role_name)

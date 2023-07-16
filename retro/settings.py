@@ -201,6 +201,9 @@ if os.environ.get("DEVELOPMENT") == "1" or os.environ.get("DEBUG") == "1":
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
+            "OPTIONS": {
+                "timeout": 20,
+            },  # Added for long loading
         }
     }
 else:

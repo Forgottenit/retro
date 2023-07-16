@@ -7,7 +7,7 @@ import os
 import urllib.request
 from django.conf import settings
 from django.core.files import File
-from products.models import Genre, Artist, Track, Album, Image
+from products.models import Genre, Artist, Track, Album
 from .spotify_api import get_album_ids, get_album_details
 
 processed_album_ids = set()
@@ -159,10 +159,10 @@ def load_models(query, search_field="artist"):
                 album.image.save(image_filename, File(img_file), save=False)
 
             # Save the image data in the Image model
-            image_model, _ = Image.objects.get_or_create(
-                url=image_url, height=image_height, width=image_width
-            )
-            album.image_data = image_model
+            # image_model, _ = Image.objects.get_or_create(
+            #     url=image_url, height=image_height, width=image_width
+            # )
+            # album.image_data = image_model
 
         if artist_objs:
             album.main_artist = artist_objs[0]

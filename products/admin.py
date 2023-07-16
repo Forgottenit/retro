@@ -6,26 +6,9 @@ from .models import (
     Artist,
     Genre,
     Track,
-    CD,
-    Vinyl,
-    TShirt,
-    TShirtVariant,
-    TShirtSize,
-    Image,
+    # Image,
     # ExternalUrl,
 )
-
-
-class ImageDisplayMixin:
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(
-                f'<img src="{obj.image.url}" width="50" height="50" />'
-            )
-        else:
-            return "No Image"
-
-    get_image.short_description = "Image"
 
 
 @admin.register(Track)
@@ -94,7 +77,7 @@ class ArtistAdmin(admin.ModelAdmin):
 
 
 @admin.register(Album)
-class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
+class AlbumAdmin(admin.ModelAdmin):
     list_display = (
         "album_name",
         "display_artists",
@@ -111,7 +94,7 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
         "explicit",
         "display_tracks",
         "spotify_url",
-        "get_image",
+        # "get_image",
     )
     search_fields = (
         "album_id",
@@ -144,80 +127,7 @@ class AlbumAdmin(ImageDisplayMixin, admin.ModelAdmin):
     display_tracks.short_description = "Tracks"
 
 
-@admin.register(CD)
-class CDAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    list_display = (
-        "product_name",
-        "album",
-        "quantity",
-        "price",
-        "on_sale",
-        "get_image",
-    )
-    search_fields = ("product_name", "album__name")
-    list_filter = ("on_sale",)
-
-
-@admin.register(Vinyl)
-class VinylAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    list_display = (
-        "product_name",
-        "album",
-        "quantity",
-        "price",
-        "on_sale",
-        "get_image",
-    )
-    search_fields = ("product_name", "album__name")
-    list_filter = ("on_sale",)
-
-
-@admin.register(TShirt)
-class TShirtAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    list_display = (
-        "product_name",
-        "description",
-        "album",
-        "sleeve_length",
-        "colour",
-        "on_sale",
-        "get_image",
-    )
-    search_fields = ("product_name", "description", "album__album_id")
-    list_filter = ("on_sale", "sleeve_length", "colour")
-
-
-@admin.register(TShirtVariant)
-class TShirtVariantAdmin(ImageDisplayMixin, admin.ModelAdmin):
-    list_display = (
-        "tshirt",
-        "size",
-        "quantity",
-        "get_image",
-    )
-    search_fields = (
-        "tshirt__name",
-        "tshirt__album__album_id",
-        "size__size",
-    )
-
-
-@admin.register(TShirtSize)
-class TShirtSizeAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
-
-
-@admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
-    pass
-
-
-# @admin.register(ExternalUrl)
-# class ExternalUrlAdmin(admin.ModelAdmin):
-#     pass

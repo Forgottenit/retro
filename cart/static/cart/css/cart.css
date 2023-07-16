@@ -28,6 +28,7 @@ body {
     margin-bottom: 0;
     color: #fbe689;
     background: linear-gradient(to right, #f39237, #f433ab, #89f0fb);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

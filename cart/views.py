@@ -32,7 +32,7 @@ def add_to_cart(request, item_id):
     - item_id: ID of the album to be added
 
     Returns:
-    - Redirect to the previous page or specified redirect_url
+    - Redirect to the previous page if empty cart or redirect_url
     """
 
     quantity_str = request.POST.get("quantity")
@@ -115,8 +115,8 @@ def delete_from_cart(request, item_id):
     - item_id: ID of the album to be removed
 
     Returns:
-    - HTTP response with status 200 if item is successfully removed.
-    - HTTP response with status 500 if there was an unexpected issue.
+    - HTTP response with status 200 if item removed.
+    - HTTP response with status 500 if issue.
     """
     product = get_object_or_404(Album, album_id=item_id)
 
@@ -132,6 +132,4 @@ def delete_from_cart(request, item_id):
         return HttpResponse(status=200)
 
     except Exception as e:
-        return HttpResponse(
-            status=500
-        )  # Return 500 Server Error for unexpected issues
+        return HttpResponse(status=500)  # Return 500 Error if issues

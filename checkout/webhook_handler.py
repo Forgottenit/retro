@@ -1,7 +1,9 @@
 """
 Module to Handle Webhooks, updated Customer Profile, if user
 clicks save data, and updates album popularity on successful checkout
+For majority of code structure and functionality
 https://codeinstitute.net/ie
+https://github.com/Code-Institute-Solutions/boutique_ado_v1
 """
 import json
 import time

@@ -1,3 +1,7 @@
+"""
+Module for product data app configuration
+"""
+
 from django.apps import AppConfig
 
 

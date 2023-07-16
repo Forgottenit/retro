@@ -1,7 +1,8 @@
 """
 Module: load_models.py
 This module handles loading and storing the data
-    fetched from Spotify into Django models.
+fetched from Spotify into Django models.
+https://developer.spotify.com/
 """
 import os
 import urllib.request
@@ -9,8 +10,6 @@ from django.conf import settings
 from django.core.files import File
 from products.models import Genre, Artist, Track, Album
 from .spotify_api import get_album_ids, get_album_details
-
-processed_album_ids = set()
 
 
 def load_models(query, search_field="artist"):
@@ -20,6 +19,14 @@ def load_models(query, search_field="artist"):
     Parameters:
     - query (str): The name of the artist to fetch data for.
     - search_field (str): The field to search for the query (default: "artist")
+    - Type is set to Albums.
+    - *This is because Spotify API search uses fields of Query,
+      Type and Fields i.e. Query = "Beatles", Albums = Type ,
+      Albums = Fields would search Beatles in Album names, and
+      return Albums with the word Beatles in them. Beatles,
+      Artists, Artists would search Artists for the word Beatles,
+      and return the Artist. Beatles, Artists, Albums would search
+      Artists for Beatles, and return Albums by the Artist Beatles.
 
     Returns:
     - None
@@ -75,7 +82,6 @@ def load_models(query, search_field="artist"):
                 spotify_url=track_dict.get("external_urls", {}).get(
                     "spotify", "default_url"
                 ),
-                # uri=track_dict.get("uri", "default_uri"),
                 type=track_dict.get("type", "default_type"),
                 href=track_dict.get("href", "default_href"),
             )
@@ -90,7 +96,8 @@ def load_models(query, search_field="artist"):
                 genre, _ = Genre.objects.get_or_create(name=genre_name)
                 genre_objs.add(genre)
 
-        # Break down Copyrights from Dictionary
+        # Break down Copyrights from Dictionary,
+        # First one only taken
         copyrights_list = album_dict.get(
             "copyrights", [{"text": "default_copyright"}]
         )
@@ -106,7 +113,7 @@ def load_models(query, search_field="artist"):
             popularity=album_dict.get("popularity", 0),
             artist_id=album_dict.get("artists", [{}])[0].get(
                 "id", "default_artist_id"
-            ),  # Retrieve artist_id
+            ),  # Get artist_id
             album_id=album_dict["id"],
             album_type=album_dict.get("album_type", "default_type"),
             label=album_dict.get("label", "default_label"),
@@ -118,6 +125,7 @@ def load_models(query, search_field="artist"):
         )
 
         # Add genres, artists, and tracks to the album
+        # As a set to prevent duplication
         album.genres.set(list(genre_objs))
         album.artists.set(artist_objs)
         album.tracks.set(track_objs)
@@ -126,17 +134,17 @@ def load_models(query, search_field="artist"):
         if album_dict["images"]:
             image_data = album_dict["images"][0]
             image_url = image_data["url"]
-            image_height = image_data.get("height")
-            image_width = image_data.get("width")
             album_id = album_dict["id"]
+            # image name is album id followed by .jpg
             image_filename = f"{album_id}.jpg"
+            # image filepath set
             image_filepath = os.path.join(
                 settings.MEDIA_ROOT, "album_images", image_filename
             )
 
             if not os.path.exists(image_filepath):
                 urllib.request.urlretrieve(image_url, image_filepath)
-
+            # Save image in Media folder
             with open(image_filepath, "rb") as img_file:
                 album.image.save(image_filename, File(img_file), save=False)
 
@@ -149,7 +157,7 @@ def load_models(query, search_field="artist"):
 def format_duration(duration_ms):
     """
     Function to convert duration into minutes and seconds.
-
+    as format is seconds
     Parameters:
     - duration_ms (int): The track duration in milliseconds
 

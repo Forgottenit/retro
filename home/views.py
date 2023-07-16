@@ -6,16 +6,18 @@ from products.models import Album
 
 def index(request):
     """ "
-    Function to return the index page.
+    Function to return the index page
+    and display top 10 albums.
 
     Parameters:
     - request: HTTP request
 
     Returns:
-    - Rendered index page.
+    - Rendered index page and top_albums.
     """
+    top_albums = Album.objects.order_by("-popularity")[:10]
 
-    return render(request, "home/index.html")
+    return render(request, "home/index.html", {"top_albums": top_albums})
 
 
 def privacy_policy(request):
@@ -35,19 +37,3 @@ def privacy_policy(request):
     ) as file:
         data = file.read().replace("\n", "<br/>")
     return render(request, "home/privacy_policy.html", {"policy": data})
-
-
-def top_albums(request):
-    """
-    Function to return the top 5 albums.
-
-    Parameters:
-    - request: HTTP request
-
-    Returns:
-    - Rendered index page.
-    """
-
-    top_albums = Album.objects.order_by("-popularity")[:10]
-
-    return render(request, "home/index.html", {"top_albums": top_albums})

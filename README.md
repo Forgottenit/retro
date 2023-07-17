@@ -111,30 +111,21 @@ One unused variable
 
 7. As a site admin, I want to manage inventory, so that I can track stock levels and add items before they run out.
 
-8. As a site admin, I want to track the website performance, so that I can monitor page load times and analytics to ensure a good user experience.
-
-9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
-
-10. As a Site Admin, I want to manage user accounts and access control, so that I can ensure the security and integrity of the site.
 
 </details>
 
 <details>
 <summary><b>Site Owner</b></summary>
 
-1. As a site owner, I want to be able to track sales and inventory on my B2C e-commerce site, so that I can manage my business.
 
-2. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
+1. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
 
-3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
+2. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
 
-4. As a site owner, I want to be able to view user behavior data, so that I can improve the user experience and make informed business decisions.
+3. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
 
-5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
+4. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
 
-6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
-
-7. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
 </details>
 
 <details>
@@ -428,14 +419,19 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 - Users can edit their cart, add to it or delete from it.
 
 6. As a site user, I want to be able to securely checkout using Stripe, so that I can easily and safely make a purchase.
+- Stripe implemented as a secure, trusted method for payment
 
 7. As a site user, I want to be able to create an account, so that I can save my shipping information and preferences.
+- Users can save their information on their profile, or at checkout if they wish.
 
 8. As a site user, I want to be able to subscribe to a newsletter, so that I can receive updates and special offers.
+- Mailchimp is implemented so that users can sign up for a newsletter. 
 
 9. As a site user, I want to be able to follow the site on social media, so that I can follow updates and special offers.
+- A Retro Facebook page has been set up, and social media links are available on the footer of the website.
 
 10. As a site user, I want the site to ensure data security, so that my information is kept safe.
+- Django Allauth, and other defensive principles have been implemented, along with the use of Stripe for secure payments, preventing the need for the site to access any financial information. 
 
 
 </details>
@@ -444,43 +440,44 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 <summary><b>Site Admin</b></summary>
 
 1. As a site admin, I want to be able to manage user accounts so that I can handle any issues that arise.
+- Through the use of Django, and the database model implemented, as well as various means of possible communication with users, the site admin would be able to handle issues. 
 
 2. As a site admin, I want to be able to view and manage all orders, so that I can check if operations are functioning correctly.
+- Through the Order model implemented, and Stripe, the admin has access to all Orders placed and also confirmation of successful payments.
 
 3. As a site admin, I want to be able to assist users with their accounts, so that they can have the best experience possible.
+- Django Allauth has the option for users to reset their passwords, there is also a Facebook page, email address and request form for users to access. 
 
 4. As a site admin, I want to be able to update the site's content, such as sales, new items and announcements, so that users are kept informed.
+- Through the use of Spotify API requests, the content can quickly and easily be updated. The admin has the option to add Albums by Arists or Albums. They can also edit the items, changing the price.
 
 5. As a site admin, I want to be able to handle security threats and issues, to ensure the website and user data are safe.
+- Through the use of Stripe, payments are handled securely, form submissions are handled through Crispy Forms and Django, and defensive design has also been implemented by setting Field values.
 
 6. As a site admin, I want to manage the inventory, so that I can create new items, edit existing ones, or delete out-of-stock items from the site.
+- As the inventory is added nearly instantaneously, and also editable, this has been achieved. 
 
 7. As a site admin, I want to manage inventory, so that I can track stock levels and add items before they run out.
+- As stock is added through API calls, stock inventory is not an issue. 
 
-8. As a site admin, I want to track the website performance, so that I can monitor page load times and analytics to ensure a good user experience.
-
-9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
-
-10. As a Site Admin, I want to manage user accounts and access control, so that I can ensure the security and integrity of the site.
 
 </details>
 
 <details>
 <summary><b>Site Owner</b></summary>
 
-1. As a site owner, I want to be able to track sales and inventory on my B2C e-commerce site, so that I can manage my business.
+1. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
+- Albums can be deleted singularly or all instances of an Artist's albums, the albums can also be edited and new albums can be added to the models through the admins profile page.
 
-2. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
+2. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
+- There are multiple ways for users to engage with the site, through social media, newsletters, requests, liking albums, and writing reviews. The Albums are also easily editable in price through the site. 
 
-3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
+3. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
+- Mailchimp is implemented and available for users to sign up to, through the footer. 
 
-4. As a site owner, I want to be able to view user behavior data, so that I can improve the user experience and make informed business decisions.
+4. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
+- Django Allauth is implemented so that users must confirm an email address before signing in. This also handles lost passwords/ password resets. As mentioned above, there are numerous ways for users to then engage with the site.  
 
-5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
-
-6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
-
-7. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
 </details>
 
 <details>

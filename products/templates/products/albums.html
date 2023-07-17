@@ -13,52 +13,7 @@
     {% include "products/includes/modals.html" %}
 
 
-    <!-- MODAL -->
-    <div class="modal" tabindex="-1" id="wishlistModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Add to Wishlist</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Would you like to add this album to your wishlist?</p>
-                </div>
-                <div class="modal-footer">
-
-                    <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
-                        thanks</a>
-                    <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
-                        add to my wishlist</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" tabindex="-1" id="confirmationModal">
-        <div class="modal-dialog">
-            <div class="modal-content text-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title text-uppercase text-decoration-underline" id="confirmationModalTitle">
-                        Confirmation</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="confirmationModalBody">
-                    <!-- Message  -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
-                        thanks</button>
-                    <a href="#" class="btn btn-primary" id="confirmationModalYesButton">Yes</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- NAVIGATION ARROWS -->
     <div class="d-flex justify-content-between mt-2">
@@ -163,6 +118,55 @@
     </div>
 
 </div>
+<!-- MODAL -->
+<div class="modal" tabindex="-1" id="wishlistModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Add to Wishlist</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to add this album to your wishlist?</p>
+            </div>
+            <div class="modal-footer">
+
+                <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
+                    thanks</a>
+                <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
+                    add to my wishlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="confirmationModal">
+    <div class="modal-dialog">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase text-decoration-underline" id="confirmationModalTitle">
+                    Confirmation</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="confirmationModalBody">
+                <!-- Message  -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,
+                    thanks</button>
+                <a href="#" class="btn btn-primary" id="confirmationModalYesButton">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock %}
 
 {% block postloadjs %}
@@ -253,52 +257,20 @@
 
     // Reload location
     $(document).ready(function () {
-        $('.reload').on('click', function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('href'),
-                method: 'GET',
-                success: function (response) {
-                    location.reload(); // Reload 
-                }
-            });
-        })
-    })
-
-
-
-
-
-
-
-    // Review Album Modal
-    $(document).ready(function () {
-        $(".addReviewButton").click(function (e) {
-            e.preventDefault();
-            let albumId = this.dataset.albumid;
-            fetch('/accounts/album/' + albumId + '/add_review/')
-                .then(response => {
-
-                    if (response.status === 401) {
-                        // Get message and URL from data-
-                        let message = 'You need to Login/Sign up to access this page.';
-                        let url = '/accounts/login/';
-
-                        // Set message 
-                        $("#confirmationModalBody").text(message);
-
-                        // Set the URL of 'Yes' button 
-                        $("#confirmationModalYesButton").attr("href", url);
-
-                        // Show modal
-                        $("#confirmationModal").modal("show");
-                    } else {
-                        // Handle other responses
-                        window.location.href = '/accounts/album/' + albumId + '/add_review/';
+            $('.reload').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('href'),
+                    method: 'GET',
+                    success: function (response) {
+                        location.reload(); // Reload 
                     }
                 });
-        });
-    });
+            })
+        })
+
+
+        <
+        script src = "{% static 'products/js/products.js' %}" >
 </script>
-<script src="{% static 'products/js/products.js' %}"></script>
 {% endblock %}

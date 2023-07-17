@@ -24,7 +24,6 @@
             <hr class="dark-hr">
         </div>
     </div>
-
     <div class="row">
         <div class="col-12 col-lg-6 order-lg-last mb-5">
             <p class="t">Order Summary ({{ product_count }})</p>
@@ -78,8 +77,6 @@
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-5">
                     <legend class="fieldset-label small px-2 w-auto">Details</legend>
-
-
                     {{ order_form.full_name | as_crispy_field }}
                     {{ order_form.email | as_crispy_field }}
                 </fieldset>
@@ -92,9 +89,6 @@
                     {{ order_form.county | as_crispy_field }}
                     {{ order_form.country | as_crispy_field }}
                     {{ order_form.postcode | as_crispy_field }}
-
-
-
                     <div class="form-check form-check-inline float-end me-0">
                         {% if user.is_authenticated %}
                         <label class="form-check-label" for="id-save-info">Save this delivery information to my
@@ -109,8 +103,6 @@
                         {% endif %}
                     </div>
                 </fieldset>
-
-
                 <fieldset class="px-3">
                     <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
                     <!-- A Stripe card element will go here -->
@@ -120,7 +112,6 @@
                     <!-- Pass the client secret to the view so we can get the payment intent id -->
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
-
                 <!-- Used to display form errors -->
                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                 </fieldset>
@@ -138,7 +129,6 @@
                             </span>
                             <span class="font-weight-bold">Adjust Cart</span>
                         </a>
-
                     </div>
 
                     <button id="submit-button" class="btn mb-5 complete-btn btn-lg">

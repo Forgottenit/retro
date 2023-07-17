@@ -1,10 +1,7 @@
 //Back To top button
 $('.btt-link').click(function (e) {
-    window.scrollTo(0, 0)
-})
-
-
-
+    window.scrollTo(0, 0);
+});
 
 //Sort
 $(document).ready(function () {

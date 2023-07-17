@@ -12,12 +12,66 @@ https://www.xml-sitemaps.com/
 https://mailchimp.com/
 # UX - User Experience
 
+mail chimp js: 
+
+20 warnings
+2	The array literal notation [] is preferable.
+3	The array literal notation [] is preferable.
+5	Expected an identifier and instead saw ','.
+5	Expected an assignment or function call and instead saw an expression.
+5	Missing semicolon.
+6	Expected an identifier and instead saw ','.
+6	Expected an assignment or function call and instead saw an expression.
+6	Missing semicolon.
+7	Expected an identifier and instead saw ','.
+7	Expected an assignment or function call and instead saw an expression.
+7	Missing semicolon.
+8	Expected an identifier and instead saw ','.
+8	Expected an assignment or function call and instead saw an expression.
+8	Missing semicolon.
+9	Expected an identifier and instead saw ','.
+9	Expected an assignment or function call and instead saw an expression.
+9	Missing semicolon.
+11	Expected an assignment or function call and instead saw an expression.
+11	Missing semicolon.
+13	'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
+Ten undefined variables
+4	fnames
+5	fnames
+6	fnames
+7	fnames
+8	fnames
+9	fnames
+4	EMAIL
+5	ftypes
+6	ftypes
+7	ftypes
+8	ftypes
+9	ftypes
+10	ftypes
+5	merge
+6	merge
+7	merge
+8	merge
+9	merge
+10	merge
+5	FNAME
+6	LNAME
+7	ADDRESS
+8	PHONE
+9	BIRTHDAY
+12	jQuery
+13	jQuery
+One unused variable
+13	$mcj
+
+
 ## User Stories
 
 <details>
 <summary><b>Site User</b></summary>
 
-1. As a site user, I want to be able to browse through various records and CDs so that I can decide what to purchase.
+1. As a site user, I want to be able to browse through various records so that I can decide what to purchase.
 
 2. As a site user, I want to be able to filter and sort my search results so that I can find specific items easily.
 

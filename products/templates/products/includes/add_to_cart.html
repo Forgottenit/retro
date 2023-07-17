@@ -29,15 +29,14 @@
             </div>
         </div>
     </div>
+    <div class="col-12 mt-5">
+        <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 ">
+            <span class="icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </span>
+            <span class="text-uppercase">Keep Shopping </span>
+        </a>
+        <input type="submit" class="btn btn-secondary rounded-0 text-uppercase " value="Add to Cart ">
+        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+    </div>
 </form>
-
-<div class="col-12 mt-5">
-    <a href="{% url 'products:albums' %}" class="btn btn-primary rounded-0 ">
-        <span class="icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-        </span>
-        <span class="text-uppercase">Keep Shopping </span>
-    </a>
-    <input type="submit" class="btn btn-secondary rounded-0 text-uppercase " value="Add to Cart ">
-    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-</div>

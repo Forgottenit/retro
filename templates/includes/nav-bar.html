@@ -1,10 +1,7 @@
 {% load static %}
 
 {% block extra_css %}
-
 <link rel="stylesheet" href="{% static 'css/nav-bar.css' %}">
-
-
 {% endblock %}
 <header class=" container-fluid">
     <div id="topnav" class="row bg-white pt-lg-2">
@@ -44,7 +41,6 @@
                         </div>
                         <p class="text-center my-0">My Account</p>
                         {% endif %}
-
                     </a>
                     <div class="dropdown-menu border-0 user-options" aria-labelledby="user-options-dropdown">
                         {% if user.is_authenticated %}

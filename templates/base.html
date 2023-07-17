@@ -4,7 +4,6 @@
 <html lang="en">
 
 <head>
-
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}"
         crossorigin="use-credentials">
@@ -56,8 +55,7 @@
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     {% endblock %}
 
-    <title>Retro {% block extra_title %}Ireland's Best Online Vinyl and CD Store{% endblock %}</title>
-
+    <title>Retro {% block extra_title %}Ireland's Best Online Vinyl Store{% endblock %}</title>
 </head>
 
 <body>
@@ -81,10 +79,6 @@
             {% endfor %}
         </div>
         {% endif %}
-
-
-
-
         <main class="main">
             {% block page_header %}
             {% endblock %}

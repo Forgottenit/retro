@@ -1,3 +1,7 @@
+"""
+Module for products signals: post delete for images
+"""
+
 import os
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -8,6 +12,10 @@ from products.models import Album
 
 @receiver(post_delete, sender=Album)
 def delete_album_image(sender, instance, **kwargs):
+    """
+    Signal called to Delete images after delete function
+    called, images deleted from Media and Cloudinary
+    """
     if instance.image and instance.image.name:
         # Prepare path in local filesystem
         image_path = (

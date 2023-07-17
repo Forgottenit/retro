@@ -1,3 +1,7 @@
+"""
+Module for products app URLS
+"""
+
 from django.urls import path
 from . import views
 

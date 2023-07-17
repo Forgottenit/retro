@@ -1,11 +1,18 @@
+"""
+Module for Product app models, Artist, Track, Genre and Album
+"""
+from decimal import Decimal
 from django.core.validators import MinValueValidator
 from django.db import models
-from decimal import Decimal
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
 
 
 class Artist(models.Model):
+    """
+    Model for Artist
+    """
+
     artist_name = models.CharField(
         max_length=100, blank=True, null=True, db_index=True
     )
@@ -28,10 +35,17 @@ class Artist(models.Model):
         super().delete(*args, **kwargs)
 
     def __str__(self):
+        """
+        Return Artist name
+        """
         return self.artist_name
 
 
 class Track(models.Model):
+    """
+    Model for Tracks
+    """
+
     albums = models.ForeignKey(
         "Album",
         related_name="tracks",
@@ -52,17 +66,31 @@ class Track(models.Model):
         super().delete(*args, **kwargs)
 
     def __str__(self):
+        """
+        Return Track name
+        """
         return self.track_name
 
 
 class Genre(models.Model):
+    """
+    Model for Genres
+    """
+
     name = models.CharField(max_length=100)
 
     def __str__(self):
+        """
+        Return Genre name
+        """
         return self.name
 
 
 class Album(models.Model):
+    """
+    Model for Albums
+    """
+
     artists = models.ManyToManyField(Artist, related_name="albums")
     artist_id = models.CharField(max_length=100, blank=True, null=True)
     album_name = models.CharField(
@@ -123,4 +151,7 @@ class Album(models.Model):
                 artist.delete()
 
     def __str__(self):
+        """
+        Return Album name
+        """
         return f"{self.album_name}"

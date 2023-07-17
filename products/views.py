@@ -1,3 +1,9 @@
+"""
+Module for product app views, load albums, album_model_view, 
+album_details, add_product, edit product, delete product, 
+delete Artist, 
+"""
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import (
     render,
@@ -23,12 +29,11 @@ from django.core.exceptions import ObjectDoesNotExist
 def load_albums(request, search_field="artist"):
     """
     View function to load albums from Spotify and store them in the database.
-
     Only accessible to superusers.
 
     Returns:
     - If the request method is GET:
-        - Rendered template with the form to load albums.
+        - Render template with the form to load albums.
     - If the request method is POST and the form is valid:
         - Redirect to the albums view with a success message.
     - If the request method is POST and the form is invalid:
@@ -141,11 +146,12 @@ def album_model_view(request):
     # Convert QuerySet to list and remove duplicates
     albums = list(albums)
     seen = set()
-    albums = [
-        x
-        for x in albums
-        if x.album_id not in seen and not seen.add(x.album_id)
-    ]
+    unique_albums = []
+    for x in albums:
+        if x.album_id not in seen:
+            unique_albums.append(x)
+            seen.add(x.album_id)
+    albums = unique_albums
 
     params = (
         request.GET.copy()

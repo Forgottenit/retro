@@ -1,3 +1,7 @@
+"""
+Module to return calculation for pagination display and subtract
+"""
+
 from django import template
 
 register = template.Library()
@@ -5,11 +9,17 @@ register = template.Library()
 
 @register.filter
 def subtract(value, arg):
+    """
+    Return Subtract function
+    """
     return value - arg
 
 
 @register.simple_tag
 def get_page_range(current_page, total_pages):
+    """
+    Calculate pagination display
+    """
     if total_pages <= 3:
         return range(1, total_pages + 1)
     else:

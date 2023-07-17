@@ -1,18 +1,23 @@
+"""
+Module for Products app admin, for Tracks, Artist, Album and Genres
+"""
+
 from django.contrib import admin
 from django.db import models
-from django.utils.safestring import mark_safe
 from .models import (
     Album,
     Artist,
     Genre,
     Track,
-    # Image,
-    # ExternalUrl,
 )
 
 
 @admin.register(Track)
 class TrackAdmin(admin.ModelAdmin):
+    """
+    Admin for Tracks
+    """
+
     list_display = (
         "track_name",
         "display_artists",
@@ -20,7 +25,6 @@ class TrackAdmin(admin.ModelAdmin):
         "track_number",
         "duration",
         "explicit",
-        # "external_urls",
         "spotify_url",
     )
     list_filter = ("track_name",)
@@ -29,6 +33,9 @@ class TrackAdmin(admin.ModelAdmin):
     ordering = ("track_name",)
 
     def display_artists(self, obj):
+        """
+        Admin for joining multiple Artists
+        """
         return ", ".join([str(artist) for artist in obj.artists.all()])
 
     display_artists.short_description = "Artists"
@@ -43,13 +50,12 @@ class TrackAdmin(admin.ModelAdmin):
         return queryset, use_distinct
 
 
-# class AlbumArtistInline(admin.TabularInline):
-#     model = AlbumArtist
-#     extra = 1
-
-
 @admin.register(Artist)
 class ArtistAdmin(admin.ModelAdmin):
+    """
+    Admin for Artist
+    """
+
     list_display = (
         "artist_name",
         "artist_id",
@@ -57,20 +63,23 @@ class ArtistAdmin(admin.ModelAdmin):
         "get_albums",
         "spotify_url",
         "type",
-        # "external_urls",
     )
     ordering = ("artist_name",)
     list_filter = ("artist_name",)
     search_fields = ("artist_name", "artist_id")
-    # list_select_related = ("albums",)
-    # inlines = [AlbumArtistInline]
 
     def get_genres(self, obj):
+        """
+        Admin for joining multiple Genres
+        """
         return ", ".join([genre.name for genre in obj.genres.all()])
 
     get_genres.short_description = "Genres"
 
     def get_albums(self, obj):
+        """
+        Admin for joining multiple Albums
+        """
         return ", ".join([album.album_name for album in obj.albums.all()])
 
     get_albums.short_description = "Albums"
@@ -78,6 +87,10 @@ class ArtistAdmin(admin.ModelAdmin):
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
+    """
+    Admin for Albums
+    """
+
     list_display = (
         "album_name",
         "display_artists",
@@ -94,7 +107,6 @@ class AlbumAdmin(admin.ModelAdmin):
         "explicit",
         "display_tracks",
         "spotify_url",
-        # "get_image",
     )
     search_fields = (
         "album_id",
@@ -107,12 +119,21 @@ class AlbumAdmin(admin.ModelAdmin):
     ordering = ("album_name",)
 
     def display_artists(self, obj):
+        """
+        Admin for joining multiple Artists
+        """
         return ", ".join([str(artist) for artist in obj.artists.all()])
 
     def display_genres(self, obj):
+        """
+        Admin for joining multiple Genres
+        """
         return ", ".join([str(genre) for genre in obj.genres.all()])
 
     def display_tracks(self, obj):
+        """
+        Admin for joining multiple Tracks
+        """
         return ", ".join(
             [str(track.track_name) for track in obj.tracks.all()]
         )
@@ -129,5 +150,9 @@ class AlbumAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
+    """
+    Admin for Genres
+    """
+
     list_display = ("name",)
     search_fields = ("name",)

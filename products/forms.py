@@ -1,9 +1,16 @@
+"""
+Module for Products app forms:  Product and Load Albums
+"""
 from django import forms
 from .widgets import CustomClearableFileInput
 from .models import Album, Genre
 
 
 class ProductForm(forms.ModelForm):
+    """
+    Form to edit Albums
+    """
+
     class Meta:
         model = Album
         fields = [
@@ -33,6 +40,10 @@ class ProductForm(forms.ModelForm):
 
 
 class LoadAlbumsForm(forms.Form):
+    """
+    Form to select Albums to upload to Database
+    """
+
     SEARCH_FIELDS = [("artist", "Artist"), ("album", "Album")]
 
     search_field = forms.ChoiceField(choices=SEARCH_FIELDS)

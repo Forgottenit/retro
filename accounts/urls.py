@@ -47,4 +47,9 @@ urlpatterns = [
         views.delete_album_request,
         name="delete-request",
     ),
+    path(
+        "all_album_requests/",
+        views.all_album_requests,
+        name="all_album_requests",
+    ),
 ]

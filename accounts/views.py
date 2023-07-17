@@ -310,6 +310,7 @@ def request_album(request):
 
     If the method is not POST, a new form is rendered on the profile.html page.
     """
+
     if request.method == "POST":
         form = AlbumRequestForm(request.POST)
         if form.is_valid():
@@ -319,7 +320,7 @@ def request_album(request):
             return redirect("accounts:profile")
     else:
         form = AlbumRequestForm(instance=request.user.customer)
-    return render(request, "profile.html", {"form": form})
+    return render(request, "accounts/profile.html", {"form": form})
 
 
 @login_required
@@ -364,7 +365,7 @@ def delete_album_request(request, id):
 
     # Check if the current user is the one who made the request
     if album_request.customer.user != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden("Page Forbidden.")
 
     # If the method is POST, then delete the object
     if request.method == "POST":
@@ -375,3 +376,14 @@ def delete_album_request(request, id):
     return render(
         request, "delete_confirm.html", {"album_request": album_request}
     )
+
+
+@login_required
+def all_album_requests(request):
+    if request.user.is_superuser:
+        all_album_requests = AlbumRequest.objects.all()
+        template = "acconts/profile.hmtl"
+        context = {"all_album_requests": all_album_requests}
+        return render(request, template, context)
+    else:
+        return HttpResponseForbidden("Page Forbidden.")

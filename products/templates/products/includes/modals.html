@@ -1,28 +1,5 @@
 {%load static%}
-<!-- MODAL -->
-<div class="modal" tabindex="-1" id="wishlistModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">Add to Wishlist</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Would you like to add this album to your wishlist?</p>
-            </div>
-            <div class="modal-footer">
-
-                <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
-                    thanks</a>
-                <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
-                    add to my wishlist</a>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- DELETE MODAL -->
 <div class="modal" tabindex="-1" id="confirmationModal">
     <div class="modal-dialog">

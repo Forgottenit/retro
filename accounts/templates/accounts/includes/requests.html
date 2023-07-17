@@ -1,4 +1,5 @@
 <!-- REQUESTS -->
+
 <div class="row justify-content-center">
     <div class="col-12 col-lg-8 mt-4 justify-content-center">
         <div class="accordion" id="retroAccordion">
@@ -30,6 +31,19 @@
                         </form>
                     </div>
                 </div>
+                {% if user.is_superuser%}
+                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                    <button class="accordion-button request-heading collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
+                        aria-controls="collapse{{ forloop.counter }}">
+
+                        {%for album_request in all_requests %}
+
+                        <strong>{{ album_request }}</strong>
+                        {%endfor%}
+                    </button>
+                </h2>
+                {%endif%}
                 {% for album_request in album_requests %}
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading{{ forloop.counter }}">

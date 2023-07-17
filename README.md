@@ -5,8 +5,10 @@
 Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Click to open in a new browser tab).
 
 <img src="amiresponsive.png">
-
-
+https://developer.spotify.com/ for Code structure
+https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
+https://www.youtube.com/watch?v=WAmEZBEeNmg&ab_channel=Linode
+https://www.xml-sitemaps.com/
 # UX - User Experience
 
 ## User Stories

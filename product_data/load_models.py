@@ -2,8 +2,7 @@
 Module: load_models.py
 This module handles loading and storing the data
 fetched from Spotify into Django models.
-https://developer.spotify.com/
-https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
+
 """
 import os
 import urllib.request

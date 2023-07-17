@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /cart/
+Disallow: /accounts/
+Sitemap: https://forgottenit-retro.herokuapp.com/sitemap.xml

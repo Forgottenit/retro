@@ -1,9 +1,7 @@
 """
 Module: spotify_api.py
 This module is responsible for interactions with Spotify API.
-https://developer.spotify.com/ for Code structure
-https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
-https://www.youtube.com/watch?v=WAmEZBEeNmg&ab_channel=Linode
+
 """
 import json
 import base64

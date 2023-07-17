@@ -217,7 +217,6 @@ def checkout_success(request, order_number):
             customer_profile_form = CustomerProfileForm(
                 profile_data, instance=profile
             )
-            print(customer_profile_form.errors)
             if customer_profile_form.is_valid():
                 customer_profile_form.save()
 

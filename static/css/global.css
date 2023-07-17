@@ -21,7 +21,16 @@ body {
     min-height: 60vh;
 }
 
+/* Mailchimp */
+#mc_embed_signup {
+    background: #f0eded;
+    font: 14px Helvetica, Arial, sans-serif;
+    color: #000;
+}
 
+.mailchimp-buttton {
+    background-color: #33a4f4 !important;
+}
 
 footer {
     padding: 20px;

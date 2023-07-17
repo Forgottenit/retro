@@ -26,10 +26,8 @@
                 {% csrf_token %}
                 <div class="my-4">
                     {% for field in form %}
-
                     {{ field | as_crispy_field }}
                     {% endfor %}
-
                 </div>
                 <div class="text-end">
                     <a class="btn btn-danger rounded-0" href="{% url 'products:albums' %}">Cancel</a>

@@ -10,16 +10,13 @@
                         aria-controls="collapseMain-{{ album.album_id }}">
                         Reviews
                     </button>
-
                 </div>
             </h2>
-
 
             <div id="collapseMain-{{ album.album_id }}" class="accordion-collapse collapse"
                 aria-labelledby="headingMain" data-bs-parent="#mainAccordion">
                 <!-- RATINGS -->
                 <div class="p-2 ms-2">
-                    <!-- <p>Rating: {{ rating.average|floatformat }}</p> -->
                     {% for rating in album.ratings.all %}
                     <span>Avg:
                         {% with stars=rating.average|get_stars %}
@@ -43,7 +40,6 @@
                     class="btn btn-primary mt-4 ms-1 addReviewButton" data-albumId="{{ album.album_id }}">Add
                     Review</a>
                 <div class="accordion-body">
-                    <!-- {% load ratings %} -->
                     {% if album.reviews.all %}
                     {% for review in album.reviews.all %}
                     <div class="accordion" id="reviewAccordion{{ review.id }}">
@@ -53,7 +49,6 @@
                                     data-bs-toggle="collapse" data-bs-target="#collapseReview{{ review.id }}"
                                     aria-expanded="false" aria-controls="collapseReview{{ review.id }}">
                                     Review by {{ review.customer }}
-                                    <!-- {{ review.rating }} -->
                                 </button>
                             </h2>
                             <div id="collapseReview{{ review.id }}" class="accordion-collapse collapse"
@@ -61,10 +56,6 @@
                                 data-bs-parent="#reviewAccordion{{ review.id }}">
                                 <div class="accordion-body">
                                     <p class="card-text">{{ review.review_text }}</p>
-                                    <div class="review-rating">
-                                        <!-- <h5>Rating</h5>
-                            <p>{% ratings review %}</p> -->
-                                    </div>
                                 </div>
                                 {% if request.user.is_superuser or request.user.is_authenticated and request.user == review.customer.user %}
                                 <div class="accordion-footer">

@@ -1,0 +1,46 @@
+{% load static %}
+<div class="container col-lg-11">
+    <div class="row">
+        <!-- Spotify Link -->
+        {% if album.spotify_url %}
+        <div class="album_listing mt-5">
+            <h3 class="album_name">
+                <strong>Album: {{ album.album_name }} </strong>
+            </h3>
+            <p>
+                <a href="{{ album.spotify_url }}" target="_blank" rel="noopener noreferrer" class="detail_spotify_link">
+                    <span class="">Spotify</span>
+                    <i class="fab fa-spotify spotify_icon"></i>
+                </a>
+            </p>
+        </div>
+        {% endif %}
+        <!-- Tracks -->
+        {% if album.tracks.all %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3>Tracks</h3>
+                <ul>
+                    {% for track in album.tracks.all %}
+                    <li class="track_listing">
+                        <div class="me-auto track_name">
+                            <span class="me-2">{{ track.track_number }}</span>
+                            <span>{{ track.track_name }}</span>
+                        </div>
+                        {% if track.spotify_url %}
+                        <div>
+                            <a href="{{ track.spotify_url }}" target="_blank" rel="noopener noreferrer"
+                                class="detail_spotify_link">
+                                <span class="">Spotify</span>
+                                <i class="fab fa-spotify spotify_icon"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>

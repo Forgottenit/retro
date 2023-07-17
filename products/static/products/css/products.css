@@ -52,7 +52,6 @@ body {
 
 .spotify_icon {
     color: rgb(30, 215, 96);
-
     text-decoration: none;
 }
 
@@ -82,11 +81,8 @@ body {
 .track_name {
     flex: 1;
     min-width: 0;
-
     word-wrap: break-word;
-
 }
-
 
 ul {
     padding-left: 0;
@@ -94,10 +90,7 @@ ul {
 
 /* REVIEWS */
 
-
-
 .review-accordion {
-
     background: #f433ab;
     font-size: 1rem;
     font-weight: 600;
@@ -110,37 +103,31 @@ ul {
 }
 
 /* SEARCH RESULTS CSS */
+
 .search-results {
     background-color: #202041;
-
     border: 1px solid #fbe689;
     border-radius: 5px;
     padding: 10px;
-
 }
 
 .search-results p {
     color: #ffffff;
-
 }
 
 .search-results a {
     color: #f39237;
-
     text-decoration: underline;
-
 }
 
 .search-results a:hover,
 .search-results a:active,
 .search-results a:focus {
     color: #f433ab !important;
-
 }
 
 .search-results strong {
     color: #fbe689;
-
 }
 
 /* STLYING FOR SELECT BOX */
@@ -152,7 +139,6 @@ ul {
     display: flex;
     justify-content: center;
     max-width: 300px;
-
 }
 
 .search-display {
@@ -170,7 +156,6 @@ ul {
     font-size: 16px !important;
     padding: 12px !important;
     text-align: center;
-
 }
 
 /* STLYING FOR BACK TO TOP BUTTON */
@@ -240,13 +225,9 @@ ul {
 .floating-pagination-results {
     position: fixed;
     bottom: 0.3rem;
-
     left: 1rem;
-
     width: 400px;
-
     z-index: 999;
-
 }
 
 @media (max-width: 768px) {
@@ -265,7 +246,6 @@ ul {
     font-weight: bold;
     max-width: 100px;
     height: 38px;
-
 }
 
 /* Button styling */
@@ -292,13 +272,9 @@ ul {
 .input-group-prepend .btn,
 .input-group-append .btn {
     height: 100%;
-
     border: none;
-
     background-color: #f39237;
-
     color: #fff;
-
     transition: background-color 0.3s ease;
 }
 

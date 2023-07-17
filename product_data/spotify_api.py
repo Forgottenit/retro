@@ -1,6 +1,9 @@
 """
 Module: spotify_api.py
 This module is responsible for interactions with Spotify API.
+https://developer.spotify.com/ for Code structure
+https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
+https://www.youtube.com/watch?v=WAmEZBEeNmg&ab_channel=Linode
 """
 import json
 import base64
@@ -18,7 +21,7 @@ def get_auth_token():
     """
     access_token = getattr(settings, "SPOTIFY_ACCESS_TOKEN", None)
     token_expiry_time = getattr(settings, "SPOTIFY_TOKEN_EXPIRY_TIME", None)
-
+    # Token lasts one hour
     if access_token and token_expiry_time > time.time():
         return access_token
 
@@ -31,7 +34,7 @@ def get_auth_token():
     base64_message = base64_bytes.decode("ascii")
 
     headers = {
-        "Authorization": "Basic {}".format(base64_message),
+        "Authorization": f"Basic {base64_message}",
     }
 
     data = {
@@ -80,7 +83,9 @@ def get_auth_token():
     if not access_token:
         print("Error: Access token not present in Spotify response")
         return None
-    token_expiry_time = time.time() + 3600 - 60  # 60 seconds safety margin
+    token_expiry_time = (
+        time.time() + 3600 - 100
+    )  # 3600 - token lasts 60 mins, so 60 mins - 100 seconds safety margin
 
     setattr(settings, "SPOTIFY_ACCESS_TOKEN", access_token)
     setattr(settings, "SPOTIFY_TOKEN_EXPIRY_TIME", token_expiry_time)
@@ -99,7 +104,7 @@ def get_artist_genres(artist_id):
     - artist_id (str): The Spotify ID of the artist.
 
     Returns:
-    - list: List of genres if successful, empty list otherwise.
+    - list: List of genres if successful, otherwise empty list.
     """
     if artist_id in artist_cache:
         return artist_cache[artist_id]
@@ -147,7 +152,7 @@ def get_artist_genres(artist_id):
         print("Error retrieving genres for artist {artist_id}: {e}")
         return []
 
-    # Extracting genres from the artist data
+    # Get genres from the artist data
     if artist_data and "genres" in artist_data:
         genres = artist_data["genres"]
     else:
@@ -165,7 +170,7 @@ def get_album_details(album_ids):
     - album_ids (list): The list of Spotify IDs of the albums.
 
     Returns:
-    - list: List of album details if successful, empty list otherwise.
+    - list: List of album details if successful, otherwise empty list.
     """
     access_token = get_auth_token()
     headers = {
@@ -246,7 +251,7 @@ def search_albums(query, search_type="album", search_field="album"):
     headers = {
         "Authorization": f"Bearer {access_token}",
     }
-
+    # Search "Type" is Albums, if Artists returns list of Artists, not music
     params = (
         ("q", f"{search_field}:{query}"),
         ("type", search_type),

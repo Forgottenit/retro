@@ -166,13 +166,13 @@ One unused variable
 
  
 
-Creating an e-commerce website involves many different parts and can is a complex process. A system is required to manage and visualize the workflow, to deliver a successful project.
+Creating an e-commerce website involves many different parts and is a complex process. A system is required to manage and visualize the workflow in order to deliver a successful project.
 
 A Kanban board has been created on GitHub Projects to streamline the development process. GitHub Projects is a tool for developers to create a task management and progress visualization system, linked to a repository. It's an excellent way to maintain oversight of the entire project, track the status of various tasks and issues, and manage time effectively.
 
 In this project, the Kanban board has been split into different columns: "Could Have", User Stories", "Todo", "In Progress", "Verify", and "Done". These headings represent different stages of the workflow.
 
-- "Could Have": This column represents Issues or Tasks that could enhance the site but are not required and are to be worked on only once the site is complete, User Stories have been met and testing and documentation is finished. 
+- "Could Have": This column represents Issues or Tasks that could enhance the site but are not required and are to be worked on only once the site is complete, User Stories have been met and testing and documentation are finished. 
 
 - "User Stories": This column represents features or functionalities that are required, broken down into tasks.  The User Stories are broken down into "Site User", "Site Admin", "Site Owner" and "Site Marketer". These are a checklist to ensure all the stakeholder needs are met. These are later broken down as required, into issues and tasks. 
 
@@ -385,20 +385,20 @@ User authentication is managed by Django's built-in user authentication system, 
 
 </details>
 <details><summary><b>User Authorisation</b></summary>
-Django's built-in user authorization features are used to control access to certain areas of the site depending on the user's role and logged-in status.
+Django's built-in user authorization features are used to control access to certain areas of the site depending on the user's role and logged-in status. For example, only users who create a review can update it, and only they and the site owner would be able to delete it. This is handled by decorators, such as @login required and if statements checking if the user who wrote the review. This is also true for superuser privileges, such as editing albums, for example, the price, or loading new albums.    
 </details>
 <details><summary><b>Form Validation</b></summary>
-Form validation is performed using Django's built-in form validation features, ensuring that all user input is correctly formatted before being processed.
+Form validation is performed using Django's built-in form validation features, ensuring that all user input is correctly formatted before being processed. Fields are also set on required information, for example, on user requests, a Title is required, and form submission is not possible without it. 
 </details>
 <details><summary><b>Security-Sensitive Information</b></summary>
-All sensitive information, such as API keys and database connection strings, is stored in environment variables, which are not included in the source code. This is managed using Django's built-in environment variable handling features and the Heroku platform's config vars feature.
+All sensitive information, such as API keys and database connection strings, are stored in environment variables, which are not included in the source code. This is managed using Django's built-in environment variable handling features and the Heroku platform's config vars feature. 
 </details>
 <details><summary><b>Payments</b></summary>
-All payment processing is handled using the [Stripe](https://stripe.com) payment platform, ensuring that all financial transactions are secure and reliable.
+All payment processing is handled using the [Stripe](https://stripe.com) payment platform, ensuring that all financial transactions are secure and reliable, web-handlers are also implemented to catch payment errors.
 </details>
 <details>
 <summary><b>Disclaimer and Privacy Policy</b></summary>
-The site includes a standard disclaimer and privacy policy, in line with best practices for ecommerce sites. GDPR considerations are taken into account in the design of the site and the handling of user data, following the guidance provided by [GDPR.eu](https://gdpr.eu/privacy-notice/).
+The site includes a standard GDPR disclaimer and privacy policy, in line with best practices for e-commerce sites. GDPR considerations are taken into account in the design of the site and the handling of user data, following the guidance provided by [GDPR.eu](https://gdpr.eu/privacy-notice/). However, if this was a functioning site, more considerations would need to be put in place, such as cookie policies etc. 
 </details>
 <details><summary><b>Images and Media</b></summary>
 All images and other media files are stored and served using the [Cloudinary](https://cloudinary.com/) platform, ensuring high performance and reliability.
@@ -409,6 +409,101 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 
 # Features
 ## Existing Features
+### Features addressing User Stories 
+
+1. As a site user, I want to be able to browse through various records so that I can decide what to purchase.
+
+- A responsive design with easy navigation has been implemented. Users have a Search bar that can search by Artist, Genre or Album. They also have a dropdown Genre sorter. On the Albums page, there is more extensive Genre dropdown, and a sort select box that can order by Artist, Album, Popularity and Price, both ascending and descending. Users can also filter first by their search query, then sort. For example, they could filter by "Rock" genre, then from there, search by using the sort selector. As well as this, page navigation has been made accessible for smaller and larger screens by having page navigation at the top and bottom of the page, as well as a back to top button and also, a pagination display, that lets users skip through the page lists.  
+
+2. As a site user, I want to be able to filter and sort my search results so that I can find specific items easily.
+- As mentioned above, users have the option to search by three different fields, as well as sort and filter.
+
+3. As a site user, I want to be able to add records to a wishlist or favorites list, so that I can remember them for later.
+- Users have the option to "Like" Albums, and/or add them to a wishlist which is stored on their profile page. There they can either add the item to their cart or delete from their wishlist. Users also have the option to make requests for Albums or Artists that are not available. This is done through a form submission on their profile page. 
+
+4. As a site user, I want to be able to add items to a shopping cart, so that I can purchase multiple items at once.
+- Users can add multiple items to their cart, and also, adjust the quantity of each item. 
+
+5. As a site user, I want to be able to view my shopping cart and make adjustments (add/remove items, change quantities), so that I have control over what I'm purchasing.
+- Users can edit their cart, add to it or delete from it.
+
+6. As a site user, I want to be able to securely checkout using Stripe, so that I can easily and safely make a purchase.
+
+7. As a site user, I want to be able to create an account, so that I can save my shipping information and preferences.
+
+8. As a site user, I want to be able to subscribe to a newsletter, so that I can receive updates and special offers.
+
+9. As a site user, I want to be able to follow the site on social media, so that I can follow updates and special offers.
+
+10. As a site user, I want the site to ensure data security, so that my information is kept safe.
+
+
+</details>
+
+<details>
+<summary><b>Site Admin</b></summary>
+
+1. As a site admin, I want to be able to manage user accounts so that I can handle any issues that arise.
+
+2. As a site admin, I want to be able to view and manage all orders, so that I can check if operations are functioning correctly.
+
+3. As a site admin, I want to be able to assist users with their accounts, so that they can have the best experience possible.
+
+4. As a site admin, I want to be able to update the site's content, such as sales, new items and announcements, so that users are kept informed.
+
+5. As a site admin, I want to be able to handle security threats and issues, to ensure the website and user data are safe.
+
+6. As a site admin, I want to manage the inventory, so that I can create new items, edit existing ones, or delete out-of-stock items from the site.
+
+7. As a site admin, I want to manage inventory, so that I can track stock levels and add items before they run out.
+
+8. As a site admin, I want to track the website performance, so that I can monitor page load times and analytics to ensure a good user experience.
+
+9. As a site admin, I want to access sales data, so that I can analyze trends, identify popular or unpopular items, and plan future inventory purchases or sales.
+
+10. As a Site Admin, I want to manage user accounts and access control, so that I can ensure the security and integrity of the site.
+
+</details>
+
+<details>
+<summary><b>Site Owner</b></summary>
+
+1. As a site owner, I want to be able to track sales and inventory on my B2C e-commerce site, so that I can manage my business.
+
+2. As a site owner, I want to be able to add or remove items from the store so that I can update my products.
+
+3. As a site owner, I want to be able to adjust prices and add sales promotions so that I can attract more customers, encourage repeat purchases or sell unsold stock.
+
+4. As a site owner, I want to be able to view user behavior data, so that I can improve the user experience and make informed business decisions.
+
+5. As a site owner, I want to be able to send newsletters to subscribers, so that I can keep them engaged and informed about new products or promotions and updates to create an ongoing relationship with them.
+
+6. As a site owner, I want to have a system that alerts me when my stock is running low or completely sold so that I can order more stock in time.
+
+7. As a Site Owner, I want to provide a secure login functionality, so that users can access their accounts and engage with the site.
+</details>
+
+<details>
+<summary><b>Site Marketer</b></summary>
+
+1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
+
+2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates and to encourage client retention.
+
+3. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines as part of our SEO strategy.
+
+4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
+
+5. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
+
+6. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
+
+7. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
+
+8. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
+
+9. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
+
 ### Browser Tabs
 favicon 
 favicon  generated from  [RealFaviconGenerator](https://realfavicongenerator.net/). 

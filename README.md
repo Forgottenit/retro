@@ -139,15 +139,9 @@ One unused variable
 
 4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
 
-5. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
+5. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
 
-6. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
-
-7. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
-
-8. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
-
-9. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
+6. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
 </details>
 <br>
 
@@ -484,22 +478,26 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 <summary><b>Site Marketer</b></summary>
 
 1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
+- There is a Retro Facebook page set up for users to engage with.
 
 2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates and to encourage client retention.
+- Mailchimp is implemented to handle newsletter sign ups.
 
 3. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines as part of our SEO strategy.
+- A sitemap.xml is implemented for the site. 
 
 4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
+- A robots.txt file has been created for the site.
 
-5. As a marketing specialist, I want to perform keyword research and SEO analysis to improve the site's visibility on search engines.
+5. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
+- Through Google analysis, common words that arise for similar products have been placed in both the meta tags and in the body of the site. 
 
-6. As a marketing specialist, I want to monitor the website performance on search engines, to identify opportunities for improvement.
+6. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
+- All links have been labelled appropriately with rel attributes. 
 
-7. As a marketing specialist, I want to analyze website traffic and user behavior, to make data-driven decisions about site improvements and marketing strategies.
+### Design Features
 
-8. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
 
-9. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
 
 ### Browser Tabs
 favicon 

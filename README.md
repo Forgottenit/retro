@@ -358,25 +358,25 @@ The logo using [Wix](https://www.wix.com/).
 
 
 
-<img src="media/Docs/checkout.png" width=350>
+<img src="media/docs/checkout.png" width=350>
 
 
 
-<img src="media/Docs/email.png" width=350>
+<img src="media/docs/email.png" width=350>
 
 
 
-<img src="media/Docs/home.png" width=350>
+<img src="media/docs/home.png" width=350>
 
-<img src="media/Docs/large-wire.png" width=350>
+<img src="media/docs/large-wire.png" width=350>
 
-<img src="media/Docs/logo2.png" width=350>
+<img src="media/docs/logo2.png" width=350>
 
-<img src="media/Docs/navigation2.png" width=350>
+<img src="media/docs/navigation2.png" width=350>
 
-<img src="media/Docs/toasts.png" width=350>
+<img src="media/docs/toasts.png" width=350>
 
-<img src="media/Docs/webhook.png" width=350>
+<img src="media/docs/webhook.png" width=350>
 
 
 ### Error Pages 400 403 404 500

@@ -70,6 +70,11 @@ class Like(models.Model):
     liked = models.BooleanField(default=False)
 
     class Meta:
+        """
+        Meta class setting uniqueness of Like between
+        customer and albums, i.e. Customer can only like an album once
+        """
+
         unique_together = (
             "user",
             "album",
@@ -91,7 +96,7 @@ class Wishlist(models.Model):
         """
         Meta class setting uniqueness of wishlist between
         customer and albums, i.e. Customer can only have
-        one of album in wihlist
+        one of album in wishlist
         """
 
         unique_together = (

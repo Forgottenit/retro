@@ -7,8 +7,6 @@
             data-bs-toggle="collapse" data-bs-target="#album-details-{{ album.album_id }}" aria-expanded="false"
             aria-controls="album-details-{{ album.album_id }}">Details</button>
 
-
-
         {% include "products/includes/reviews_ratings.html" %}
     </div>
 
@@ -62,7 +60,7 @@
                 {% endfor %}
                 {% endif %}
             </div>
-
+            <!-- ALBUM DETAILS -->
             <div>
                 <p><strong>Release Date:</strong> {{ album.release_date }}</p>
                 <p><strong>Copyrights:</strong> {{ album.copyrights }}</p>

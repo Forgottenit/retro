@@ -19,7 +19,6 @@
             {% endif %}
 
             <!-- EDIT DELETE and Wishlist BUTTONS -->
-
             {% include "products/includes/edit_delete_wishlist_btns.html"%}
 
             <!-- REVIEWS and Ratings -->
@@ -158,20 +157,19 @@
 </script>
 
 <script>
+    // Review Album Modal, set message and url
     $(document).ready(function () {
         $(".addReviewButton").click(function (e) {
             e.preventDefault();
-
-
-            var albumId = this.dataset.albumid;
+            let albumId = this.dataset.albumid;
 
             fetch('/accounts/album/' + albumId + '/add_review/')
                 .then(response => {
 
                     if (response.status === 401) {
                         // Get message and URL from data-
-                        var message = 'You need to Login/Sign up to access this page.';
-                        var url = '/accounts/login/';
+                        let message = 'You need to Login/Sign up to access this page.';
+                        let url = '/accounts/login/';
 
                         // Set message 
                         $("#confirmationModalBody").text(message);

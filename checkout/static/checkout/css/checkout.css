@@ -107,7 +107,6 @@ hr.dark-hr {
     background-color: #fff !important;
 }
 
-
 select,
 select option {
     color: #000000;
@@ -119,7 +118,6 @@ select option[value=""] {
 }
 
 /* STRIPE JS */
-
 .StripeElement,
 .stripe-style-input {
     box-sizing: border-box;
@@ -157,7 +155,6 @@ select option[value=""] {
     color: #000;
     border: 1px solid #000;
 }
-
 
 #loading-overlay {
     display: none;

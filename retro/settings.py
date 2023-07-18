@@ -43,7 +43,7 @@ SPOTIFY_TOKEN_EXPIRY_TIME = None
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET")
-DEFAULT_FROM_EMAIL = "forgottenitretro@gmail.com"
+
 
 STRIPE_CURRENCY = "eur"
 FREE_DELIVERY_THRESHOLD = 40
@@ -180,6 +180,8 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+
+DEFAULT_FROM_EMAIL = "forgottenitretro@gmail.com"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
@@ -201,7 +203,7 @@ if os.environ.get("DEVELOPMENT") == "1" or os.environ.get("DEBUG") == "1":
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
-        },  # Added for long loading
+        },
     }
 else:
     DATABASES = {

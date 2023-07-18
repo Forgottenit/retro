@@ -103,7 +103,10 @@ def get_artist_genres(artist_id):
 
     Returns:
     - list: List of genres if successful, otherwise empty list.
+
     """
+
+    # Check if artist already added, if so, return
     if artist_id in artist_cache:
         return artist_cache[artist_id]
 

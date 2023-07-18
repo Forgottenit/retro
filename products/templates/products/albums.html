@@ -35,7 +35,6 @@
         <h1 class="mt-4 mb-3">{{ artist_group.grouper.artist_name }}</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 d-flex align-items-stretch">
             {% for album in artist_group.list %}
-
             <div class="col" id="albums-div">
                 <div class="card">
                     <div class="image-container position-relative">
@@ -71,18 +70,16 @@
                             </a>
                             {% endif %}
                         </div>
-
                         {% include "products/includes/edit_delete_wishlist_btns.html"%}
                     </div>
                     {% include "products/includes/details_of_album.html" %}
                 </div>
             </div>
-
             {% endfor %}
         </div>
-
         {% endfor %}
     </div>
+
     <div class="d-flex justify-content-between mt-2">
         <div class="mt-3">
             {% if albums.has_previous %}
@@ -117,7 +114,6 @@
 <div class="modal" tabindex="-1" id="wishlistModal">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h5 class="modal-title">Add to Wishlist</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -128,7 +124,6 @@
                 <p>Would you like to add this album to your wishlist?</p>
             </div>
             <div class="modal-footer">
-
                 <a href="{% url 'products:albums'  %}" class=" reload btn btn-secondary">No,
                     thanks</a>
                 <a href="#" class="btn btn-primary add-to-wishlist-btn">Yes,
@@ -159,9 +154,6 @@
         </div>
     </div>
 </div>
-
-
-
 {% endblock %}
 
 {% block postloadjs %}
@@ -171,10 +163,6 @@
     $('.btt-link').click(function (e) {
         window.scrollTo(0, 0)
     })
-
-
-
-
     //Sort
     $(document).ready(function () {
         $('#sort-selector').on('change', function () {
@@ -201,7 +189,6 @@
     });
 
     // Delete Modal
-
     $(document).ready(function () {
         $(".confirmationModalTrigger").click(function (e) {
             e.preventDefault();
@@ -221,8 +208,6 @@
         });
     });
 
-
-
     // Reload location
     $(document).ready(function () {
         $('.reload').on('click', function (e) {
@@ -231,14 +216,11 @@
                 url: $(this).attr('href'),
                 method: 'GET',
                 success: function (response) {
-                    location.reload(); // Reload
+                    location.reload(); // Reload page
                 }
             });
         })
     })
-
-
-
 
     // Likes JS
     $(document).ready(function () {
@@ -247,7 +229,6 @@
             const $this = $(this);
             const isLiked = $this.find('.filled-heart').length > 0;
             const albumId = $this.data('album-id');
-
             const addToWishlistUrl = `{% url 'accounts:add_to_wishlist' album_id='placeholder' %}`
                 .replace('placeholder', albumId);
 
@@ -261,7 +242,7 @@
                         $('#wishlistModal .add-to-wishlist-btn').attr('href',
                             addToWishlistUrl);
                     } else {
-                        location.reload(); // refresh
+                        location.reload(); // refresh page
                     }
 
                 }
@@ -269,8 +250,7 @@
         });
     });
 
-
-    // Review Album Modal
+    // Review Album Modal, set message and url
     $(document).ready(function () {
         $(".addReviewButton").click(function (e) {
             e.preventDefault();

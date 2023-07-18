@@ -12,6 +12,10 @@ class ProductForm(forms.ModelForm):
     """
 
     class Meta:
+        """
+        Set fields for product Form
+        """
+
         model = Album
         fields = [
             "album_name",

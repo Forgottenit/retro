@@ -35,7 +35,6 @@
                         <p>{{ album.album_name }}<br>-<small>{{ album.main_artist}}</small></p>
                         <p></p>
                     </div>
-
                     <a href="{% url 'products:album_details' album.album_id %}" class="btn btn-primary">View
                         Album</a>
                 </div>
@@ -51,9 +50,7 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
 </div>
-
 
 <section class="mt-5 ms-4 Vinyl-info-section">
     <div class="row">
@@ -111,6 +108,4 @@
         </div>
     </div>
 </section>
-
-
 {% endblock %}

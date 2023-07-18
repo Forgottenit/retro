@@ -72,9 +72,9 @@ class StripeWH_Handler:
             album.popularity += 2 * quantity
             album.save()
 
-        billing_details = stripe_charge.billing_details  # updated
+        billing_details = stripe_charge.billing_details
         shipping_details = intent.shipping
-        grand_total = round(stripe_charge.amount / 100, 2)  # updated
+        grand_total = round(stripe_charge.amount / 100, 2)
 
         # Clean data in the shipping details
         for field, value in shipping_details.address.items():

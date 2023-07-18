@@ -105,7 +105,7 @@ class Album(models.Model):
     )
     release_date = models.CharField(
         max_length=10, blank=True, null=True
-    )  # Changed due to differing formats on spotify
+    )  # Changed due to inconsistant formats on spotify
     total_tracks = models.IntegerField(blank=True, null=True)
     popularity = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(0)]

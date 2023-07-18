@@ -1,9 +1,9 @@
 """
-Module for product app views, load albums, album_model_view, 
-album_details, add_product, edit product, delete product, 
-delete Artist, 
+Module for product app views, load albums, album_model_view,
+album_details, add_product, edit product, delete product,
+delete Artist
 """
-
+from urllib.parse import urlencode
 from django.http import HttpResponseRedirect
 from django.shortcuts import (
     render,
@@ -13,6 +13,7 @@ from django.shortcuts import (
 )
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
@@ -20,9 +21,7 @@ from django_user_agents.utils import get_user_agent
 from accounts.models import Like
 from product_data.load_models import load_models
 from .models import Album, Genre, Artist
-from urllib.parse import urlencode
 from .forms import LoadAlbumsForm, ProductForm
-from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required
@@ -147,10 +146,10 @@ def album_model_view(request):
     albums = list(albums)
     seen = set()
     unique_albums = []
-    for x in albums:
-        if x.album_id not in seen:
-            unique_albums.append(x)
-            seen.add(x.album_id)
+    for album in albums:
+        if album.album_id not in seen:
+            unique_albums.append(album)
+            seen.add(album.album_id)
     albums = unique_albums
 
     params = (

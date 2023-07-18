@@ -85,9 +85,6 @@
                     <div class="col-12 col-md-4">
                         <p class="mb-0 text-black ">Full Name: {{ order.full_name }}</p>
                     </div>
-                    <div class="col-12 col-md-8 text-md-end">
-                        <!-- <p class="mb-0">{{ order.first_name }} {{order.last_name}}</p> -->
-                    </div>
                 </div>
 
                 <div class="row">
@@ -196,7 +193,6 @@
     </div>
     <div class="row">
         <div class="col-12 col-lg-7 text-end">
-
             {% if from_profile %}
             <a href="{% url 'accounts:profile' %}" class="btn btn-black rounded-0 my-2">
                 <span class="icon me-2">

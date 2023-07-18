@@ -16,7 +16,7 @@
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
             <form method="GET" action="{% url 'products:albums' %}" class="d-flex search-bar">
                 <input class="form-control me-2 border border-black rounded-0" type="text" name="q"
-                    placeholder="Search our site">
+                    placeholder="Search by Album, Artist or Genre...">
                 <button class="btn btn-black border border-black rounded-0" type="submit">
                     <span class="icon">
                         <i class="fas fa-search"></i>
@@ -24,8 +24,8 @@
                 </button>
             </form>
         </div>
-        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-right">
-            <ul class="list-inline list-unstyled text-lg-right my-0">
+        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
+            <ul class="list-inline list-unstyled text-lg-right my-0 ">
                 <li class="list-inline-item dropdown">
                     <a class="text-black nav-link" href="#" id="user-options-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" aria-label="User options">
@@ -89,7 +89,6 @@
                     <li class="nav-item">
                         <a class="nav-link {% if selected_page == 'home' %}selected-page{% endif %}"
                             href="{% url 'home' %}">Home</a>
-
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle{% if selected_page == 'shop' %}selected-page{% endif %}"
@@ -105,11 +104,6 @@
                                 Rating</a>
                             <a href="{% url 'products:albums' %}?sort=price&direction=asc" class="dropdown-item">By
                                 Price</a>
-
-
-
-
-
                         </div>
                     </li>
                     <li class="nav-item dropdown">

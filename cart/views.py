@@ -1,3 +1,7 @@
+"""
+Module for views in cart app: Views to view cart,
+add to cart, edit cart and delete cart
+"""
 from django.shortcuts import (
     render,
     redirect,
@@ -132,4 +136,4 @@ def delete_from_cart(request, item_id):
         return HttpResponse(status=200)
 
     except Exception as e:
-        return HttpResponse(status=500)  # Return 500 Error if issues
+        return HttpResponse(status=500)

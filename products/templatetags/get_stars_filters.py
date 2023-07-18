@@ -3,14 +3,14 @@ Module for products filters/ template tags
 """
 from django import template
 
-
 register = template.Library()
 
 
 @register.filter
 def get_stars(rating):
     """
-    Filter to return none full int for stars
+    Filter to calculate and return half-full
+    total for stars - non-int = half full
     """
     full_stars = int(rating)
     is_half_star = rating % 1 != 0

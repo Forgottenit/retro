@@ -1,13 +1,12 @@
 """
-Module for Accounts with views for login, likes, wishlist, 
-order history, and Album requests 
+Module for Accounts with views for login, likes, wishlist,
+order history, and Album requests
 """
 
-import logging
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponseForbidden
 
 from products.models import Album
 from checkout.models import Order
@@ -136,7 +135,6 @@ def add_to_wishlist(request, album_id):
         wishlist_item, created = Wishlist.objects.get_or_create(
             customer=request.user.customer, album=album
         )
-
         if created:
             messages.success(
                 request, f"Added {album.album_name} to your wishlist"
@@ -146,7 +144,7 @@ def add_to_wishlist(request, album_id):
                 request, f"{album.album_name} is already in your wishlist"
             )
 
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 @login_required

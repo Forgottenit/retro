@@ -345,13 +345,6 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 
 </details>
 
-
-### Browser Tabs
-favicon 
-favicon  generated from  [RealFaviconGenerator](https://realfavicongenerator.net/). 
-
-<img src="" width=800>
-
 ### Logo
 The logo using [Wix](https://www.wix.com/). 
 <img src="logo.png" width=200>
@@ -361,29 +354,29 @@ The logo using [Wix](https://www.wix.com/).
 
 #### Section
 
-<img src="(media/Docs/authentication.png)" width=800>
+<img src="media/docs/authentication.png" width=800>
 
 
 
-<img src="![Alt text](media/Docs/checkout.png)" width=350>
+<img src="media/Docs/checkout.png" width=350>
 
 
 
-<img src="![Alt text](media/Docs/email.png)" width=350>
+<img src="media/Docs/email.png" width=350>
 
 
 
-<img src="![Alt text](media/Docs/home.png)" width=350>
+<img src="media/Docs/home.png" width=350>
 
-<img src="![Alt text](media/Docs/large-wire.png)" width=350>
+<img src="media/Docs/large-wire.png" width=350>
 
-<img src="![Alt text](media/Docs/logo2.png)" width=350>
+<img src="media/Docs/logo2.png" width=350>
 
-<img src="![Alt text](media/Docs/navigation2.png)" width=350>
+<img src="media/Docs/navigation2.png" width=350>
 
-<img src="![Alt text](media/Docs/toasts.png)" width=350>
+<img src="media/Docs/toasts.png" width=350>
 
-<img src="![Alt text](media/Docs/webhook.png)" width=350>
+<img src="media/Docs/webhook.png" width=350>
 
 
 ### Error Pages 400 403 404 500

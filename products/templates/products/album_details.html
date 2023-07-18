@@ -22,34 +22,33 @@
             <div class="container mb-3 mt-2">
                 <div class="accordion" id="mainAccordion">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingMain">
-                            <div class="d-flex justify-content-between">
-                                <button class="accordion-button collapsed review-accordion" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#collapseMain-{{ album.album_id }}"
-                                    aria-expanded="false" aria-controls="collapseMain-{{ album.album_id }}">
-                                    Reviews
-                                </button>
-
-                            </div>
-                        </h2>
-
+                        <section>
+                            <h2 class="accordion-header" id="headingMain">
+                                <div class="d-flex justify-content-between">
+                                    <button class="accordion-button collapsed review-accordion" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseMain-{{ album.album_id }}"
+                                        aria-expanded="false" aria-controls="collapseMain-{{ album.album_id }}">
+                                        Reviews
+                                    </button>
+                                </div>
+                            </h2>
+                        </section>
                         <div id="collapseMain-{{ album.album_id }}" class="accordion-collapse collapse"
                             aria-labelledby="headingMain" data-bs-parent="#mainAccordion">
                             <!-- RATINGS -->
                             <div class="p-2 ms-2">
-                                <!-- <p>Rating: {{ rating.average|floatformat }}</p> -->
                                 {% for rating in album.ratings.all %}
-                                <span>Avg:
-                                    {% with stars=rating.average|get_stars %}
-                                    {% for _ in stars.full_stars %}
-                                    <i class="bi bi-star-fill"></i>
-                                    {% endfor %}
-                                    {% if stars.is_half_star %}
-                                    <i class="bi bi-star-half"></i>
-                                    {% endif %}
-                                    {% endwith %}
-                                    <p>Total Votes: {{ rating.count }}</p>
-                                </span>
+                                Avg:
+                                {% with stars=rating.average|get_stars %}
+                                {% for _ in stars.full_stars %}
+                                <i class="bi bi-star-fill"></i>
+                                {% endfor %}
+                                {% if stars.is_half_star %}
+                                <i class="bi bi-star-half"></i>
+                                {% endif %}
+                                {% endwith %}
+                                <p>Total Votes: {{ rating.count }}</p>
+
 
                                 {% empty %}
                                 <p>No ratings yet.</p>

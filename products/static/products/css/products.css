@@ -160,11 +160,11 @@ ul {
 
 /* STLYING FOR BACK TO TOP BUTTON */
 .btt-button {
-    height: 54px;
-    width: 54px;
+    height: 4rem;
+    width: 4rem;
     position: fixed;
-    bottom: 16px;
-    right: 16px;
+    bottom: 3rem;
+    right: 1.5rem;
     border-radius: 50%;
     background-color: #fab5ed;
     color: #ffffff;
@@ -224,9 +224,9 @@ ul {
 
 .floating-pagination-results {
     position: fixed;
-    bottom: 0.3rem;
-    left: 1rem;
-    width: 400px;
+    bottom: 4rem;
+    left: 0.3rem;
+    width: 20rem;
     z-index: 999;
 }
 

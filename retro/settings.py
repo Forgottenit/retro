@@ -57,7 +57,7 @@ DEBUG = os.environ.get("DEVELOPMENT")
 
 ALLOWED_HOSTS = [
     "forgottenit-retro.herokuapp.com",
-    "https://forgottenit-retro.herokuapp.com/*",
+    "https://forgottenit-retro.herokuapp.com/",
     "localhost",
     ".gitpod.io",
     "https://8000-forgottenit-retro-s9wz1pwll0t.ws-eu101.gitpod.io",

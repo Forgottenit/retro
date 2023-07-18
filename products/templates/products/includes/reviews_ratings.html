@@ -18,17 +18,17 @@
                 <!-- RATINGS -->
                 <div class="p-2 ms-2">
                     {% for rating in album.ratings.all %}
-                    <span>Avg:
-                        {% with stars=rating.average|get_stars %}
-                        {% for _ in stars.full_stars %}
-                        <i class="bi bi-star-fill"></i>
-                        {% endfor %}
-                        {% if stars.is_half_star %}
-                        <i class="bi bi-star-half"></i>
-                        {% endif %}
-                        {% endwith %}
-                        <p>Total Votes: {{ rating.count }}</p>
-                    </span>
+                    Avg:
+                    {% with stars=rating.average|get_stars %}
+                    {% for _ in stars.full_stars %}
+                    <i class="bi bi-star-fill"></i>
+                    {% endfor %}
+                    {% if stars.is_half_star %}
+                    <i class="bi bi-star-half"></i>
+                    {% endif %}
+                    {% endwith %}
+                    <p>Total Votes: {{ rating.count }}</p>
+
 
                     {% empty %}
                     <p>No ratings yet.</p>

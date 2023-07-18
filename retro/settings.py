@@ -108,20 +108,6 @@ INSTALLED_APPS = [
     "django_filters",
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    "facebook": {
-        "APP": {
-            "client_id": "your-facebook-app-client-id",
-            "secret": "your-facebook-app-secret",
-        }
-    },
-    "google": {
-        "APP": {
-            "client_id": "your-google-app-client-id",
-            "secret": "your-google-app-secret",
-        }
-    },
-}
 
 CACHES = {
     "default": {

@@ -86,14 +86,12 @@
             </button>
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {% if selected_page == 'home' %}selected-page{% endif %}"
-                            href="{% url 'home' %}">Home</a>
+                    <li class="nav-item {% if request.path == '/' %}selected-page{% endif %}">
+                        <a class="nav-link " href="{% url 'home' %}">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle{% if selected_page == 'shop' %}selected-page{% endif %}"
-                            href="{% url 'products:albums' %}" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <li class="nav-item dropdown {% if 'products/' in request.path %}selected-page{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="{% url 'products:albums' %}" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                         <div class="dropdown-menu border-0" aria-labelledby="all-albums"><a
                                 href="{% url 'products:albums' %}" class="dropdown-item">All Products</a><a
                                 href="{% url 'products:albums' %}?sort=artists&direction=asc" class="dropdown-item ">By

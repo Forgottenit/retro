@@ -227,7 +227,7 @@ ul {
     bottom: 4rem;
     left: 0.3rem;
     width: 20rem;
-    z-index: 999;
+    z-index: 9999;
 }
 
 @media (max-width: 768px) {

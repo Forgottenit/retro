@@ -21,6 +21,11 @@ body {
     min-height: 60vh;
 }
 
+.Vinyl-info-section {
+    font: 3rem;
+
+}
+
 /* Mailchimp */
 #mc_embed_signup {
     background: #f0eded;
@@ -32,7 +37,7 @@ body {
     background-color: #33a4f4 !important;
 }
 
-footer {
+.footer {
     padding: 20px;
     margin-top: auto;
     background-color: #757083;

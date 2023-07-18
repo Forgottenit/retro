@@ -4,66 +4,8 @@
 
 Click here to view [Retro](https://forgottenit-retro.herokuapp.com/) (CTRL + Click to open in a new browser tab).
 
-<img src="amiresponsive.png">
-https://developer.spotify.com/ for Code structure
-https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
-https://www.youtube.com/watch?v=WAmEZBEeNmg&ab_channel=Linode
-https://www.xml-sitemaps.com/
-https://mailchimp.com/
+
 # UX - User Experience
-
-mail chimp js: 
-
-20 warnings
-2	The array literal notation [] is preferable.
-3	The array literal notation [] is preferable.
-5	Expected an identifier and instead saw ','.
-5	Expected an assignment or function call and instead saw an expression.
-5	Missing semicolon.
-6	Expected an identifier and instead saw ','.
-6	Expected an assignment or function call and instead saw an expression.
-6	Missing semicolon.
-7	Expected an identifier and instead saw ','.
-7	Expected an assignment or function call and instead saw an expression.
-7	Missing semicolon.
-8	Expected an identifier and instead saw ','.
-8	Expected an assignment or function call and instead saw an expression.
-8	Missing semicolon.
-9	Expected an identifier and instead saw ','.
-9	Expected an assignment or function call and instead saw an expression.
-9	Missing semicolon.
-11	Expected an assignment or function call and instead saw an expression.
-11	Missing semicolon.
-13	'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).
-Ten undefined variables
-4	fnames
-5	fnames
-6	fnames
-7	fnames
-8	fnames
-9	fnames
-4	EMAIL
-5	ftypes
-6	ftypes
-7	ftypes
-8	ftypes
-9	ftypes
-10	ftypes
-5	merge
-6	merge
-7	merge
-8	merge
-9	merge
-10	merge
-5	FNAME
-6	LNAME
-7	ADDRESS
-8	PHONE
-9	BIRTHDAY
-12	jQuery
-13	jQuery
-One unused variable
-13	$mcj
 
 
 ## User Stories
@@ -128,21 +70,7 @@ One unused variable
 
 </details>
 
-<details>
-<summary><b>Site Marketer</b></summary>
 
-1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
-
-2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates and to encourage client retention.
-
-3. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines as part of our SEO strategy.
-
-4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
-
-5. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
-
-6. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
-</details>
 <br>
 
 # Methodology
@@ -288,63 +216,6 @@ Wireframes were created using [Balsamiq](https://balsamiq.com/)
 The design, layout, and functionality of the site have been inspired by successful e-commerce platforms such as [The Record Hub](https://therecordhub.com), [Golden Discs](https://goldendiscs.ie), [Vinyl8](https://www.vinyl8.com), and [Music Zone](https://musiczone.ie/shop). These sites were singled out for their modern, user-friendly design, easy navigation, and their efficient approach to displaying a vast amount of product information.
 
 
-
-
-<details>
-  <summary>Home Page</summary>
-  
-  <img src="home-page.png" width=800>
-
-</details>
-
-<details>
-  <summary></summary>
-  
-  <img src="" width=800>
-
-</details>
-
-<details>
-  <summary></summary>
-  
-  <img src="" width=800>
-
-</details>
-
-<details>
-  <summary></summary>
-  
-  <img src="" width=800>
-
-</details>
-
-<details>
-  <summary></summary>
-  
-  <img src="" width=800>
-
-</details>
-
-<details>
-  <summary></summary>
-  
-  <img src="" width=800>
-
-</details>
-</details>
-<details>
-<summary><b>Colours</b></summary>
-
-
-[Coolors](https://coolors.co) 
-
-Coolors was used to generate a colour palette that is aesthetically pleasing and provides a high level of contrast for readability. The main colours used in the site are:
-
-#FFFFFF White, used for the background colour
-#FEFEFE, used for secondary elements
-<img src="colours.png" width=600>
-</details>
-<details>
 <summary><b>Typography</b></summary>
 The primary font used on the site is sourced from Google Fonts. A Sans-serif font is used as a backup to ensure that the site remains legible and visually consistent on all platforms.
 
@@ -474,30 +345,6 @@ The site uses the [Bootstrap](https://getbootstrap.com/) front-end framework to 
 
 </details>
 
-<details>
-<summary><b>Site Marketer</b></summary>
-
-1. As a marketing specialist, I want to create engaging content for a Facebook page to generate interest, potential sales and boost our social media presence.
-- There is a Retro Facebook page set up for users to engage with.
-
-2. As a marketing specialist, I want to create and send newsletters to subscribers, to inform them about new products, promotions, and other relevant updates and to encourage client retention.
-- Mailchimp is implemented to handle newsletter sign ups.
-
-3. As a marketing specialist, I want to maintain a current and optimized sitemap.xml file, to improve the website visibility and indexing on search engines as part of our SEO strategy.
-- A sitemap.xml is implemented for the site. 
-
-4. As a marketing specialist, I want to maintain a correctly configured robots.txt file, to guide which parts of the site to crawl or not and improve our SEO performance.
-- A robots.txt file has been created for the site.
-
-5. As a marketing specialist, I want to make sure each webpage has a clear and compelling description (optimizing meta tags) so that when people see our site in search results, it will be appealing to them.
-- Through Google analysis, common words that arise for similar products have been placed in both the meta tags and in the body of the site. 
-
-6. As a marketing specialist, I want to set up the right labels for links going to other sites (implement rel attributes for external links), so that search engines can understand our site better and it doesn't negatively affect our visibility in search results.
-- All links have been labelled appropriately with rel attributes. 
-
-### Design Features
-
-
 
 ### Browser Tabs
 favicon 
@@ -509,96 +356,34 @@ favicon  generated from  [RealFaviconGenerator](https://realfavicongenerator.net
 The logo using [Wix](https://www.wix.com/). 
 <img src="logo.png" width=200>
 
-### Navigation Bar
-
-
-
-<img src="" width=800>
-
-
-* Home - Available to all 
-* Sign Up - Available not logged in
-* Log In - Available not logged in
-* Log Out - Available logged in
-* 
-
-Small screens
-
-<img src="" width=380>
-
-
-
-### Footer
-links to Facebook, Twitter, Instagram
-Clicking on any of these icons opens a new browser tab so that users navigate back easily.
-
-<img src="" width=500>
-
-
-### Sign Up Page
-
-<img src="" width=800>
-
-
-
-### Log In Page
-
-<img src="" width=800>
-
-
-
-### Log Out Page
-
-<img src="" width=800>
-
-
-### Home Page
-
-<img src="" width=800>
-
-
-
-<img src="" width=800>
-
-### 
-
-<img src="" width=800>
-
-
-
-<img src="" width=800>
-
-
-
-### 
 
 
 
 #### Section
 
-<img src="" width=800>
+<img src="(media/Docs/authentication.png)" width=800>
 
 
 
-<img src="" width=350>
+<img src="![Alt text](media/Docs/checkout.png)" width=350>
 
 
 
-<img src="" width=350>
+<img src="![Alt text](media/Docs/email.png)" width=350>
 
 
 
-<img src="" width=350>
+<img src="![Alt text](media/Docs/home.png)" width=350>
 
+<img src="![Alt text](media/Docs/large-wire.png)" width=350>
 
+<img src="![Alt text](media/Docs/logo2.png)" width=350>
 
-### Warning messages
+<img src="![Alt text](media/Docs/navigation2.png)" width=350>
 
+<img src="![Alt text](media/Docs/toasts.png)" width=350>
 
-### 
-
-### Modal
-
+<img src="![Alt text](media/Docs/webhook.png)" width=350>
 
 
 ### Error Pages 400 403 404 500
@@ -607,9 +392,49 @@ Custom HTML pages for HTTP 400, 403, 404 and 500 errors.
 
 ## Features Left to Implement
 
-While regular software updates and patches are not a part of this project's scope, they would be crucial in a real-world setting to keep the site's software secure and protect against new vulnerabilities.
+ * While regular software updates and patches are not a part of this project's scope, they would be crucial in a real-world setting to keep the site's software secure and protect against new vulnerabilities. 
+ * Proper Pament and Stock inventory
+ * Increase Product offerings
+
 
 # Technologies Used
+## List of Requirements
+asgiref==3.7.2
+backports.zoneinfo;python_version<"3.9"
+black==23.3.0
+click==8.1.3
+cloudinary==1.33.0
+crispy-bootstrap5==0.7
+dj-database-url==2.0.0
+dj3-cloudinary-storage==0.0.6
+Django==4.2.2
+django-allauth==0.54.0
+django-braces==1.15.0
+django-ckeditor==6.6.1
+django-countries==7.5.1
+django-crispy-forms==2.0
+django-extensions==3.2.3
+django-filter==23.2
+django-js-asset==2.1.0
+django-model-utils==4.3.1
+django-star-ratings==0.9.2
+django-user-agents==0.4.0
+git-filter-repo==2.38.0
+gunicorn==20.1.0
+oauthlib==3.2.2
+pathspec==0.11.1
+Pillow==9.5.0
+psycopg2==2.9.6
+PyJWT==2.7.0
+python3-openid==3.2.0
+pytz==2023.3
+requests-oauthlib==1.3.1
+sqlparse==0.4.4
+stripe==5.4.0
+swapper==1.3.0
+ua-parser==0.16.1
+urllib3==1.26.16
+user-agents==2.2.0
 
 ## Languages
 * [HTML]() 
@@ -638,17 +463,13 @@ While regular software updates and patches are not a part of this project's scop
 
 ## Other Online Tools used
 * [Balsamiq](https://balsamiq.com/) wireframes 
-* [Figma](https://www.figma.com/) database image
-* [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) screen sizes/ social login ???.
-* [Wave Web Accessibility Evaluation Tools](https://wave.webaim.org/)  test accessiblity.
+* [Google](https://developer.chrome.com/docs/devtools/)
 * [Coolors](https://coolors.co)  colours
-* [Remove Background](https://www.remove.bg/) background from the logos.
-* [Am I Responsive](https://ui.dev/amiresponsive) was used 
-* [Compressor.io](https://compressor.io/) compress the images used in the application and README.
 * [Grammarly](https://app.grammarly.com/)  grammatical 
 
 ## Validators
 * [W3C HTML Validator](https://validator.w3.org/) used to validate HTML codes.
+    * Issues related to Bootstrap
 * [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)used to validate CSS codes.
 * [JSHint](https://jshint.com/) was used to validate JavaScript codes.
 * [CI Python Linter](https://pep8ci.herokuapp.com/) was used to validate Python codes.
@@ -656,7 +477,46 @@ While regular software updates and patches are not a part of this project's scop
 <br>
 
 # Testing
+TESTED EMAIL SUCCESS/LOGIN PASSWORD RESET:
+1. Test email verification: Verify that users receive a verification email upon registration. [Passed]
 
+TESTED ALL SITE LINKS:
+2. Test navigation links: Verify that all internal and external navigation links on the site are functioning correctly and redirect users to the appropriate pages. [Passed]
+
+TESTED PAYMENTS:
+3. Test payment process: Place an order using different payment methods (credit card, PayPal, etc.) and ensure that payments are processed correctly. [Passed]
+
+TESTED WEBHOOKS:
+4. Test webhook integration: Trigger various events (order placement, payment confirmation, etc.) and verify that the associated webhooks are successfully triggered. [Passed]
+
+TESTED IMAGES:
+5. Test product images: Ensure that product images are displayed correctly and load properly across different browsers and devices. [Passed]
+
+TESTED LOADING AND DELETING PRODUCTS:
+6. Test product listing: Verify that products are loading correctly on category and search result pages. [Passed]
+ * Minor bug due to multiple Artists, so added Main Artist (Which is the requested Artist from load models)
+7. Test product details: Ensure that clicking on a product displays the correct details, including price, description, and images. [Passed]
+8. Test product deletion: Attempt to delete and edit a product as an admin and confirm that the product is successfully removed or edited on the database. [Passed]
+
+TESTED PROFILE:
+9. Test profile creation: Register a new user account and verify that the user's profile is successfully created. [Passed]
+10. Test profile updates: Edit user information (name, address, etc.) and confirm that the changes are saved accurately. [Passed]
+
+TESTED LIKES:
+11. Test product liking: Like a product and validate that the like count increases by one, changing the popularity of the Album. [Passed]
+12. Test removing a like: Unlike a product and verify that the like count decreases by one, changing the popularity of the Album.. [Passed]
+
+TESTED WISHLIST:
+13. Test adding to wishlist: Add a product to the wishlist and ensure it appears in the user's wishlist. [Passed]
+14. Test removing from wishlist: Remove a product from the wishlist and verify that it is no longer listed. [Passed]
+
+TESTED REQUESTS MODELS:
+15. Test request submission: Submit a request for a particular product and confirm that the request is successfully stored in the database. [Passed]
+16. Test request fulfillment: As an admin, tested requests are visible in the profile, creator permissions needed for editing. [Passed]
+
+TESTED Reviews and Star Ratings:
+11. Test remove submission and Album ratings: [Passed]
+12. Test crud functionality of reviews: [Passed]
 
 <details><summary><b>BUGS/ERRORS:</b></summary>
 
@@ -1221,8 +1081,21 @@ If you wish to run this project locally on your machine, please follow the steps
 <br>
 
 # Credits
-* [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) for API album retrieval.
+* [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) for API album retrieval and Code Structure.
 * [Djecrety](https://djecrety.ir/) for secret Key
+*  https://www.youtube.com/watch?v=R-22NeS-P2c&ab_channel=TechWithTim
+*  https://www.youtube.com/watch?v=WAmEZBEeNmg&ab_channel=Linode
+*  https://www.xml-sitemaps.com/
+*  https://mailchimp.com/
+*  Code Institute for Structure and Code and Support
+*  https://stackoverflow.com/ for explanations and debugging
+*  Lucid.app for ERD
+*  Facebook for mock site
+*  Django
+
+
+
+
 ## Design 
 
 * [The Record Hub](https://therecordhub.com)
@@ -1239,15 +1112,12 @@ If you wish to run this project locally on your machine, please follow the steps
 * Django Documentation 
 	* [DJANGO ](https://docs.djangoproject.com/)
 * Code Institute
-* 
-* 
-* 
-	
-
+* *See Acknowledgements
 
 # Acknowledgements
 
-* 
-* 
-* 
-* 
+* Code Institute
+* Spotify
+* Music!
+* Gemma (Code Institute), Support with Webhooks
+* Simen Daehlin Rohit Sharma CodeInstitiute Stack Overflow

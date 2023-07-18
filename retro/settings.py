@@ -51,8 +51,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEVELOPMENT")
+DEBUG = False
 
 
 ALLOWED_HOSTS = [

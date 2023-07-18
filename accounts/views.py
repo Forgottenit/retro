@@ -27,7 +27,10 @@ def profile(request):
     - Rendered template of the user profile page.
     """
     profile = get_object_or_404(Customer, user=request.user)
-    album_requests = AlbumRequest.objects.filter(customer=profile)
+    if request.user.is_superuser:
+        album_requests = AlbumRequest.objects.all()
+    else:
+        album_requests = AlbumRequest.objects.filter(customer=profile)
 
     if request.method == "POST":
         form_type = request.POST.get("form_type")
@@ -188,6 +191,9 @@ def order_history(request, order_number):
     """
     order = get_object_or_404(Order, order_number=order_number)
 
+    if order.user != request.user:
+        return HttpResponseForbidden("Page Forbidden.")
+
     messages.info(
         request,
         (
@@ -334,7 +340,11 @@ def edit_album_request(request, id):
     If the method is not POST, an edit form is rendered on the
     accounts/edit_request.html page.
     """
+
     album_request = get_object_or_404(AlbumRequest, id=id)
+    if album_request.customer.user != request.user:
+        return HttpResponseForbidden("Page Forbidden.")
+
     if request.method == "POST":
         form = AlbumRequestForm(request.POST, instance=album_request)
         if form.is_valid():
@@ -367,7 +377,7 @@ def delete_album_request(request, id):
     if album_request.customer.user != request.user:
         return HttpResponseForbidden("Page Forbidden.")
 
-    # If the method is POST, then delete the object
+    # If POST, then delete the object
     if request.method == "POST":
         album_request.delete()
         messages.success(request, "Album Request deleted successfully")
@@ -376,14 +386,3 @@ def delete_album_request(request, id):
     return render(
         request, "delete_confirm.html", {"album_request": album_request}
     )
-
-
-@login_required
-def all_album_requests(request):
-    if request.user.is_superuser:
-        all_album_requests = AlbumRequest.objects.all()
-        template = "acconts/profile.hmtl"
-        context = {"all_album_requests": all_album_requests}
-        return render(request, template, context)
-    else:
-        return HttpResponseForbidden("Page Forbidden.")

@@ -3,16 +3,17 @@
 <div class="container mb-3 mt-2">
     <div class="accordion" id="mainAccordion">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingMain">
-                <div class="d-flex justify-content-between">
-                    <button class="accordion-button collapsed review-accordion" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseMain-{{ album.album_id }}" aria-expanded="false"
-                        aria-controls="collapseMain-{{ album.album_id }}">
-                        Reviews
-                    </button>
-                </div>
-            </h2>
-
+            <span>
+                <h2 class="accordion-header" id="headingMain">
+                    <div class="d-flex justify-content-between">
+                        <button class="accordion-button collapsed review-accordion" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseMain-{{ album.album_id }}"
+                            aria-expanded="false" aria-controls="collapseMain-{{ album.album_id }}">
+                            Reviews
+                        </button>
+                    </div>
+                </h2>
+            </span>
             <div id="collapseMain-{{ album.album_id }}" class="accordion-collapse collapse"
                 aria-labelledby="headingMain" data-bs-parent="#mainAccordion">
                 <!-- RATINGS -->

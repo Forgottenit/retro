@@ -1095,8 +1095,6 @@ If you wish to run this project locally on your machine, please follow the steps
 * [Golden Discs](https://goldendiscs.ie)
 * [Vinyl8](https://www.vinyl8.com)
 * [Music Zone](https://musiczone.ie/shop)
-## Content
-* 
 
 ## Media
 * [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)
